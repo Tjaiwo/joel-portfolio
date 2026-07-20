@@ -357,7 +357,7 @@ function Section({
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={staggerContainer}
-      className={`scroll-mt-20 lg:scroll-mt-0 pt-[90px] lg:pt-[120px] px-4 md:px-4 lg:px-0 ${className}`}
+      className={`scroll-mt-20 lg:scroll-mt-0 pt-[90px] lg:pt-[120px] px-4 md:px-4 lg:px-5 ${className}`}
     >
       <ContentWidth>{children}</ContentWidth>
     </motion.section>
@@ -640,7 +640,7 @@ export default function Portfolio() {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="text-xl font-bold tracking-tight">
               Joel<span className="text-primary">.</span>
             </h2>
             <p className="text-xs text-muted-foreground mt-1 tracking-wider uppercase">
@@ -765,7 +765,7 @@ export default function Portfolio() {
         {/* ─── HERO ─── */}
         <section
           id="home"
-          className="flex flex-col justify-start lg:justify-center lg:min-h-screen relative overflow-hidden pt-[120px] lg:pt-0 px-4 md:px-4 lg:px-0"
+          className="flex flex-col justify-start lg:justify-center lg:min-h-screen relative overflow-hidden pt-[120px] lg:pt-0 px-4 md:px-4 lg:px-5"
         >
           {/* Background accent */}
           <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/[0.03] rounded-full blur-[120px] pointer-events-none" />
@@ -786,7 +786,7 @@ export default function Portfolio() {
               <motion.h1
                 variants={fadeInUp}
                 custom={1}
-                className="text-[32px] md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6 glow-text"
+                className="text-[28px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] mb-6 glow-text"
               >
                 WEB
                 <br />
@@ -797,7 +797,7 @@ export default function Portfolio() {
               <motion.p
                 variants={fadeInUp}
                 custom={2}
-                className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed mb-8"
+                className="text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed mb-8"
               >
                 Hi! I&apos;m <span className="text-foreground font-medium">Joel Akinlosotu</span>. A
                 results-driven Web Developer &amp; Systems Architect with 10+ years of experience
@@ -827,7 +827,7 @@ export default function Portfolio() {
               >
                 {STATS.map((stat, i) => (
                   <motion.div key={stat.label} variants={fadeInUp} custom={5 + i}>
-                    <h3 className="text-2xl md:text-3xl font-bold text-primary">
+                    <h3 className="text-lg md:text-xl font-bold text-primary">
                       {stat.value}
                     </h3>
                     <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
@@ -846,7 +846,7 @@ export default function Portfolio() {
             <div>
               <motion.h2
                 variants={fadeInUp}
-                className="text-2xl md:text-4xl font-bold leading-tight mb-8"
+                className="text-xl md:text-3xl font-bold leading-tight mb-8"
               >
                 I believe in building digital experiences that drive real results for businesses
                 and delight users at every touchpoint.
@@ -900,7 +900,7 @@ export default function Portfolio() {
         {/* ─── PROJECTS & SKILLS ─── */}
         <Section id="projects-skills">
           <SectionLabel>// Projects &amp; Skills</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-3xl font-bold mb-12">
             FEATURED WORKS
           </motion.h2>
 
@@ -912,7 +912,7 @@ export default function Portfolio() {
             ))}
           </div>
 
-          <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-3xl font-bold mb-12">
             MY STACK
           </motion.h2>
 
@@ -1000,7 +1000,7 @@ export default function Portfolio() {
         {/* ─── EXPERIENCE ─── */}
         <Section id="experience">
           <SectionLabel>// Experience</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-3xl font-bold mb-12">
             MY EXPERIENCE
           </motion.h2>
 
@@ -1023,7 +1023,7 @@ export default function Portfolio() {
                     className="w-full flex items-center justify-between p-5 text-left hover:bg-card/60 transition-colors cursor-pointer"
                   >
                     <div>
-                      <h3 className="text-base md:text-lg font-semibold">{exp.role} / {exp.company}</h3>
+                      <h3 className="text-sm md:text-base font-semibold">{exp.role} / {exp.company}</h3>
                       <div className="flex items-center gap-2 text-xs text-primary font-mono mt-1">
                         <Calendar size={12} />
                         {exp.period.toUpperCase()} ({exp.location})
@@ -1108,7 +1108,7 @@ export default function Portfolio() {
             <div>
               <motion.h2
                 variants={fadeInUp}
-                className="text-2xl md:text-4xl font-bold leading-tight mb-6"
+                className="text-xl md:text-3xl font-bold leading-tight mb-6"
               >
                 Have a project in mind? Let&apos;s build something great together.
               </motion.h2>
@@ -1248,7 +1248,7 @@ export default function Portfolio() {
         </Section>
 
         {/* ─── FOOTER ─── */}
-        <footer className="py-8 border-t border-border px-4 lg:px-0 mt-[90px] lg:mt-[120px]">
+        <footer className="py-8 border-t border-border px-4 lg:px-5 mt-[90px] lg:mt-[120px]">
           <ContentWidth className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <p>
               &copy; {new Date().getFullYear()} Joel Akinlosotu. All rights reserved.
@@ -1318,7 +1318,7 @@ export default function Portfolio() {
                   <p className="text-xs text-primary font-mono mb-2">
                     PROJECT _{String(selectedProject.id).padStart(2, "0")}
                   </p>
-                  <h3 className="text-xl md:text-3xl font-bold">{selectedProject.title}</h3>
+                  <h3 className="text-lg md:text-2xl font-bold">{selectedProject.title}</h3>
                 </div>
 
                 <p className="text-muted-foreground leading-relaxed">

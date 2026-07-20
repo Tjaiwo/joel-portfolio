@@ -129,14 +129,9 @@
   }
 }
 
-/* Responsive base font — 16px mobile, 18px desktop */
+/* Responsive base font — 16px all screens *//
 html, body {
   font-size: 16px !important;
-}
-@media (min-width: 768px) {
-  html, body {
-    font-size: 18px !important;
-  }
 }
 
 /* Custom scrollbar */
