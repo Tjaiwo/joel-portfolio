@@ -190,7 +190,7 @@ const EXPERIENCE = [
         projectId: "diamond-source-jewelers",
         descriptions: [
           "Built a WooCommerce e-commerce store for a 45-year-old fine jewelry business in Denver, Colorado, featuring custom engagement ring design, fine jewelry collections, and a jewelry buying service.",
-          "Developed a "Design Your Own Engagement Ring" configurator, along with categorized product pages for rings, earrings, necklaces, and bracelets — filtering by style, shape, and stone type.",
+          "Developed a 'Design Your Own Engagement Ring' configurator, along with categorized product pages for rings, earrings, necklaces, and bracelets — filtering by style, shape, and stone type.",
           "Implemented service booking flows for jewelry repairs, appraisals, and cleaning/inspections, alongside a consultation scheduling system backed by a 4.9/5 Google rating across 100+ reviews.",
           "Optimized the site for local SEO targeting Denver and Greenwood Village, ensuring strong search visibility for diamond, engagement ring, and jewelry-buying queries in the Colorado market.",
         ],
