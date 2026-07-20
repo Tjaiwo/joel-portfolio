@@ -1175,7 +1175,7 @@ export default function Portfolio() {
                 </a>
                 <a
                   href="tel:+2349068971351"
-                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
+                  className="flex items-center gap-3 text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <div className="p-2.5 rounded-md border border-border group-hover:border-primary/20 transition-colors">
                     <Phone size={16} />
@@ -1221,7 +1221,7 @@ export default function Portfolio() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-muted-foreground mb-2 font-mono uppercase tracking-wider">
+                    <label className="block text-xs md:text-sm text-muted-foreground mb-2 font-mono uppercase tracking-wider">
                       Email
                     </label>
                     <input
@@ -1294,7 +1294,7 @@ export default function Portfolio() {
 
         {/* ─── FOOTER ─── */}
         <footer className="py-8 border-t border-border px-4 lg:px-5 mt-[90px] lg:mt-[120px]">
-          <ContentWidth className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+          <ContentWidth className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs md:text-sm text-muted-foreground">
             <p>
               &copy; {new Date().getFullYear()} Joel Akinlosotu. All rights reserved.
             </p>
@@ -1400,7 +1400,7 @@ export default function Portfolio() {
                   href={selectedProject.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm rounded-md hover:bg-primary/90 transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-base rounded-md hover:bg-primary/90 transition-all"
                 >
                   Visit Live Site <ExternalLink size={16} />
                 </a>
