@@ -702,7 +702,7 @@ export default function Portfolio() {
                 animate="visible"
                 variants={slideInLeft}
                 onClick={() => scrollTo(item.id)}
-                className={`nav-link w-full text-left flex items-center gap-3 px-3 py-2.5 text-sm md:text-base rounded-md transition-all ${
+                className={`nav-link w-full text-left flex items-center gap-3 px-3 py-2.5 text-sm md:text-[18px] rounded-md transition-all ${
                   activeSection === item.id
                     ? "active text-primary bg-primary/5"
                     : "text-muted-foreground hover:text-foreground"
@@ -842,7 +842,7 @@ export default function Portfolio() {
               <motion.p
                 variants={fadeInUp}
                 custom={2}
-                className="text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed mb-8"
+                className="text-sm md:text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8"
               >
                 Hi! I&apos;m <span className="text-foreground font-medium">Joel Akinlosotu</span>. A
                 results-driven Web Developer &amp; Systems Architect with 10+ years of experience
@@ -852,13 +852,13 @@ export default function Portfolio() {
               <motion.div variants={fadeInUp} custom={3} className="flex flex-wrap gap-4 mb-16">
                 <button
                   onClick={() => scrollTo("contact")}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-base rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] uppercase"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] uppercase"
                 >
                   LET&apos;S TALK <ArrowUpRight size={16} />
                 </button>
                 <button
                   onClick={() => scrollTo("projects-skills")}
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium text-sm md:text-base rounded-md hover:border-foreground/20 transition-all uppercase"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium text-sm md:text-[18px] rounded-md hover:border-foreground/20 transition-all uppercase"
                 >
                   VIEW PROJECTS
                 </button>
@@ -910,7 +910,7 @@ export default function Portfolio() {
                     <GraduationCap size={20} className="text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium text-sm md:text-base">Federal University of Technology, Akure</p>
+                    <p className="font-medium text-sm md:text-[18px]">Federal University of Technology, Akure</p>
                     <p className="text-xs md:text-sm text-muted-foreground">B.Tech. Statistics</p>
                   </div>
                 </div>
@@ -919,7 +919,7 @@ export default function Portfolio() {
                     <MapPin size={20} className="text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium text-sm md:text-base">Lagos, Nigeria</p>
+                    <p className="font-medium text-sm md:text-[18px]">Lagos, Nigeria</p>
                     <p className="text-xs md:text-sm text-muted-foreground">Open to remote &amp; on-site</p>
                   </div>
                 </div>
@@ -972,7 +972,7 @@ export default function Portfolio() {
                     key={skill}
                     variants={fadeInUp}
                     custom={i}
-                    className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-base text-foreground bg-card/50"
+                    className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50"
                   >
                     {skill}
                   </motion.span>
@@ -990,7 +990,7 @@ export default function Portfolio() {
                     key={skill}
                     variants={fadeInUp}
                     custom={i}
-                    className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-base text-foreground bg-card/50"
+                    className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50"
                   >
                     {skill}
                   </motion.span>
@@ -1010,7 +1010,7 @@ export default function Portfolio() {
                       key={tool}
                       variants={fadeInUp}
                       custom={i}
-                      className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-base text-foreground bg-card/50"
+                      className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50"
                     >
                       {tool}
                     </motion.span>
@@ -1068,8 +1068,8 @@ export default function Portfolio() {
                     className="w-full flex items-center justify-between p-5 text-left hover:bg-card/60 transition-colors cursor-pointer"
                   >
                     <div>
-                      <h3 className="text-sm md:text-base font-semibold">{exp.role} / {exp.company}</h3>
-                      <div className="flex items-center gap-2 text-xs md:text-sm text-primary font-mono mt-1">
+                      <h3 className="text-sm md:text-[18px] font-semibold">{exp.role} / {exp.company}</h3>
+                      <div className="flex items-center gap-2 text-xs md:text-[18px] text-primary font-mono mt-1">
                         <Calendar size={12} />
                         {exp.period.toUpperCase()} ({exp.location})
                       </div>
@@ -1098,7 +1098,7 @@ export default function Portfolio() {
                             {exp.descriptions.map((desc, i) => (
                               <li
                                 key={i}
-                                className="flex items-start gap-3 text-sm md:text-base text-muted-foreground leading-relaxed"
+                                className="flex items-start gap-3 text-sm md:text-[18px] text-muted-foreground leading-relaxed"
                               >
                                 <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/50 shrink-0" />
                                 {desc}
@@ -1117,7 +1117,7 @@ export default function Portfolio() {
                                   <a
                                     href={`#project-${proj.projectId}`}
                                     onClick={(e) => { e.preventDefault(); scrollTo(`project-${proj.projectId}`); }}
-                                    className="text-sm md:text-base font-semibold hover:text-primary transition-colors underline underline-offset-2 decoration-border hover:decoration-primary/40"
+                                    className="text-sm md:text-[18px] font-semibold hover:text-primary transition-colors underline underline-offset-2 decoration-border hover:decoration-primary/40"
                                   >
                                     {proj.title}
                                   </a>
@@ -1125,7 +1125,7 @@ export default function Portfolio() {
                                     {proj.descriptions.map((d, di) => (
                                       <li
                                         key={di}
-                                        className="flex items-start gap-3 text-xs md:text-sm text-muted-foreground/80 leading-relaxed"
+                                        className="flex items-start gap-3 text-xs md:text-[18px] text-muted-foreground/80 leading-relaxed"
                                       >
                                         <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/30 shrink-0" />
                                         {d}
@@ -1166,7 +1166,7 @@ export default function Portfolio() {
               <motion.div variants={fadeInUp} className="space-y-4">
                 <a
                   href="mailto:joelakinlosotu@gmail.com"
-                  className="flex items-center gap-3 text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group"
+                  className="flex items-center gap-3 text-sm md:text-[18px] text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <div className="p-2.5 rounded-md border border-border group-hover:border-primary/20 transition-colors">
                     <Mail size={16} />
@@ -1175,7 +1175,7 @@ export default function Portfolio() {
                 </a>
                 <a
                   href="tel:+2349068971351"
-                  className="flex items-center gap-3 text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group"
+                  className="flex items-center gap-3 text-sm md:text-[18px] text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <div className="p-2.5 rounded-md border border-border group-hover:border-primary/20 transition-colors">
                     <Phone size={16} />
@@ -1217,7 +1217,7 @@ export default function Portfolio() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Your name"
-                      className="form-input w-full px-4 py-3 rounded-md text-sm md:text-base text-foreground placeholder:text-muted-foreground/50"
+                      className="form-input w-full px-4 py-3 rounded-md text-sm md:text-[18px] text-foreground placeholder:text-muted-foreground/50"
                     />
                   </div>
                   <div>
@@ -1230,7 +1230,7 @@ export default function Portfolio() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="your@email.com"
-                      className="form-input w-full px-4 py-3 rounded-md text-sm md:text-base text-foreground placeholder:text-muted-foreground/50"
+                      className="form-input w-full px-4 py-3 rounded-md text-sm md:text-[18px] text-foreground placeholder:text-muted-foreground/50"
                     />
                   </div>
                   <div>
@@ -1240,7 +1240,7 @@ export default function Portfolio() {
                     <select
                         value={formData.budget}
                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="form-input w-full px-4 py-3 rounded-md text-sm md:text-base text-foreground appearance-none cursor-pointer"
+                        className="form-input w-full px-4 py-3 rounded-md text-sm md:text-[18px] text-foreground appearance-none cursor-pointer"
                       >
                         <option value="" disabled>
                           Select your budget range
@@ -1262,13 +1262,13 @@ export default function Portfolio() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Tell me about your project..."
-                      className="form-input w-full px-4 py-3 rounded-md text-sm md:text-base text-foreground placeholder:text-muted-foreground/50 resize-none"
+                      className="form-input w-full px-4 py-3 rounded-md text-sm md:text-[18px] text-foreground placeholder:text-muted-foreground/50 resize-none"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={formState === "sending"}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium text-sm md:text-base rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {formState === "sending" ? (
                       <>
@@ -1366,7 +1366,7 @@ export default function Portfolio() {
                   <h3 className="text-lg md:text-[28px] font-bold">{selectedProject.title}</h3>
                 </div>
 
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                <p className="text-sm md:text-[18px] text-muted-foreground leading-relaxed">
                   {selectedProject.description}
                 </p>
 
@@ -1400,7 +1400,7 @@ export default function Portfolio() {
                   href={selectedProject.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-base rounded-md hover:bg-primary/90 transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all"
                 >
                   Visit Live Site <ExternalLink size={16} />
                 </a>
