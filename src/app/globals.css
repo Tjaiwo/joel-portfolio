@@ -68,6 +68,53 @@
   --chart-3: #ff6b6b;
   --chart-4: #ffa726;
   --chart-5: #ab47bc;
+  color-scheme: dark;
+}
+
+/* ── Light Theme ── */
+:root:not(.dark) {
+  --background: #f8f8f8;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #2d2d2d;
+  --popover: #ffffff;
+  --popover-foreground: #2d2d2d;
+  --primary: #2da55e;
+  --primary-foreground: #ffffff;
+  --secondary: #eeeeee;
+  --secondary-foreground: #2d2d2d;
+  --muted: #eeeeee;
+  --muted-foreground: #555555;
+  --accent: #eeeeee;
+  --accent-foreground: #2d2d2d;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(0, 0, 0, 0.1);
+  --input: rgba(0, 0, 0, 0.1);
+  --ring: #2da55e;
+  --chart-1: #2da55e;
+  --chart-2: #0891b2;
+  --chart-3: #dc2626;
+  --chart-4: #ea580c;
+  --chart-5: #9333ea;
+  color-scheme: light;
+}
+
+/* ── Light Mode: solid backgrounds (no transparency) ── */
+:root:not(.dark) .bg-card\/50 { background-color: var(--card); }
+:root:not(.dark) .bg-card\/30 { background-color: var(--card); }
+:root:not(.dark) .bg-background\/80 { background-color: var(--background); }
+:root:not(.dark) .bg-background\/90 { background-color: var(--background); }
+:root:not(.dark) .bg-background\/95 { background-color: var(--card); }
+:root:not(.dark) .bg-primary\/5 { background-color: #e8f5e9; }
+:root:not(.dark) .bg-primary\/10 { background-color: #c8e6c9; }
+:root:not(.dark) .bg-primary\/20 { background-color: #a5d6a7; }
+
+/* ── Accordion item: solid background ── */
+.accordion-item {
+  background-color: var(--card);
+}
+.dark .accordion-item {
+  background-color: #1a1a1a;
 }
 
 @layer base {
@@ -97,20 +144,21 @@ html, body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: var(--muted-foreground);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--muted-foreground);
+  opacity: 0.8;
 }
 
 /* Selection */
 ::selection {
   background: rgba(80, 200, 120, 0.2);
-  color: #ffffff;
+  color: var(--foreground);
 }
 
 /* Magnetic hover effect for nav links */
@@ -125,7 +173,7 @@ html, body {
   left: 0;
   width: 0;
   height: 1px;
-  background: #50C878;
+  background: var(--primary);
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .nav-link:hover::after,
@@ -134,7 +182,7 @@ html, body {
 }
 .nav-link:hover,
 .nav-link.active {
-  color: #50C878;
+  color: var(--primary);
 }
 
 /* Project card hover effect */
@@ -145,7 +193,7 @@ html, body {
   transform: translateX(8px);
 }
 .project-card:hover .project-number {
-  color: #50C878;
+  color: var(--primary);
 }
 .project-card:hover .project-arrow {
   transform: translateX(4px);
@@ -170,6 +218,11 @@ html, body {
   animation: subtle-pulse 3s ease-in-out infinite;
 }
 
+@keyframes pulse-chevron {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(2px); }
+}
+
 /* Reveal animation */
 @keyframes slide-up {
   from {
@@ -184,10 +237,15 @@ html, body {
 
 /* Grid background pattern */
 .grid-pattern {
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
   background-size: 60px 60px;
+}
+:root:not(.dark) .grid-pattern {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
 }
 
 /* Noise texture overlay */
@@ -207,23 +265,23 @@ html, body {
 /* Modal overlay */
 .modal-overlay {
   backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 /* Skill tag hover */
 .skill-tag {
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
 }
 .skill-tag:hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--primary);
   transform: translateY(-2px);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
 /* Timeline */
 .timeline-line {
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
 }
 
 /* Mobile menu */
@@ -237,14 +295,14 @@ html, body {
 
 /* Contact form */
 .form-input {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--secondary);
+  border: 1px solid var(--border);
   transition: all 0.3s ease;
 }
 .form-input:focus {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+  border-color: var(--primary);
+  background: var(--muted);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
   outline: none;
 }
 
@@ -265,13 +323,13 @@ html, body {
 .browser-card {
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #141414;
+  border: 1px solid var(--border);
+  background: var(--card);
   transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .browser-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  border-color: var(--primary);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--border);
   transform: translateY(-4px);
 }
 
@@ -281,8 +339,8 @@ html, body {
   align-items: center;
   gap: 7px;
   padding: 10px 14px;
-  background: #1a1a1a;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--muted);
+  border-bottom: 1px solid var(--border);
 }
 .browser-dot {
   width: 10px;
@@ -299,7 +357,7 @@ html, body {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  background: #0d0d0d;
+  background: var(--muted);
   overflow: hidden;
 }
 .browser-frame iframe {
@@ -319,7 +377,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #0d0d0d;
+  background: var(--muted);
   transition: opacity 0.5s ease;
   z-index: 2;
 }
@@ -330,8 +388,8 @@ html, body {
 .iframe-spinner-ring {
   width: 32px;
   height: 32px;
-  border: 2.5px solid rgba(255, 255, 255, 0.08);
-  border-top-color: #50C878;
+  border: 2.5px solid var(--border);
+  border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }

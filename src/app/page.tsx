@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useInView, useScroll, useSpring, useMotionValueEvent, useTransform } from "framer-motion";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Mail,
   Phone,
@@ -22,9 +23,8 @@ import {
 const NAV_ITEMS = [
   { id: "home", label: "Home", icon: "\u2302" },
   { id: "about", label: "About Me", icon: "\u25C9" },
+  { id: "projects-skills", label: "Projects & Skills", icon: "\u25C8" },
   { id: "experience", label: "Experience", icon: "\u25CE" },
-  { id: "projects", label: "Projects", icon: "\u25C8" },
-  { id: "skills", label: "Skills", icon: "\u25C7" },
   { id: "contact", label: "Contact", icon: "\u2726" },
 ];
 
@@ -43,6 +43,7 @@ const DESIGNER = {
 const PROJECTS = [
   {
     id: 1,
+    slug: "elin-air",
     title: "Elin Air",
     description:
       "A premium airline booking and travel platform featuring seamless flight search, real-time availability, and a modern booking experience built on WordPress with custom integrations.",
@@ -53,6 +54,7 @@ const PROJECTS = [
   },
   {
     id: 2,
+    slug: "clayton-prints",
     title: "Clayton Prints",
     description:
       "An e-commerce printing solutions website with product catalogs, custom order workflows, and seamless payment integration for a commercial printing business.",
@@ -63,16 +65,6 @@ const PROJECTS = [
   },
   {
     id: 3,
-    title: "CardinalStone Pensions",
-    description:
-      "A corporate-grade pension management website with detailed service information, client portals, and regulatory-compliant content architecture for one of Nigeria\u2019s leading pension fund administrators.",
-    url: "https://cardinalstonepensions.com/",
-    image: "/screenshots/cardinalstonepensions.png",
-    tags: ["WordPress", "Custom Theme", "SEO", "Elementor", "Enterprise"],
-    designer: true,
-  },
-  {
-    id: 4,
     title: "Cedar Rush",
     description:
       "A dynamic events production and media company website showcasing portfolio, services, and media content with engaging visual storytelling and smooth user interactions.",
@@ -81,7 +73,8 @@ const PROJECTS = [
     tags: ["WordPress", "Elementor", "Media", "Portfolio", "SEO"],
   },
   {
-    id: 5,
+    id: 4,
+    slug: "kakaride",
     title: "Kakaride",
     description:
       "A ride-hailing and logistics platform built on WordPress, featuring real-time booking, driver management, location-based services, and seamless user experience across all devices.",
@@ -91,7 +84,7 @@ const PROJECTS = [
     designer: true,
   },
   {
-    id: 6,
+    id: 5,
     title: "Diamond Source Jewelers",
     description:
       "An elegant e-commerce jewelry website featuring a curated product catalog, secure checkout flows, and a luxurious visual experience tailored for a high-end jewelry brand.",
@@ -100,7 +93,7 @@ const PROJECTS = [
     tags: ["WordPress", "WooCommerce", "E-Commerce", "Luxury Brand", "Elementor", "SEO"],
   },
   {
-    id: 7,
+    id: 6,
     title: "Evan Micky Photography",
     description:
       "A visually-driven photography portfolio website with stunning image galleries, smooth transitions, and an immersive browsing experience designed to showcase creative work.",
@@ -125,6 +118,17 @@ const SKILLS_CORE = [
   "Figma",
 ];
 
+const SKILLS_NOCODE = [
+  "Elementor",
+  "Webflow",
+  "Framer",
+  "Wix",
+  "Bubble",
+  "Make (Integromat)",
+  "Zapier",
+  "Airtable",
+];
+
 const SKILLS_KEY = [
   "User Research",
   "Usability Testing",
@@ -140,14 +144,58 @@ const SKILLS_KEY = [
 
 const EXPERIENCE = [
   {
-    role: "WordPress Developer",
+    role: "Web Developer",
+    company: "Freelance",
+    period: "Apr 2016 – Present",
+    location: "Lagos, NG",
+    descriptions: [
+      "Designed, developed, and maintained custom WordPress websites for clients across e-commerce, education, real estate, and personal branding.",
+      "Built and customized themes and plugins to meet unique client specifications, ensuring responsive and SEO-optimized performance.",
+      "Integrated third-party tools such as WooCommerce, Elementor, ACF, Mailchimp, and payment gateways to extend site functionality.",
+      "Migrated websites, optimized databases, and implemented security best practices for enhanced site performance and reliability.",
+    ],
+    projects: [
+      {
+        title: "Elin Air",
+        projectId: "elin-air",
+        descriptions: [
+          "Built a premium aviation website featuring private jet charter booking, MRO service showcases, and real-time flight inquiry forms integrated with a custom WordPress setup.",
+          "Designed a responsive, mobile-first layout with Elementor that communicates luxury and professionalism, aligning with the brand’s high-end aviation services.",
+          "Implemented SEO-optimized service pages and structured data markup to improve search visibility for private jet charter and maintenance-related queries.",
+          "Integrated social media feeds and contact forms with email notifications to streamline client inquiries and booking requests.",
+        ],
+      },
+      {
+        title: "Clayton Prints",
+        projectId: "clayton-prints",
+        descriptions: [
+          "Developed a fully functional e-commerce printing website using WooCommerce with custom product catalogs for business cards, banners, apparel, and promotional materials.",
+          "Built a custom order workflow allowing customers to upload artwork, select specifications, and receive instant quote estimates before checkout.",
+          "Integrated multiple payment gateways and configured shipping options to support both local and international printing orders.",
+          "Optimized product pages for SEO and implemented a responsive design that ensures seamless browsing and ordering across all device types.",
+        ],
+      },
+      {
+        title: "Kakaride",
+        projectId: "kakaride",
+        descriptions: [
+          "Built a ride-hailing and logistics platform on WordPress with custom plugins enabling real-time booking, driver management, and location-based ride services.",
+          "Implemented API integrations for geolocation, fare calculation, and ride tracking to deliver a seamless user experience across web and mobile interfaces.",
+          "Designed a mobile-first responsive interface with intuitive booking flows, driver ratings, and trip history to maximize user retention.",
+          "Optimized the site for performance and SEO, ensuring fast load times and high search rankings for ride-hailing and logistics-related queries in Nigeria.",
+        ],
+      },
+    ],
+  },
+  {
+    role: "Web Developer",
     company: "Digisplash",
-    period: "Jan 2024 \u2013 Mar 2025",
+    period: "Jan 2024 – Mar 2025",
     location: "Lagos, NG",
     descriptions: [
       "Collaborated with the Product Designer to implement website designs.",
       "Developed new features for existing websites.",
-      "Customized themes to meet clients\u2019 requirements.",
+      "Customized themes to meet clients’ requirements.",
       "Implemented SEO and web layouts.",
       "Prepared website proposals to present to clients.",
       "Provided technical support to clients.",
@@ -156,29 +204,15 @@ const EXPERIENCE = [
   {
     role: "Website Administrator",
     company: "Lustre Africa",
-    period: "Sep 2019 \u2013 Dec 2023",
+    period: "Sep 2019 – Dec 2023",
     location: "Lagos, NG",
     descriptions: [
-      "Managed and maintained the company\u2019s web infrastructure, ensuring optimal performance and uptime across all digital platforms.",
+      "Managed and maintained the company’s web infrastructure, ensuring optimal performance and uptime across all digital platforms.",
       "Implemented security best practices and performed regular audits to protect against vulnerabilities.",
       "Coordinated with cross-functional teams to update content, deploy new features, and troubleshoot issues.",
       "Optimized website performance, reducing page load times through caching strategies and code optimization.",
       "Monitored site analytics and provided actionable insights to improve user engagement and conversion rates.",
       "Managed domain registrations, hosting configurations, and SSL certificate renewals.",
-    ],
-  },
-  {
-    role: "WordPress Developer",
-    company: "Freelance",
-    period: "Apr 2016 \u2013 Present",
-    location: "Lagos, NG",
-    descriptions: [
-      "Designed, developed, and maintained custom WordPress websites for clients across e-commerce, education, real estate, and personal branding.",
-      "Built and customized themes and plugins to meet unique client specifications, ensuring responsive and SEO-optimized performance.",
-      "Integrated third-party tools such as WooCommerce, Elementor, ACF, Mailchimp, and payment gateways to extend site functionality.",
-      "Migrated websites, optimized databases, and implemented security best practices for enhanced site performance and reliability.",
-      "Delivered projects on time and within budget, maintaining clear communication with clients through platforms like Upwork, Fiverr, and direct contracts.",
-      "Maintained long-term client relationships by providing ongoing support, updates, and performance monitoring.",
     ],
   },
 ];
@@ -397,9 +431,15 @@ function BrowserMockupCard({
       {/* Card info footer */}
       <div className="p-4 space-y-3">
         <div className="flex items-center justify-between gap-2">
-          <h3 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="text-sm font-semibold truncate group-hover:text-primary transition-colors hover:underline underline-offset-2"
+          >
             {project.title}
-          </h3>
+          </a>
           <a
             href={project.url}
             target="_blank"
@@ -534,6 +574,25 @@ export default function Portfolio() {
 
   /* Currency detection — client-only to prevent hydration mismatch */
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
+  const [openExpIdx, setOpenExpIdx] = useState(-1);
+  const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
+     Uses "instant" to avoid fighting with the Framer Motion height animation.
+     Only adjusts scroll if the header has been pushed above the viewport. */
+  useEffect(() => {
+    if (openExpIdx >= 0) {
+      const timer = setTimeout(() => {
+        const el = expRefs.current[openExpIdx];
+        if (el) {
+          const top = el.getBoundingClientRect().top;
+          if (top < 0) {
+            window.scrollBy({ top, behavior: "instant" });
+          }
+        }
+      }, 320);
+      return () => clearTimeout(timer);
+    }
+  }, [openExpIdx]);
   useEffect(() => {
     setCurrency(getCurrencyFromTimezone());
   }, []);
@@ -585,7 +644,7 @@ export default function Portfolio() {
               Joel<span className="text-primary">.</span>
             </h2>
             <p className="text-xs text-muted-foreground mt-1 tracking-wider uppercase">
-              Frontend Developer
+              Web Developer
             </p>
           </motion.div>
 
@@ -639,18 +698,19 @@ export default function Portfolio() {
               className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-primary hover:border-primary/20 transition-all"
               aria-label="LinkedIn"
             >
-              <Linkedin size={14} />
+              <Linkedin className="w-4 h-4 lg:w-5 lg:h-5" />
             </a>
             <a
               href="https://x.com/joelakinlosotu"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-primary hover:border-primary/20 transition-all font-mono text-[10px] font-bold leading-none"
+              className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-primary hover:border-primary/20 transition-all"
               aria-label="X (Twitter)"
             >
-              X
+              <svg className="w-4 h-4 lg:w-5 lg:h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
           </div>
+          <ThemeToggle className="mt-2" />
         </motion.div>
       </aside>
 
@@ -660,13 +720,16 @@ export default function Portfolio() {
           <h2 className="text-lg font-bold tracking-tight">
             Joel<span className="text-primary">.</span>
           </h2>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-foreground"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-foreground"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
 
         <AnimatePresence>
@@ -725,7 +788,7 @@ export default function Portfolio() {
                 custom={1}
                 className="text-[32px] md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6 glow-text"
               >
-                FRONTEND
+                WEB
                 <br />
                 <span className="text-muted-foreground">DEVELOPER</span>
                 <span className="text-primary">.</span>
@@ -737,7 +800,7 @@ export default function Portfolio() {
                 className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed mb-8"
               >
                 Hi! I&apos;m <span className="text-foreground font-medium">Joel Akinlosotu</span>. A
-                results-driven Frontend Developer &amp; Systems Architect with 10+ years of experience
+                results-driven Web Developer &amp; Systems Architect with 10+ years of experience
                 building high-performance, scalable, and SEO-optimized web solutions.
               </motion.p>
 
@@ -789,19 +852,9 @@ export default function Portfolio() {
                 and delight users at every touchpoint.
               </motion.h2>
               <motion.p variants={fadeInUp} className="text-muted-foreground leading-relaxed mb-6">
-                I am a results-driven Frontend Developer and Systems Architect with a track record
-                of completing over 50+ freelance projects with a 95% client satisfaction rate.
-              </motion.p>
-              <motion.p variants={fadeInUp} className="text-muted-foreground leading-relaxed mb-6">
                 Notable achievements include developing a high-traffic LMS for a Web3 brand that
                 secured 20k+ unique visitors within two weeks of launch, and consistently reducing
                 website load times by up to 60% through advanced performance optimization.
-              </motion.p>
-              <motion.p variants={fadeInUp} className="text-muted-foreground leading-relaxed">
-                My approach focuses on creating scalable, high-performing solutions tailored to both
-                user needs and business objectives. By prioritizing performance, accessibility, and
-                responsive design, I deliver experiences that not only engage users but also drive
-                tangible results for my clients across diverse industries.
               </motion.p>
             </div>
 
@@ -844,66 +897,21 @@ export default function Portfolio() {
           </div>
         </Section>
 
-        {/* ─── EXPERIENCE ─── */}
-        <Section id="experience">
-          <SectionLabel>// Experience</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold mb-12">
-            MY EXPERIENCE
-          </motion.h2>
-
-          <div className="space-y-12">
-            {EXPERIENCE.map((exp, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeInUp}
-                className="relative pl-8 border-l border-border"
-              >
-                {/* Dot */}
-                <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_10px_rgba(80,200,120,0.5)]" />
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-3">
-                  <h3 className="text-xl md:text-lg font-semibold">{exp.role} / {exp.company}</h3>
-                </div>
-
-                <div className="flex items-center gap-2 text-xs text-primary font-mono mb-4">
-                  <Calendar size={13} />
-                  {exp.period.toUpperCase()} ({exp.location})
-                </div>
-
-                <ul className="space-y-3">
-                  {exp.descriptions.map((desc, i) => (
-                    <motion.li
-                      key={i}
-                      variants={fadeInUp}
-                      className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed"
-                    >
-                      <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/50 shrink-0" />
-                      {desc}
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </Section>
-
-        {/* ─── PROJECTS ─── */}
-        <Section id="projects">
-          <SectionLabel>// Selected Projects</SectionLabel>
+        {/* ─── PROJECTS & SKILLS ─── */}
+        <Section id="projects-skills">
+          <SectionLabel>// Projects &amp; Skills</SectionLabel>
           <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold mb-12">
             FEATURED WORKS
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {PROJECTS.map((project, idx) => (
-              <BrowserMockupCard key={project.id} project={project} index={idx} />
+              <div key={project.id} id={project.slug ? `project-${project.slug}` : undefined}>
+                <BrowserMockupCard project={project} index={idx} />
+              </div>
             ))}
           </div>
-        </Section>
 
-        {/* ─── SKILLS ─── */}
-        <Section id="skills">
-          <SectionLabel>// Skills &amp; Tools</SectionLabel>
           <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold mb-12">
             MY STACK
           </motion.h2>
@@ -945,6 +953,27 @@ export default function Portfolio() {
               </div>
             </div>
 
+            {/* No-Code / Low-Code row */}
+            <div>
+              <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
+                No-Code &amp; Low-Code
+              </motion.p>
+              <div className="flex flex-wrap gap-3">
+                {["Elementor", "Webflow", "Framer", "Wix", "Bubble", "Make (Integromat)", "Zapier", "Airtable"].map(
+                  (tool, i) => (
+                    <motion.span
+                      key={tool}
+                      variants={fadeInUp}
+                      custom={i}
+                      className="skill-tag px-4 py-2.5 rounded-lg text-sm text-foreground bg-card/50"
+                    >
+                      {tool}
+                    </motion.span>
+                  )
+                )}
+              </div>
+            </div>
+
             {/* Tools row */}
             <div>
               <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
@@ -965,6 +994,110 @@ export default function Portfolio() {
                 )}
               </div>
             </div>
+          </div>
+        </Section>
+
+        {/* ─── EXPERIENCE ─── */}
+        <Section id="experience">
+          <SectionLabel>// Experience</SectionLabel>
+          <motion.h2 variants={fadeInUp} className="text-2xl md:text-4xl font-bold mb-12">
+            MY EXPERIENCE
+          </motion.h2>
+
+          <div className="space-y-3">
+            {EXPERIENCE.map((exp, idx) => {
+              const isOpen = openExpIdx === idx;
+              const hasProjects = "projects" in exp && exp.projects;
+              return (
+                <motion.div
+                  key={idx}
+                  variants={fadeInUp}
+                  className="border border-border rounded-lg overflow-hidden accordion-item"
+                >
+                  {/* Accordion header */}
+                  <button
+                    ref={(el) => { expRefs.current[idx] = el; }}
+                    onClick={() => {
+                      setOpenExpIdx(isOpen ? -1 : idx);
+                    }}
+                    className="w-full flex items-center justify-between p-5 text-left hover:bg-card/60 transition-colors cursor-pointer"
+                  >
+                    <div>
+                      <h3 className="text-base md:text-lg font-semibold">{exp.role} / {exp.company}</h3>
+                      <div className="flex items-center gap-2 text-xs text-primary font-mono mt-1">
+                        <Calendar size={12} />
+                        {exp.period.toUpperCase()} ({exp.location})
+                      </div>
+                    </div>
+                    <motion.span
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-primary shrink-0 ml-4 [animation:pulse-chevron_2s_ease-in-out_infinite]"
+                    >
+                      <svg className="w-4 h-4 lg:w-[18px] lg:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                    </motion.span>
+                  </button>
+
+                  {/* Accordion body */}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 pb-5 space-y-5">
+                          <ul className="space-y-3">
+                            {exp.descriptions.map((desc, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed"
+                              >
+                                <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/50 shrink-0" />
+                                {desc}
+                              </li>
+                            ))}
+                          </ul>
+
+                          {/* Freelance sub-projects */}
+                          {hasProjects && (
+                            <div className="space-y-5 pt-3 border-t border-border">
+                              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-mono">
+                                Notable Projects
+                              </p>
+                              {(exp as typeof EXPERIENCE[number] & { projects: Array<{ title: string; projectId: string; descriptions: string[] }> }).projects.map((proj, pi) => (
+                                <div key={pi} className="pl-4 border-l-2 border-primary/20">
+                                  <a
+                                    href={`#project-${proj.projectId}`}
+                                    onClick={(e) => { e.preventDefault(); scrollTo(`project-${proj.projectId}`); }}
+                                    className="text-sm font-semibold hover:text-primary transition-colors underline underline-offset-2 decoration-border hover:decoration-primary/40"
+                                  >
+                                    {proj.title}
+                                  </a>
+                                  <ul className="mt-2 space-y-2">
+                                    {proj.descriptions.map((d, di) => (
+                                      <li
+                                        key={di}
+                                        className="flex items-start gap-3 text-xs text-muted-foreground/80 leading-relaxed"
+                                      >
+                                        <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/30 shrink-0" />
+                                        {d}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
         </Section>
 
@@ -1128,16 +1261,16 @@ export default function Portfolio() {
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="LinkedIn"
               >
-                <Linkedin size={14} />
+                <Linkedin className="w-4 h-4 lg:w-5 lg:h-5" />
               </a>
               <a
                 href="https://x.com/joelakinlosotu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors font-mono text-[10px] font-bold leading-none"
+                className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="X (Twitter)"
               >
-                X
+                <svg className="w-4 h-4 lg:w-5 lg:h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
             </div>
           </ContentWidth>
