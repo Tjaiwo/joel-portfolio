@@ -812,7 +812,7 @@ export default function Portfolio() {
                   LET&apos;S TALK <ArrowUpRight size={16} />
                 </button>
                 <button
-                  onClick={() => scrollTo("projects")}
+                  onClick={() => scrollTo("projects-skills")}
                   className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium text-sm rounded-md hover:border-foreground/20 transition-all uppercase"
                 >
                   VIEW PROJECTS
