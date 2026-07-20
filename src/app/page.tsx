@@ -1,8 +1,28 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, useInView, useScroll, useSpring, useMotionValueEvent, useTransform } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
+
+/* ─── Counter hook: animates from 0 → target when in view ─── */
+function useCountUp(target, inView, duration = 2000) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!inView) { setCount(0); return; }
+    let start = null;
+    let raf;
+    const step = (ts) => {
+      if (start === null) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, target, duration]);
+  return count;
+}
 import {
   Mail,
   Phone,
@@ -29,10 +49,10 @@ const NAV_ITEMS = [
 ];
 
 const STATS = [
-  { value: "50+", label: "Projects Completed" },
-  { value: "95%", label: "Client Satisfaction" },
-  { value: "10+", label: "Years Experience" },
-  { value: "20k+", label: "Unique Visitors (LMS Launch)" },
+  { value: "50+", label: "Projects Completed", target: 50, suffix: "+" },
+  { value: "95%", label: "Client Satisfaction", target: 95, suffix: "%" },
+  { value: "10+", label: "Years Experience", target: 10, suffix: "+" },
+  { value: "20k+", label: "Unique Visitors (LMS Launch)", target: 20, suffix: "k+" },
 ];
 
 const DESIGNER = {
@@ -573,6 +593,21 @@ function BackToTop() {
   );
 }
 
+/* ─── Animated counter stat ─── */
+function CountingStat({ stat, index }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const count = useCountUp(stat.target, inView);
+  return (
+    <motion.div ref={ref} variants={fadeInUp} custom={5 + index}>
+      <h3 className="text-xl md:text-[40px] font-bold text-primary tabular-nums">
+        {inView ? count + stat.suffix : '0' + stat.suffix}
+      </h3>
+      <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+    </motion.div>
+  );
+}
+
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
 export default function Portfolio() {
@@ -856,7 +891,7 @@ export default function Portfolio() {
             <div>
               <motion.h2
                 variants={fadeInUp}
-                className="text-xl md:text-3xl font-bold leading-tight mb-8"
+                className="text-xl md:text-[40px] font-bold leading-tight mb-8"
               >
                 I believe in building digital experiences that drive real results for businesses
                 and delight users at every touchpoint.
@@ -910,7 +945,7 @@ export default function Portfolio() {
         {/* ─── PROJECTS & SKILLS ─── */}
         <Section id="projects-skills">
           <SectionLabel>// Projects &amp; Skills</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-3xl font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
             FEATURED WORKS
           </motion.h2>
 
@@ -922,7 +957,7 @@ export default function Portfolio() {
             ))}
           </div>
 
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-3xl font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
             MY STACK
           </motion.h2>
 
@@ -1010,7 +1045,7 @@ export default function Portfolio() {
         {/* ─── EXPERIENCE ─── */}
         <Section id="experience">
           <SectionLabel>// Experience</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-3xl font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
             MY EXPERIENCE
           </motion.h2>
 
@@ -1118,7 +1153,7 @@ export default function Portfolio() {
             <div>
               <motion.h2
                 variants={fadeInUp}
-                className="text-xl md:text-3xl font-bold leading-tight mb-6"
+                className="text-xl md:text-[40px] font-bold leading-tight mb-6"
               >
                 Have a project in mind? Let&apos;s build something great together.
               </motion.h2>
@@ -1328,7 +1363,7 @@ export default function Portfolio() {
                   <p className="text-xs text-primary font-mono mb-2">
                     PROJECT _{String(selectedProject.id).padStart(2, "0")}
                   </p>
-                  <h3 className="text-lg md:text-2xl font-bold">{selectedProject.title}</h3>
+                  <h3 className="text-lg md:text-[28px] font-bold">{selectedProject.title}</h3>
                 </div>
 
                 <p className="text-muted-foreground leading-relaxed">
