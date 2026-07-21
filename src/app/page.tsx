@@ -834,7 +834,7 @@ export default function Portfolio() {
               <motion.h1
                 variants={fadeInUp}
                 custom={1}
-                className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
+                className="text-[28px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] mb-6 glow-text"
               >
                 WEB
                 <br />
@@ -845,7 +845,7 @@ export default function Portfolio() {
               <motion.p
                 variants={fadeInUp}
                 custom={2}
-                className="text-[18px] md:text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8"
+                className="text-sm md:text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8"
               >
                 Hi! I&apos;m <span className="text-foreground font-medium">Joel Akinlosotu</span>. A
                 results-driven Web Developer &amp; Systems Architect with 10+ years of experience
@@ -948,7 +948,7 @@ export default function Portfolio() {
         {/* ─── PROJECTS & SKILLS ─── */}
         <Section id="projects-skills">
           <SectionLabel>// Projects &amp; Skills</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-[28px] md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
             FEATURED WORKS
           </motion.h2>
 
@@ -960,7 +960,7 @@ export default function Portfolio() {
             ))}
           </div>
 
-          <motion.h2 variants={fadeInUp} className="text-[28px] md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
             MY STACK
           </motion.h2>
 
@@ -1048,7 +1048,7 @@ export default function Portfolio() {
         {/* ─── EXPERIENCE ─── */}
         <Section id="experience">
           <SectionLabel>// Experience</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-[28px] md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
             MY EXPERIENCE
           </motion.h2>
 
