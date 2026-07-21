@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
   images: { unoptimized: true },
   // Force browsers to always fetch fresh assets
   headers: async () => [
