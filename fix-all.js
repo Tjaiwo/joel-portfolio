@@ -1,199 +1,107 @@
 const fs = require('fs');
+const path = require('path');
+let changes = 0;
 
-// ══ 1. Fix TypeScript error — use nullish coalescing (100% type-safe) ══
+// ─── 0. Create avatar from base64 (pixel art, optimized) ───
+// If you already have joel-avatar.png in public/, skip this
+const avatarPath = path.join('public', 'joel-avatar.png');
+if (!fs.existsSync(avatarPath)) {
+  // Download from a temporary hosting - runs once
+  const https = require('https');
+  const url = 'https://i.imgur.com/placeholder.png'; // We'll handle this separately
+  console.log('! Avatar not found in public/. Skipping photo addition.');
+  console.log('  (Will add photo in a follow-up)');
+}
+
+// ─── 1. Fix page.tsx ───
 let p = fs.readFileSync('src/app/page.tsx', 'utf8');
 
-// Pattern A: standard if-null-set pattern
-const tsFixA = `    const step = (ts: number) => {
-      if (start === null) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);`;
-
-const tsFixANew = `    const step = (ts: number) => {
-      const s = start ?? ts;
-      start = s;
-      const progress = Math.min((ts - s) / duration, 1);`;
-
-// Pattern B: indented with 6 spaces (inside hook)
-const tsFixB = `      const step = (ts: number) => {
-        if (start === null) start = ts;
-        const progress = Math.min((ts - start) / duration, 1);`;
-
-const tsFixBNew = `      const step = (ts: number) => {
-        const s = start ?? ts;
-        start = s;
-        const progress = Math.min((ts - s) / duration, 1);`;
-
-if (p.includes(tsFixA)) {
-  p = p.replace(tsFixA, tsFixANew);
-  console.log('1a/4 Fixed TS error (pattern A)');
-} else if (p.includes(tsFixB)) {
-  p = p.replace(tsFixB, tsFixBNew);
-  console.log('1a/4 Fixed TS error (pattern B)');
-} else {
-  // Fallback: regex for any variation
-  p = p.replace(
-    /(const step = \(ts: number\) => \{[\s\S]*?)if \(start === null\) start = ts;\s*\n(\s*)const progress = Math\.min\(\(ts - start\) \/ duration/,
-    '$1const s = start ?? ts;\n$2start = s;\n$2const progress = Math.min((ts - s) / duration'
-  );
-  console.log('1a/4 Fixed TS error (regex fallback)');
+// 1a. Hero H1: ANY text-[Npx] before md:text → 40px
+const h1Regex = /(<motion\.h1[\s\S]*?className=")text-\[\d+px\](\s+md:text-)/;
+if (h1Regex.test(p)) {
+  p = p.replace(h1Regex, '$1text-[40px]$2');
+  console.log('OK Hero H1 mobile -> 40px');
+  changes++;
 }
 
-// ══ 1b. Change "Available for freelance work" → "Available" ══
-p = p.replace('Available for freelance work', 'Available');
-console.log('1b/4 Changed badge text to "Available"');
-
-// ══ 2. layout.tsx: Geist → Inter ══
-let layout = fs.readFileSync('src/app/layout.tsx', 'utf8');
-if (layout.includes('Geist')) {
-  layout = layout.replace(
-    'import { Geist, Geist_Mono } from "next/font/google";',
-    'import { Inter, Geist_Mono } from "next/font/google";'
-  );
-  layout = layout.replace(
-    'const geistSans = Geist({\n  variable: "--font-geist-sans",\n  subsets: ["latin"],\n});',
-    'const inter = Inter({\n  variable: "--font-inter",\n  subsets: ["latin"],\n  weight: ["400", "500", "600", "700"],\n});'
-  );
-  layout = layout.replace('geistSans.variable', 'inter.variable');
-  fs.writeFileSync('src/app/layout.tsx', layout);
-  console.log('2/4 layout.tsx -> Inter font');
-} else {
-  console.log('2/4 layout.tsx already has Inter');
+// 1b. Hero H1 line-height
+const lhRegex = /(className="[^"]*text-\[40px\][^"]*?)(?:leading-\[[\d.]+px\]|leading-\[[\d.]+\]|leading-\w+)([^"]*")/;
+if (lhRegex.test(p)) {
+  p = p.replace(lhRegex, '$1leading-[44px] md:leading-[0.95]$2');
+  console.log('OK Hero H1 line-height -> 44px mobile');
+  changes++;
 }
 
-// ══ 3. globals.css: fix font variable + remove !important ══
-let css = fs.readFileSync('src/app/globals.css', 'utf8');
-css = css.replace('--font-sans: var(--font-geist-sans);', '--font-sans: var(--font-inter);');
-if (css.includes('--radius: 0.625rem;')) {
-  css = css.replace('--radius: 0.625rem;', '--radius: 10px;');
-}
-const badBlock = /\/\*\s*Responsive base font[^*]*\*\/\s*html,\s*body\s*\{[^}]*\}\s*@media[^{]*\{[^}]*html[^}]*body[^}]*\}\s*\}/s;
-if (badBlock.test(css)) {
-  css = css.replace(badBlock, '/* Base font: 16px (all sizing handled via text-[Npx] in components) */\nhtml, body {\n  font-size: 16px;\n}');
-}
-const impBlock = /\/\*[^*]*\*\/\s*html,\s*body\s*\{[^}]*!important[^}]*\}/s;
-if (impBlock.test(css)) {
-  css = css.replace(impBlock, '/* Base font: 16px (all sizing handled via text-[Npx] in components) */\nhtml, body {\n  font-size: 16px;\n}');
-}
-fs.writeFileSync('src/app/globals.css', css);
-console.log('3/4 globals.css cleaned');
-
-// ══ 4. page.tsx: complete px type scale ══
-
-// H1: Hero name (40px mobile, 72px desktop)
-p = p.replace(
-  'text-[32px] md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6 glow-text',
-  'text-[40px] md:text-[72px] font-bold tracking-tight leading-[0.95] mb-6 glow-text'
-);
-
-// H2: Section headings (32px mobile, 40px desktop)
-p = p.replace(/text-2xl md:text-4xl font-bold mb-12/g, 'text-[32px] md:text-[40px] font-bold mb-12');
-p = p.replace(/text-2xl md:text-4xl font-bold leading-tight mb-6/g, 'text-[32px] md:text-[40px] font-bold leading-tight mb-6');
-p = p.replace(/text-2xl font-bold leading-tight mb-8/g, 'text-[32px] md:text-[40px] font-bold leading-tight mb-8');
-p = p.replace(/text-2xl font-bold tracking-tight/g, 'text-[32px] md:text-[40px] font-bold tracking-tight');
-
-// H2: Mobile menu heading (24px, 28px desktop)
-p = p.replace('text-lg font-bold tracking-tight', 'text-[24px] md:text-[28px] font-bold tracking-tight');
-
-// H3: Stat values (32px mobile, 40px desktop) — CORRECTED from 24px
-p = p.replace('text-2xl md:text-3xl font-bold text-primary', 'text-[32px] md:text-[40px] font-bold text-primary tabular-nums');
-p = p.replace('text-[24px] md:text-[40px] font-bold text-primary tabular-nums', 'text-[32px] md:text-[40px] font-bold text-primary tabular-nums');
-
-// H3: Modal titles (24px mobile, 28px desktop)
-p = p.replace('text-xl md:text-3xl font-bold', 'text-[24px] md:text-[28px] font-bold');
-p = p.replace('text-xl md:text-lg font-semibold mb-2">Message Sent!</h3>', 'text-[24px] md:text-[28px] font-semibold mb-2">Message Sent!</h3>');
-
-// BODY: 16px mobile / 18px desktop
-p = p.replace('nav-link w-full text-left flex items-center gap-3 px-3 py-2.5 text-sm rounded-md', 'nav-link w-full text-left flex items-center gap-3 px-3 py-2.5 text-[16px] md:text-[18px] rounded-md');
-p = p.replace('w-full text-left px-3 py-2.5 text-sm rounded-md', 'w-full text-left px-3 py-2.5 text-[16px] md:text-[18px] rounded-md');
-p = p.replace('text-base md:text-lg text-muted-foreground max-w-xl', 'text-[16px] md:text-[18px] text-muted-foreground max-w-xl');
-p = p.replace('px-6 py-3 bg-primary text-primary-foreground font-medium text-sm rounded-md hover:bg-primary/90 transition-all', 'px-6 py-3 bg-primary text-primary-foreground font-medium text-[16px] md:text-[18px] rounded-md hover:bg-primary/90 transition-all');
-p = p.replace('px-6 py-3 border border-border text-foreground font-medium text-sm rounded-md hover:border-foreground/20', 'px-6 py-3 border border-border text-foreground font-medium text-[16px] md:text-[18px] rounded-md hover:border-foreground/20');
-p = p.replace('text-base md:text-lg font-semibold">{exp.role}', 'text-[16px] md:text-[18px] font-semibold">{exp.role}');
-p = p.replace('flex items-start gap-3 text-sm text-muted-foreground leading-relaxed', 'flex items-start gap-3 text-[16px] md:text-[18px] text-muted-foreground leading-relaxed');
-p = p.replace('flex items-start gap-3 text-xs text-muted-foreground/80 leading-relaxed', 'flex items-start gap-3 text-[14px] md:text-[16px] text-muted-foreground/80 leading-relaxed');
-p = p.replace('text-sm font-semibold hover:text-primary transition-colors underline underline-offset-2 decoration-border hover:decoration-primary/40', 'text-[16px] md:text-[18px] font-semibold hover:text-primary transition-colors underline underline-offset-2 decoration-border hover:decoration-primary/40');
-p = p.replace('className="text-sm text-muted-foreground">\n                    Thank you', 'className="text-[16px] md:text-[18px] text-muted-foreground">\n                    Thank you');
-p = p.replace('flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group', 'flex items-center gap-3 text-[16px] md:text-[18px] text-muted-foreground hover:text-primary transition-colors group');
-p = p.replace('form-input w-full px-4 py-3 rounded-md text-sm text-foreground placeholder:text-muted-foreground/50', 'form-input w-full px-4 py-3 rounded-md text-[16px] md:text-[18px] text-foreground placeholder:text-muted-foreground/50');
-p = p.replace('form-input w-full px-4 py-3 rounded-md text-sm text-foreground appearance-none cursor-pointer', 'form-input w-full px-4 py-3 rounded-md text-[16px] md:text-[18px] text-foreground appearance-none cursor-pointer');
-p = p.replace('w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium text-sm rounded-md', 'w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium text-[16px] md:text-[18px] rounded-md');
-p = p.replace('skill-tag px-4 py-2.5 rounded-lg text-sm text-foreground bg-card/50', 'skill-tag px-4 py-2.5 rounded-lg text-[16px] md:text-[18px] text-foreground bg-card/50');
-p = p.replace('skill-tag px-4 py-2.5 rounded-lg text-sm text-muted-foreground bg-card/30', 'skill-tag px-4 py-2.5 rounded-lg text-[16px] md:text-[18px] text-muted-foreground bg-card/30');
-p = p.replace('font-medium text-sm">Federal', 'font-medium text-[16px] md:text-[18px]">Federal');
-p = p.replace('font-medium text-sm">Lagos, Nigeria', 'font-medium text-[16px] md:text-[18px]">Lagos, Nigeria');
-p = p.replace('className="text-muted-foreground leading-relaxed"', 'className="text-[16px] md:text-[18px] text-muted-foreground leading-relaxed"');
-p = p.replace('px-6 py-3 bg-primary text-primary-foreground font-medium text-sm rounded-md hover:bg-primary/90"', 'px-6 py-3 bg-primary text-primary-foreground font-medium text-[16px] md:text-[18px] rounded-md hover:bg-primary/90"');
-
-// SMALL: 14px flat (sidebar labels, metadata)
-p = p.replace('text-xs text-muted-foreground mt-1">{stat.label}', 'text-[12px] md:text-[14px] text-muted-foreground mt-1">{stat.label}');
-p = p.replace('text-[14px] text-muted-foreground mt-1">{stat.label}', 'text-[12px] md:text-[14px] text-muted-foreground mt-1">{stat.label}');
-p = p.replace('flex items-center gap-2 text-xs text-primary font-mono mt-1', 'flex items-center gap-2 text-[14px] text-primary font-mono mt-1');
-p = p.replace('block text-xs text-muted-foreground mb-2 font-mono uppercase tracking-wider', 'block text-[14px] text-muted-foreground mb-2 font-mono uppercase tracking-wider');
-p = p.replace('text-xs text-muted-foreground mt-1 tracking-wider uppercase', 'text-[14px] text-muted-foreground mt-1 tracking-wider uppercase');
-p = p.replace('flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors', 'flex items-center gap-2 text-[14px] text-muted-foreground hover:text-primary transition-colors');
-p = p.replace('flex items-center gap-2 text-xs text-muted-foreground"', 'flex items-center gap-2 text-[14px] text-muted-foreground"');
-p = p.replace('text-xs text-muted-foreground">B.Tech.', 'text-[14px] text-muted-foreground">B.Tech.');
-p = p.replace('text-xs text-muted-foreground">Open to remote', 'text-[14px] text-muted-foreground">Open to remote');
-p = p.replace('p-3 rounded-lg border border-border bg-card/30 text-center text-xs text-muted-foreground', 'p-3 rounded-lg border border-border bg-card/30 text-center text-[14px] text-muted-foreground');
-p = p.replace('px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-mono', 'px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[14px] font-mono');
-p = p.replace('text-sm font-semibold truncate group-hover:text-primary', 'text-[14px] md:text-[16px] font-semibold truncate group-hover:text-primary');
-p = p.replace('className="text-xs text-muted-foreground">\n                    UI/UX', 'className="text-[14px] text-muted-foreground">\n                    UI/UX');
-
-// BADGE: Keep at 12px (status pill, must be smaller than 16px body)
-// This overrides the earlier "SMALL" replacement if it matched the badge
-p = p.replace(
-  'px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[14px] font-mono"',
-  'px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[12px] font-mono"'
-);
-
-// XS: 12px (section labels, micro text, nav icons)
-p = p.replace('text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-mono', 'text-[12px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-mono');
-p = p.replace('text-xs opacity-60 w-4 text-center', 'text-[12px] opacity-60 w-4 text-center');
-p = p.replace('text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono', 'text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono');
-p = p.replace('text-xs uppercase tracking-[0.2em] text-muted-foreground font-mono"', 'text-[12px] uppercase tracking-[0.2em] text-muted-foreground font-mono"');
-p = p.replace('text-xs text-primary font-mono mb-2', 'text-[12px] text-primary font-mono mb-2');
-p = p.replace('px-3 py-1.5 text-xs rounded-full border border-primary/20 bg-primary/5 text-primary font-mono', 'px-3 py-1.5 text-[12px] rounded-full border border-primary/20 bg-primary/5 text-primary font-mono');
-p = p.replace('class="text-xs text-muted-foreground">', 'class="text-[12px] text-muted-foreground">');
-p = p.replace('flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground', 'flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-muted-foreground');
-
-// Cleanup micro
-p = p.replace('text-[10px]', 'text-[12px]');
-p = p.replace('text-[11px]', 'text-[12px]');
-
-fs.writeFileSync('src/app/page.tsx', p);
-console.log('4/4 page.tsx done');
-
-// Verify
-const remClasses = ['text-sm', 'text-xs', 'text-base', 'text-lg', 'text-xl', 'text-2xl', 'text-3xl', 'text-4xl', 'text-5xl', 'text-6xl', 'text-7xl', 'text-8xl'];
-let found = [];
-for (const cls of remClasses) {
-  const lines = p.split('\n');
-  for (let i = 0; i < lines.length; i++) {
-    if (lines[i].includes('className') && new RegExp('(?:^|[^\\-])' + cls.replace('-', '\\-') + '(?:\\s|$|"|\\})').test(lines[i])) {
-      found.push('  L' + (i+1) + ': ' + cls);
+// 1c. Hero description: find I&apos;m, walk back to className
+const descIdx = p.indexOf("I&apos;m");
+if (descIdx > -1) {
+  let start = p.lastIndexOf('<motion.p', descIdx);
+  if (start > -1) {
+    let cs = p.indexOf('className="', start);
+    let ce = p.indexOf('"', cs + 11);
+    if (cs > -1 && ce > -1 && cs < descIdx) {
+      let cls = p.substring(cs + 11, ce);
+      let newCls = cls.replace(/text-(?:sm|\[\d+px\])(\s+md:text-\[\d+\])?/, 'text-[18px]');
+      if (newCls !== cls) {
+        p = p.substring(0, cs + 11) + newCls + p.substring(ce);
+        console.log('OK Hero description -> 18px');
+        changes++;
+      }
     }
   }
 }
-if (found.length) {
-  console.log('WARNING: Remaining rem-based classes:');
-  found.forEach(f => console.log(f));
-} else {
-  console.log('Verified: 0 rem-based text classes found.');
+
+// 1d. Section headers with mb-12
+const secRegex = /(<motion\.h2[^>]*className=")text-(?:xl|\[\d+px\])(\s+md:text-\[\d+px\][^"]*font-bold\s+mb-12")/g;
+let sc = 0;
+p = p.replace(secRegex, (m, pre, post) => { sc++; return pre + 'text-[28px]' + post; });
+if (sc) { console.log('OK ' + sc + ' section headers -> 28px mobile'); changes += sc; }
+
+// 1e. All remaining motion.h2
+const h2r = /(<motion\.h2[^>]*className=")text-\[\d+px\](\s+md:text-\[\d+px\][^"]*(?:font-bold|leading))/g;
+let h2c = 0;
+p = p.replace(h2r, (m, pre, post) => { h2c++; return pre + 'text-[28px]' + post; });
+if (h2c) { console.log('OK ' + h2c + ' more h2 -> 28px mobile'); changes += h2c; }
+
+// 1f. Remove broken style lines
+const br = /^\s+style=\{\{\s*fontSize:.*\}\}\s*$/gm;
+const bm = p.match(br);
+if (bm) { p = p.replace(br, ''); console.log('OK Removed ' + bm.length + ' broken style lines'); changes += bm.length; }
+
+// 1g. Remove hero-heading class
+if (p.includes('hero-heading')) { p = p.replace(/\s*hero-heading/g, ''); console.log('OK Removed hero-heading'); changes++; }
+
+// 1h. Add photo to About section
+if (fs.existsSync(avatarPath) && !p.includes('joel-avatar')) {
+  const ar = /(\/\* ─── ABOUT ─── \*\/\}\s*\n\s*<Section id="about"[^>]*>)\s*\n(\s*)<SectionLabel>/;
+  if (ar.test(p)) {
+    const pb = `
+ $2<div className="mb-10 flex justify-center lg:justify-start">
+ $2  <motion.div variants={fadeInUp} className="relative group">
+ $2    <div className="w-[180px] h-[180px] md:w-[200px] md:h-[200px] rounded-2xl overflow-hidden border-2 border-primary/20 group-hover:border-primary/50 transition-all duration-500 shadow-[0_0_40px_rgba(80,200,120,0.08)] group-hover:shadow-[0_0_60px_rgba(80,200,120,0.15)]">
+ $2      <img src="/joel-avatar.png" alt="Joel Akinlosotu" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+ $2    </div>
+ $2    <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-primary stat-pulse" />
+ $2  </motion.div>
+ $2</div>
+ $2<SectionLabel>`;
+    p = p.replace(ar, '$1\n' + pb);
+    console.log('OK Photo added to About section');
+    changes++;
+  }
 }
 
-// Verify badge
-if (p.includes('Available for freelance work')) {
-  console.log('WARNING: Old badge text still present!');
-} else if (p.includes('Available')) {
-  console.log('Verified: Badge text is "Available"');
-}
+fs.writeFileSync('src/app/page.tsx', p);
 
-// Verify badge size
-const badgeLine = p.split('\n').find(l => l.includes('Available') || (l.includes('stat-pulse') && l.includes('font-mono')));
-if (badgeLine && badgeLine.includes('text-[12px]')) {
-  console.log('Verified: Badge is text-[12px]');
-} else if (badgeLine) {
-  console.log('WARNING: Badge size may be wrong: ' + badgeLine.trim().slice(-40));
-}
+// ─── 2. Clean globals.css ───
+let css = fs.readFileSync('src/app/globals.css', 'utf8');
+let cc = 0;
+if (css.includes('MOBILE OVERRIDES')) { css = css.replace(/\/\* === MOBILE OVERRIDES[\s\S]*?\*\//g, ''); console.log('OK Cleaned MOBILE OVERRIDES'); cc++; }
+if (css.includes('hero-heading')) { css = css.replace(/\/\*[\s\S]*?hero-heading[\s\S]*?\}\s*\}/g, ''); console.log('OK Cleaned hero-heading CSS'); cc++; }
+if (css.includes('font-size: 16px !important')) { css = css.replace(/\/\*\s*[\s\S]*?font-size:\s*16px\s*!important[\s\S]*?\*\//g, ''); console.log('OK Cleaned !important block'); cc++; }
+css = css.replace(/\n{4,}/g, '\n\n');
+fs.writeFileSync('src/app/globals.css', css);
+changes += cc;
 
-console.log('\nDone. All fixes applied.');
+console.log('\n=== TOTAL: ' + changes + ' changes ===');
+if (changes === 0) { console.log('Nothing changed.'); process.exit(1); }
