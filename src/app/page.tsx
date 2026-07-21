@@ -834,7 +834,7 @@ export default function Portfolio() {
               <motion.h1
                 variants={fadeInUp}
                 custom={1}
-                className="text-[28px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] mb-6 glow-text"
+                className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
               >
                 WEB
                 <br />
@@ -845,7 +845,7 @@ export default function Portfolio() {
               <motion.p
                 variants={fadeInUp}
                 custom={2}
-                className="text-sm md:text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8"
+                className="text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8"
               >
                 Hi! I&apos;m <span className="text-foreground font-medium">Joel Akinlosotu</span>. A
                 results-driven Web Developer &amp; Systems Architect with 10+ years of experience
@@ -894,7 +894,7 @@ export default function Portfolio() {
             <div>
               <motion.h2
                 variants={fadeInUp}
-                className="text-xl md:text-[40px] font-bold leading-tight mb-8"
+                className="text-[28px] md:text-[40px] font-bold leading-tight mb-8"
               >
                 I believe in building digital experiences that drive real results for businesses
                 and delight users at every touchpoint.
@@ -948,7 +948,7 @@ export default function Portfolio() {
         {/* ─── PROJECTS & SKILLS ─── */}
         <Section id="projects-skills">
           <SectionLabel>// Projects &amp; Skills</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-[28px] md:text-[40px] font-bold mb-12">
             FEATURED WORKS
           </motion.h2>
 
@@ -960,7 +960,7 @@ export default function Portfolio() {
             ))}
           </div>
 
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-[28px] md:text-[40px] font-bold mb-12">
             MY STACK
           </motion.h2>
 
@@ -1048,7 +1048,7 @@ export default function Portfolio() {
         {/* ─── EXPERIENCE ─── */}
         <Section id="experience">
           <SectionLabel>// Experience</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
+          <motion.h2 variants={fadeInUp} className="text-[28px] md:text-[40px] font-bold mb-12">
             MY EXPERIENCE
           </motion.h2>
 
@@ -1156,7 +1156,7 @@ export default function Portfolio() {
             <div>
               <motion.h2
                 variants={fadeInUp}
-                className="text-xl md:text-[40px] font-bold leading-tight mb-6"
+                className="text-[28px] md:text-[40px] font-bold leading-tight mb-6"
               >
                 Have a project in mind? Let&apos;s build something great together.
               </motion.h2>
