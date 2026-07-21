@@ -12,8 +12,9 @@ function useCountUp(target, inView, duration = 2000) {
     let start = null;
     let raf;
     const step = (ts) => {
-      if (start === null) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);
+      const s = start ?? ts;
+      start = s;
+      const progress = Math.min((ts - s) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * target));
       if (progress < 1) raf = requestAnimationFrame(step);
