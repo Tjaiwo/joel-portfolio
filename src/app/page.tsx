@@ -485,7 +485,7 @@ function BrowserMockupCard({
           {project.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-2 py-0.5 text-[10px] rounded-full border border-border text-muted-foreground/70 font-mono"
+              className="px-2 py-0.5 text-[12px] rounded-full border border-border text-muted-foreground/70 font-mono"
             >
               {tag}
             </span>
@@ -981,7 +981,7 @@ export default function Portfolio() {
             </div>
 
             <div>
-              <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Key Skills &amp; Expertise
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1253,7 +1253,7 @@ export default function Portfolio() {
                       </select>
                   </div>
                   <div>
-                    <label className="block text-xs text-muted-foreground mb-2 font-mono uppercase tracking-wider">
+                    <label className="block text-[14px] text-muted-foreground mb-2 font-mono uppercase tracking-wider">
                       Message
                     </label>
                     <textarea
