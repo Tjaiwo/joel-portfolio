@@ -494,7 +494,7 @@ function BrowserMockupCard({
 
         {/* Designer credit line */}
         {project.designer && (
-          <div className="pt-2 border-t border-border text-[10px] text-muted-foreground/60">
+          <div className="pt-2 border-t border-border text-[12px] text-muted-foreground/60">
             UI/UX Designer -{" "}
             <a
               href={DESIGNER.url}
@@ -822,9 +822,9 @@ export default function Portfolio() {
               className="relative z-10"
             >
               <motion.div variants={fadeInUp} custom={0} className="mb-4">
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[14px] font-mono">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[12px] font-mono">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary stat-pulse" />
-                  Available for freelance work
+                  Available
                 </span>
               </motion.div>
 
@@ -1000,7 +1000,7 @@ export default function Portfolio() {
 
             {/* No-Code / Low-Code row */}
             <div>
-              <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 No-Code &amp; Low-Code
               </motion.p>
               <div className="flex flex-wrap gap-3">

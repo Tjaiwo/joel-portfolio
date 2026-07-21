@@ -1,38 +1,66 @@
 const fs = require('fs');
 
-// ══ 1. Fix TypeScript error in useCountUp ══
+// ══ 1. Fix TypeScript error — use nullish coalescing (100% type-safe) ══
 let p = fs.readFileSync('src/app/page.tsx', 'utf8');
 
-const oldCountUp = `    const step = (ts: number) => {
+// Pattern A: standard if-null-set pattern
+const tsFixA = `    const step = (ts: number) => {
       if (start === null) start = ts;
       const progress = Math.min((ts - start) / duration, 1);`;
 
-const newCountUp = `    const step = (ts: number) => {
-      if (start === null) {
-        start = ts;
-        raf = requestAnimationFrame(step);
-        return;
-      }
-      const progress = Math.min((ts - start) / duration, 1);`;
+const tsFixANew = `    const step = (ts: number) => {
+      const s = start ?? ts;
+      start = s;
+      const progress = Math.min((ts - s) / duration, 1);`;
 
-p = p.replace(oldCountUp, newCountUp);
-console.log('1/4 Fixed useCountUp TypeScript error');
+// Pattern B: indented with 6 spaces (inside hook)
+const tsFixB = `      const step = (ts: number) => {
+        if (start === null) start = ts;
+        const progress = Math.min((ts - start) / duration, 1);`;
+
+const tsFixBNew = `      const step = (ts: number) => {
+        const s = start ?? ts;
+        start = s;
+        const progress = Math.min((ts - s) / duration, 1);`;
+
+if (p.includes(tsFixA)) {
+  p = p.replace(tsFixA, tsFixANew);
+  console.log('1a/4 Fixed TS error (pattern A)');
+} else if (p.includes(tsFixB)) {
+  p = p.replace(tsFixB, tsFixBNew);
+  console.log('1a/4 Fixed TS error (pattern B)');
+} else {
+  // Fallback: regex for any variation
+  p = p.replace(
+    /(const step = \(ts: number\) => \{[\s\S]*?)if \(start === null\) start = ts;\s*\n(\s*)const progress = Math\.min\(\(ts - start\) \/ duration/,
+    '$1const s = start ?? ts;\n$2start = s;\n$2const progress = Math.min((ts - s) / duration'
+  );
+  console.log('1a/4 Fixed TS error (regex fallback)');
+}
+
+// ══ 1b. Change "Available for freelance work" → "Available" ══
+p = p.replace('Available for freelance work', 'Available');
+console.log('1b/4 Changed badge text to "Available"');
 
 // ══ 2. layout.tsx: Geist → Inter ══
 let layout = fs.readFileSync('src/app/layout.tsx', 'utf8');
-layout = layout.replace(
-  'import { Geist, Geist_Mono } from "next/font/google";',
-  'import { Inter, Geist_Mono } from "next/font/google";'
-);
-layout = layout.replace(
-  'const geistSans = Geist({\n  variable: "--font-geist-sans",\n  subsets: ["latin"],\n});',
-  'const inter = Inter({\n  variable: "--font-inter",\n  subsets: ["latin"],\n  weight: ["400", "500", "600", "700"],\n});'
-);
-layout = layout.replace('geistSans.variable', 'inter.variable');
-fs.writeFileSync('src/app/layout.tsx', layout);
-console.log('2/4 layout.tsx → Inter font');
+if (layout.includes('Geist')) {
+  layout = layout.replace(
+    'import { Geist, Geist_Mono } from "next/font/google";',
+    'import { Inter, Geist_Mono } from "next/font/google";'
+  );
+  layout = layout.replace(
+    'const geistSans = Geist({\n  variable: "--font-geist-sans",\n  subsets: ["latin"],\n});',
+    'const inter = Inter({\n  variable: "--font-inter",\n  subsets: ["latin"],\n  weight: ["400", "500", "600", "700"],\n});'
+  );
+  layout = layout.replace('geistSans.variable', 'inter.variable');
+  fs.writeFileSync('src/app/layout.tsx', layout);
+  console.log('2/4 layout.tsx -> Inter font');
+} else {
+  console.log('2/4 layout.tsx already has Inter');
+}
 
-// ══ 3. globals.css: fix font variable + remove !important block ══
+// ══ 3. globals.css: fix font variable + remove !important ══
 let css = fs.readFileSync('src/app/globals.css', 'utf8');
 css = css.replace('--font-sans: var(--font-geist-sans);', '--font-sans: var(--font-inter);');
 if (css.includes('--radius: 0.625rem;')) {
@@ -47,46 +75,34 @@ if (impBlock.test(css)) {
   css = css.replace(impBlock, '/* Base font: 16px (all sizing handled via text-[Npx] in components) */\nhtml, body {\n  font-size: 16px;\n}');
 }
 fs.writeFileSync('src/app/globals.css', css);
-console.log('3/4 globals.css → clean base font, no !important, no rem');
+console.log('3/4 globals.css cleaned');
 
 // ══ 4. page.tsx: complete px type scale ══
 
-// H1: Hero name
+// H1: Hero name (40px mobile, 72px desktop)
 p = p.replace(
   'text-[32px] md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6 glow-text',
   'text-[40px] md:text-[72px] font-bold tracking-tight leading-[0.95] mb-6 glow-text'
 );
 
-// H2: Section headings
+// H2: Section headings (32px mobile, 40px desktop)
 p = p.replace(/text-2xl md:text-4xl font-bold mb-12/g, 'text-[32px] md:text-[40px] font-bold mb-12');
 p = p.replace(/text-2xl md:text-4xl font-bold leading-tight mb-6/g, 'text-[32px] md:text-[40px] font-bold leading-tight mb-6');
 p = p.replace(/text-2xl font-bold leading-tight mb-8/g, 'text-[32px] md:text-[40px] font-bold leading-tight mb-8');
 p = p.replace(/text-2xl font-bold tracking-tight/g, 'text-[32px] md:text-[40px] font-bold tracking-tight');
 
-// H2: Mobile menu heading
-p = p.replace(
-  'text-lg font-bold tracking-tight',
-  'text-[24px] md:text-[28px] font-bold tracking-tight'
-);
+// H2: Mobile menu heading (24px, 28px desktop)
+p = p.replace('text-lg font-bold tracking-tight', 'text-[24px] md:text-[28px] font-bold tracking-tight');
 
-// H3: Stat values (32px mobile → 40px desktop)
-p = p.replace(
-  'text-2xl md:text-3xl font-bold text-primary',
-  'text-[32px] md:text-[40px] font-bold text-primary tabular-nums'
-);
-p = p.replace(
-  'text-[24px] md:text-[40px] font-bold text-primary tabular-nums',
-  'text-[32px] md:text-[40px] font-bold text-primary tabular-nums'
-);
+// H3: Stat values (32px mobile, 40px desktop) — CORRECTED from 24px
+p = p.replace('text-2xl md:text-3xl font-bold text-primary', 'text-[32px] md:text-[40px] font-bold text-primary tabular-nums');
+p = p.replace('text-[24px] md:text-[40px] font-bold text-primary tabular-nums', 'text-[32px] md:text-[40px] font-bold text-primary tabular-nums');
 
-// H3: Modal titles
+// H3: Modal titles (24px mobile, 28px desktop)
 p = p.replace('text-xl md:text-3xl font-bold', 'text-[24px] md:text-[28px] font-bold');
-p = p.replace(
-  'text-xl md:text-lg font-semibold mb-2">Message Sent!</h3>',
-  'text-[24px] md:text-[28px] font-semibold mb-2">Message Sent!</h3>'
-);
+p = p.replace('text-xl md:text-lg font-semibold mb-2">Message Sent!</h3>', 'text-[24px] md:text-[28px] font-semibold mb-2">Message Sent!</h3>');
 
-// BODY: 16px / 18px
+// BODY: 16px mobile / 18px desktop
 p = p.replace('nav-link w-full text-left flex items-center gap-3 px-3 py-2.5 text-sm rounded-md', 'nav-link w-full text-left flex items-center gap-3 px-3 py-2.5 text-[16px] md:text-[18px] rounded-md');
 p = p.replace('w-full text-left px-3 py-2.5 text-sm rounded-md', 'w-full text-left px-3 py-2.5 text-[16px] md:text-[18px] rounded-md');
 p = p.replace('text-base md:text-lg text-muted-foreground max-w-xl', 'text-[16px] md:text-[18px] text-muted-foreground max-w-xl');
@@ -108,7 +124,7 @@ p = p.replace('font-medium text-sm">Lagos, Nigeria', 'font-medium text-[16px] md
 p = p.replace('className="text-muted-foreground leading-relaxed"', 'className="text-[16px] md:text-[18px] text-muted-foreground leading-relaxed"');
 p = p.replace('px-6 py-3 bg-primary text-primary-foreground font-medium text-sm rounded-md hover:bg-primary/90"', 'px-6 py-3 bg-primary text-primary-foreground font-medium text-[16px] md:text-[18px] rounded-md hover:bg-primary/90"');
 
-// SMALL: 14px / responsive
+// SMALL: 14px flat (sidebar labels, metadata)
 p = p.replace('text-xs text-muted-foreground mt-1">{stat.label}', 'text-[12px] md:text-[14px] text-muted-foreground mt-1">{stat.label}');
 p = p.replace('text-[14px] text-muted-foreground mt-1">{stat.label}', 'text-[12px] md:text-[14px] text-muted-foreground mt-1">{stat.label}');
 p = p.replace('flex items-center gap-2 text-xs text-primary font-mono mt-1', 'flex items-center gap-2 text-[14px] text-primary font-mono mt-1');
@@ -123,7 +139,14 @@ p = p.replace('px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 te
 p = p.replace('text-sm font-semibold truncate group-hover:text-primary', 'text-[14px] md:text-[16px] font-semibold truncate group-hover:text-primary');
 p = p.replace('className="text-xs text-muted-foreground">\n                    UI/UX', 'className="text-[14px] text-muted-foreground">\n                    UI/UX');
 
-// XS: 12px
+// BADGE: Keep at 12px (status pill, must be smaller than 16px body)
+// This overrides the earlier "SMALL" replacement if it matched the badge
+p = p.replace(
+  'px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[14px] font-mono"',
+  'px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[12px] font-mono"'
+);
+
+// XS: 12px (section labels, micro text, nav icons)
 p = p.replace('text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-mono', 'text-[12px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-mono');
 p = p.replace('text-xs opacity-60 w-4 text-center', 'text-[12px] opacity-60 w-4 text-center');
 p = p.replace('text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono', 'text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono');
@@ -138,7 +161,7 @@ p = p.replace('text-[10px]', 'text-[12px]');
 p = p.replace('text-[11px]', 'text-[12px]');
 
 fs.writeFileSync('src/app/page.tsx', p);
-console.log('4/4 page.tsx → strict px type scale');
+console.log('4/4 page.tsx done');
 
 // Verify
 const remClasses = ['text-sm', 'text-xs', 'text-base', 'text-lg', 'text-xl', 'text-2xl', 'text-3xl', 'text-4xl', 'text-5xl', 'text-6xl', 'text-7xl', 'text-8xl'];
@@ -157,4 +180,20 @@ if (found.length) {
 } else {
   console.log('Verified: 0 rem-based text classes found.');
 }
+
+// Verify badge
+if (p.includes('Available for freelance work')) {
+  console.log('WARNING: Old badge text still present!');
+} else if (p.includes('Available')) {
+  console.log('Verified: Badge text is "Available"');
+}
+
+// Verify badge size
+const badgeLine = p.split('\n').find(l => l.includes('Available') || (l.includes('stat-pulse') && l.includes('font-mono')));
+if (badgeLine && badgeLine.includes('text-[12px]')) {
+  console.log('Verified: Badge is text-[12px]');
+} else if (badgeLine) {
+  console.log('WARNING: Badge size may be wrong: ' + badgeLine.trim().slice(-40));
+}
+
 console.log('\nDone. All fixes applied.');
