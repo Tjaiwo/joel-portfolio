@@ -398,7 +398,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <motion.p
       variants={fadeInUp}
-      className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-mono"
+      className="text-[12px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-mono"
     >
       {children}
     </motion.p>
@@ -433,7 +433,7 @@ function BrowserMockupCard({
         <span className="browser-dot browser-dot-red" />
         <span className="browser-dot browser-dot-yellow" />
         <span className="browser-dot browser-dot-green" />
-        <span className="ml-3 text-[11px] text-muted-foreground/60 font-mono truncate select-none">
+        <span className="ml-3 text-[12px] text-muted-foreground/60 font-mono truncate select-none">
           {project.url.replace(/^https?:\/\//, "")}
         </span>
       </div>
@@ -443,7 +443,7 @@ function BrowserMockupCard({
         {/* Loading spinner overlay */}
         <div className={`iframe-spinner ${loaded ? "hidden" : ""}`}>
           <div className="iframe-spinner-ring" />
-          <p className="text-[10px] text-muted-foreground/50 mt-3 font-mono uppercase tracking-widest">
+          <p className="text-[12px] text-muted-foreground/50 mt-3 font-mono uppercase tracking-widest">
             Loading
           </p>
         </div>
@@ -466,7 +466,7 @@ function BrowserMockupCard({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="text-sm font-semibold truncate group-hover:text-primary transition-colors hover:underline underline-offset-2"
+            className="text-[14px] md:text-[16px] font-semibold truncate group-hover:text-primary transition-colors hover:underline underline-offset-2"
           >
             {project.title}
           </a>
@@ -688,7 +688,7 @@ export default function Portfolio() {
             <h2 className="text-xl font-bold tracking-tight">
               Joel<span className="text-primary">.</span>
             </h2>
-            <p className="text-xs text-muted-foreground mt-1 tracking-wider uppercase">
+            <p className="text-[14px] text-muted-foreground mt-1 tracking-wider uppercase">
               Web Developer
             </p>
           </motion.div>
@@ -725,7 +725,7 @@ export default function Portfolio() {
           <div className="space-y-2">
             <a
               href="mailto:joelakinlosotu@gmail.com"
-              className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-[14px] text-muted-foreground hover:text-primary transition-colors"
             >
               <Mail size={13} />
               joelakinlosotu@gmail.com
@@ -762,7 +762,7 @@ export default function Portfolio() {
       {/* ══════════ MOBILE HEADER ══════════ */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="flex items-center justify-between px-5 py-4">
-          <h2 className="text-lg font-bold tracking-tight">
+          <h2 className="text-[24px] md:text-[28px] font-bold tracking-tight">
             Joel<span className="text-primary">.</span>
           </h2>
           <div className="flex items-center gap-2">
@@ -790,7 +790,7 @@ export default function Portfolio() {
                   <button
                     key={item.id}
                     onClick={() => scrollTo(item.id)}
-                    className={`w-full text-left px-3 py-2.5 text-sm rounded-md transition-all ${
+                    className={`w-full text-left px-3 py-2.5 text-[16px] md:text-[18px] rounded-md transition-all ${
                       activeSection === item.id
                         ? "text-primary bg-primary/5"
                         : "text-muted-foreground"
@@ -822,7 +822,7 @@ export default function Portfolio() {
               className="relative z-10"
             >
               <motion.div variants={fadeInUp} custom={0} className="mb-4">
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-mono">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[14px] font-mono">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary stat-pulse" />
                   Available for freelance work
                 </span>
@@ -932,7 +932,7 @@ export default function Portfolio() {
                   <motion.div
                     key={tool}
                     variants={fadeInUp}
-                    className="p-3 rounded-lg border border-border bg-card/30 text-center text-xs text-muted-foreground hover:text-primary hover:border-primary/20 transition-all"
+                    className="p-3 rounded-lg border border-border bg-card/30 text-center text-[14px] text-muted-foreground hover:text-primary hover:border-primary/20 transition-all"
                   >
                     {tool}
                   </motion.div>
@@ -963,7 +963,7 @@ export default function Portfolio() {
 
           <div className="space-y-12">
             <div>
-              <motion.p variants={fadeInUp} className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Core Stack
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1031,7 +1031,7 @@ export default function Portfolio() {
                       key={tool}
                       variants={fadeInUp}
                       custom={i}
-                      className="skill-tag px-4 py-2.5 rounded-lg text-sm text-muted-foreground bg-card/30"
+                      className="skill-tag px-4 py-2.5 rounded-lg text-[16px] md:text-[18px] text-muted-foreground bg-card/30"
                     >
                       {tool}
                     </motion.span>
@@ -1109,7 +1109,7 @@ export default function Portfolio() {
                           {/* Freelance sub-projects */}
                           {hasProjects && (
                             <div className="space-y-5 pt-3 border-t border-border">
-                              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-mono">
+                              <p className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground font-mono">
                                 Notable Projects
                               </p>
                               {(exp as typeof EXPERIENCE[number] & { projects: Array<{ title: string; projectId: string; descriptions: string[] }> }).projects.map((proj, pi) => (
@@ -1200,8 +1200,8 @@ export default function Portfolio() {
                   <div className="p-4 rounded-full bg-primary/10 mb-4">
                     <CheckCircle2 size={32} className="text-primary" />
                   </div>
-                  <h3 className="text-xl md:text-lg font-semibold mb-2">Message Sent!</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="text-[24px] md:text-[28px] font-semibold mb-2">Message Sent!</h3>
+                  <p className="text-[16px] md:text-[18px] text-muted-foreground">
                     Thank you for reaching out. I&apos;ll get back to you soon.
                   </p>
                 </motion.div>
@@ -1234,7 +1234,7 @@ export default function Portfolio() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-muted-foreground mb-2 font-mono uppercase tracking-wider">
+                    <label className="block text-[14px] text-muted-foreground mb-2 font-mono uppercase tracking-wider">
                       Budget ({currency.code})
                     </label>
                     <select
@@ -1360,7 +1360,7 @@ export default function Portfolio() {
               {/* Details */}
               <div className="p-6 md:p-8 space-y-6">
                 <div>
-                  <p className="text-xs text-primary font-mono mb-2">
+                  <p className="text-[12px] text-primary font-mono mb-2">
                     PROJECT _{String(selectedProject.id).padStart(2, "0")}
                   </p>
                   <h3 className="text-lg md:text-[28px] font-bold">{selectedProject.title}</h3>
@@ -1374,7 +1374,7 @@ export default function Portfolio() {
                   {selectedProject.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1.5 text-xs rounded-full border border-primary/20 bg-primary/5 text-primary font-mono"
+                      className="px-3 py-1.5 text-[12px] rounded-full border border-primary/20 bg-primary/5 text-primary font-mono"
                     >
                       {tag}
                     </span>
@@ -1383,7 +1383,7 @@ export default function Portfolio() {
 
                 {/* Designer credit in modal */}
                 {selectedProject.designer && (
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-[14px] text-muted-foreground">
                     UI/UX Designer:{" "}
                     <a
                       href={DESIGNER.url}
