@@ -948,7 +948,7 @@ export default function Portfolio() {
         {/* ─── PROJECTS & SKILLS ─── */}
         <Section id="projects-skills">
           <SectionLabel>// Projects &amp; Skills</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
             FEATURED WORKS
           </motion.h2>
 
@@ -960,7 +960,7 @@ export default function Portfolio() {
             ))}
           </div>
 
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
             MY STACK
           </motion.h2>
 
@@ -1048,7 +1048,7 @@ export default function Portfolio() {
         {/* ─── EXPERIENCE ─── */}
         <Section id="experience">
           <SectionLabel>// Experience</SectionLabel>
-          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12" style={{ fontSize: "clamp(28px, 5vw, 40px)" }}>
+          <motion.h2 variants={fadeInUp} className="text-xl md:text-[40px] font-bold mb-12">
             MY EXPERIENCE
           </motion.h2>
 
