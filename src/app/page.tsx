@@ -325,7 +325,7 @@ const fadeInUp = {
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
   }),
 };
 
@@ -339,7 +339,7 @@ const slideInLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
   },
 };
 
@@ -1091,7 +1091,7 @@ export default function Portfolio() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                        transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] as const }}
                         className="overflow-hidden"
                       >
                         <div className="px-5 pb-5 space-y-5">
@@ -1337,7 +1337,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 40, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.97 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as const }}
               className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-xl border border-border bg-background/95 backdrop-blur-sm"
               onClick={(e) => e.stopPropagation()}
             >
