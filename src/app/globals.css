@@ -391,3 +391,10 @@ html, body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+/* Force hero heading size on mobile */
+@media (max-width: 767px) {
+  .hero-heading {
+    font-size: 40px !important;
+    line-height: 44px !important;
+  }
+}
