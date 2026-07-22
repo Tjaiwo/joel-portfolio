@@ -260,6 +260,7 @@ function fmtNum(n) { return n.toLocaleString("en-US"); }
 
 function makeRanges(symbol, rate, thresholds) {
   thresholds = thresholds || USD_THRESHOLDS;
+  thresholds = thresholds || USD_THRESHOLDS;
   var loc = thresholds.map(function(t) { return Math.round(t * rate); });
   return [
     { label: "Under " + symbol + fmtNum(loc[0]), isCustom: true },
