@@ -844,8 +844,7 @@ export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<(typeof PROJECTS)[0] | null>(null);
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "", budget: "" });
-  const [showCustomBudget, setShowCustomBudget] = useState(false);
-  const [customBudget, setCustomBudget] = useState("");
+
 
   /* Currency detection — client-only to prevent hydration mismatch */
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
