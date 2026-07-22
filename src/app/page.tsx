@@ -534,7 +534,7 @@ function handleCustomBudget(ranges, currencyCode, onBudgetSelect) {
   return function(selectedRange) {
     if (selectedRange && selectedRange.isCustom) {
       var budget = prompt("Enter your budget in " + currencyCode + ":");
-      if (budget && !isNaN(budget) && Number(budget) > 0) {
+      if (budget && !isNaN(Number(budget)) && Number(budget) > 0) {
         onBudgetSelect(currencyCode + " " + fmtNum(Number(budget)));
       } else if (budget !== null) {
         alert("Please enter a valid number greater than 0");
