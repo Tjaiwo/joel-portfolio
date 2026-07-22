@@ -1475,7 +1475,8 @@ export default function Portfolio() {
                         const val = e.target.value;
                         if (val === currency.ranges[0]?.label) {
                           setShowCustomBudget(true);
-                          setFormData({ ...formData, budget: "" });
+                          setFormData({ ...formData, budget: val });
+                          setCustomBudget("");
                         } else {
                           setShowCustomBudget(false);
                           setFormData({ ...formData, budget: val });
