@@ -844,6 +844,8 @@ export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<(typeof PROJECTS)[0] | null>(null);
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "", budget: "" });
+  const [showCustomBudget, setShowCustomBudget] = useState(false);
+  const [customBudget, setCustomBudget] = useState("");
 
   /* Currency detection — client-only to prevent hydration mismatch */
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
@@ -1472,13 +1474,10 @@ export default function Portfolio() {
                         onChange={(e) => {
                         const val = e.target.value;
                         if (val === currency.ranges[0]?.label) {
-                          const budget = prompt("Enter your budget in " + currency.code + ":");
-                          if (budget && !isNaN(Number(budget)) && Number(budget) > 0) {
-                            setFormData({ ...formData, budget: currency.code + " " + Number(budget).toLocaleString("en-US") });
-                          } else if (budget !== null) {
-                            alert("Please enter a valid number greater than 0");
-                          }
+                          setShowCustomBudget(true);
+                          setFormData({ ...formData, budget: "" });
                         } else {
+                          setShowCustomBudget(false);
                           setFormData({ ...formData, budget: val });
                         }
                       }}
