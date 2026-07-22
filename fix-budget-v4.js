@@ -1,19 +1,16 @@
 const fs = require('fs');
 let p = fs.readFileSync('src/app/page.tsx', 'utf8');
 
-// 1. Remove state variables
-p = p.replace(/  const \[showCustomBudget, setShowCustomBudget\] = useState\(false\);\n/, '');
-p = p.replace(/  const \[customBudget, setCustomBudget\] = useState\(""\);\n/, '');
+// Remove state variables
+p = p.replace(/  const \[showCustomBudget, setShowCustomBudget\] = useState\(false\);\s*\n/, '');
+p = p.replace(/  const \[customBudget, setCustomBudget\] = useState\(""\);\s*\n/, '');
 
-// 2. Find the Budget label and replace everything from there to </select>
-const labelPattern = /(<label className="block text-\[14px\] text-muted-foreground mb-2 font-mono uppercase tracking-wider">\s*Budget \([^)]*\)\s*<\/label>\s*)([\s\S]*?)(<\/select>)/;
-const labelMatch = p.match(labelPattern);
+// Match from <select to </select>
+const selectPattern = /<select\n[^>]*>[\s\S]*?<\/select>/;
+const selectMatch = p.match(selectPattern);
 
-if (labelMatch) {
-  const newInput = `<label className="block text-[14px] text-muted-foreground mb-2 font-mono uppercase tracking-wider">
-                      Budget
-                    </label>
-                    <div className="flex items-center rounded-md border border-input bg-background overflow-hidden focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+if (selectMatch && selectMatch[0].includes('setShowCustomBudget')) {
+  const newInput = `<div className="flex items-center rounded-md border border-input bg-background overflow-hidden focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
                       <span className="px-4 py-3 text-sm md:text-[18px] text-primary font-medium bg-muted/50 border-r border-input">
                         {currency.code}
                       </span>
@@ -35,10 +32,10 @@ if (labelMatch) {
                       />
                     </div>`;
   
-  p = p.replace(labelMatch[0], newInput);
-  console.log('✅ Budget section replaced');
+  p = p.replace(selectMatch[0], newInput);
+  console.log('✅ Select replaced with currency-prefixed input');
 } else {
-  console.log('⚠️ Could not find budget label + select pattern');
+  console.log('⚠️ Could not find select with setShowCustomBudget');
 }
 
 fs.writeFileSync('src/app/page.tsx', p);
