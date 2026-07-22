@@ -1,11 +1,14 @@
 const fs = require('fs');
 let p = fs.readFileSync('src/app/page.tsx', 'utf8');
 
+// Normalize line endings first
+p = p.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
 // Remove state variables
 p = p.replace(/  const \[showCustomBudget, setShowCustomBudget\] = useState\(false\);\n/, '');
 p = p.replace(/  const \[customBudget, setCustomBudget\] = useState\(""\);\n/, '');
 
-// Match the exact select opening tag
+// Now match the select (without \r issues)
 const selectStart = `<select
                         value={formData.budget}
                         onChange={(e) => {
@@ -57,8 +60,9 @@ if (p.includes(selectStart)) {
   p = p.replace(selectStart, newInput);
   console.log('✅ Select replaced');
 } else {
-  console.log('⚠️ Exact match failed. Lines 1471-1492:');
-  console.log(p.split('\n').slice(1470, 1492).join('\n'));
+  console.log('⚠️ Still no match after normalization. Debug info:');
+  const idx = p.indexOf('setShowCustomBudget(true)');
+  if (idx > 0) console.log('Found at index', idx, 'surrounding:', JSON.stringify(p.substring(idx-20, idx+50)));
 }
 
 fs.writeFileSync('src/app/page.tsx', p);
