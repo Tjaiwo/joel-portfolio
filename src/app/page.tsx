@@ -1469,7 +1469,7 @@ export default function Portfolio() {
                       Budget
                     </label>
                     <div className="flex items-center rounded-md border border-input bg-background overflow-hidden focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                      <span className="px-4 py-3 text-sm md:text-[18px] text-primary font-medium bg-muted/50 border-r border-input">
+                      <span className="px-4 py-3 text-xs md:text-[16px] text-primary font-medium bg-muted/50 border-r border-input">
                         {currency.code}
                       </span>
                       <input
@@ -1479,13 +1479,23 @@ export default function Portfolio() {
                         onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                         onBlur={(e) => {
                           const val = Number(e.target.value);
-                          const minBudget = currency.code === 'NGN' ? 200000 : 500;
+                          let minBudget;
+                          if (currency.code === 'NGN') {
+                            minBudget = 250000;
+                          } else if (currency.code === 'GBP') {
+                            minBudget = 500;
+                          } else if (currency.code === 'EUR') {
+                            minBudget = 500;
+                          } else {
+                            const rate = currency.r || 1;
+                            minBudget = Math.round(500 * rate);
+                          }
                           if (e.target.value && val < minBudget) {
                             alert('Minimum budget is ' + currency.code + ' ' + minBudget.toLocaleString("en-US"));
                             setFormData({ ...formData, budget: '' });
                           }
                         }}
-                        min={currency.code === 'NGN' ? 200000 : 500}
+                        min={currency.code === 'NGN' ? 250000 : currency.code === 'GBP' ? 500 : currency.code === 'EUR' ? 500 : 500}
                         className="flex-1 px-4 py-3 text-sm md:text-[18px] text-foreground bg-transparent outline-none border-0"
                       />
                     </div>
