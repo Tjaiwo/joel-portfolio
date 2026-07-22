@@ -505,8 +505,8 @@ function getCurrencyFromTimezone() {
     var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
     var cfg = lookupTZ(tz);
     if (cfg) {
-      if (cfg.useNGN) return { symbol: cfg.s, code: cfg.c, ranges: makeRanges(cfg.s, cfg.r, NGN_THRESHOLDS) };
-      return { symbol: cfg.s, code: cfg.c, ranges: makeRanges(cfg.s, cfg.r) };
+      if (cfg.useNGN) return { symbol: cfg.s, code: cfg.c, r: cfg.r, ranges: makeRanges(cfg.s, cfg.r, NGN_THRESHOLDS) };
+      return { symbol: cfg.s, code: cfg.c, r: cfg.r, ranges: makeRanges(cfg.s, cfg.r) };
     }
   } catch (e) {}
   try {
@@ -514,20 +514,20 @@ function getCurrencyFromTimezone() {
     if (lang && LANG_TZ[lang]) {
       var cfg2 = lookupTZ(LANG_TZ[lang]);
       if (cfg2) {
-        if (cfg2.useNGN) return { symbol: cfg2.s, code: cfg2.c, ranges: makeRanges(cfg2.s, cfg2.r, NGN_THRESHOLDS) };
-        return { symbol: cfg2.s, code: cfg2.c, ranges: makeRanges(cfg2.s, cfg2.r) };
+        if (cfg2.useNGN) return { symbol: cfg2.s, code: cfg2.c, r: cfg2.r, ranges: makeRanges(cfg2.s, cfg2.r, NGN_THRESHOLDS) };
+        return { symbol: cfg2.s, code: cfg2.c, r: cfg2.r, ranges: makeRanges(cfg2.s, cfg2.r) };
       }
     }
   } catch (e) {}
   try {
     var tz2 = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
     var cfg3 = regionFallback(tz2);
-    return { symbol: cfg3.s, code: cfg3.c, ranges: makeRanges(cfg3.s, cfg3.r) };
+    return { symbol: cfg3.s, code: cfg3.c, r: cfg3.r, ranges: makeRanges(cfg3.s, cfg3.r) };
   } catch (e) {}
-  return { symbol: "$", code: "USD", ranges: makeRanges("$", 1) };
+  return { symbol: "$", code: "USD", r: 1, ranges: makeRanges("$", 1) };
 }
 
-const DEFAULT_CURRENCY = { symbol: "$", code: "USD", ranges: makeRanges("$", 1) };
+const DEFAULT_CURRENCY = { symbol: "$", code: "USD", r: 1, ranges: makeRanges("$", 1) };
 
 
 function handleCustomBudget(ranges, currencyCode, onBudgetSelect) {
