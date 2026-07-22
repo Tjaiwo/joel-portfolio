@@ -1476,8 +1476,8 @@ export default function Portfolio() {
                           Select your budget range
                         </option>
                         {currency.ranges.map((range) => (
-                          <option key={range} value={range}>
-                            {range}
+                          <option key={range.label} value={range.label}>
+                            {range.label}
                           </option>
                         ))}
                       </select>
