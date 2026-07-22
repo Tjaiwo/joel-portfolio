@@ -12,7 +12,8 @@ const NGN_THRESHOLDS = [500000, 1500000, 3000000, 5000000, 10000000];
 function fmtNum(n) { return n.toLocaleString("en-US"); }
 
 function makeRanges(symbol, rate, thresholds) {
-  var loc = (thresholds || USD_THRESHOLDS).map(function(t) { return Math.round(t * rate); });
+  thresholds = thresholds || USD_THRESHOLDS;
+  var loc = thresholds.map(function(t) { return Math.round(t * rate); });
   return [
     { label: "Under " + symbol + fmtNum(loc[0]), isCustom: true },
     { label: symbol + fmtNum(loc[0]) + " \\u2013 " + symbol + fmtNum(loc[1]) },
