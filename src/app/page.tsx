@@ -1466,7 +1466,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <label className="block text-[14px] text-muted-foreground mb-2 font-mono uppercase tracking-wider">
-                      Budget ({currency.code})
+                      Budget
                     </label>
                     <select
                         value={formData.budget}
