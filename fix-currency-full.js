@@ -6,24 +6,27 @@ const NEW_BLOCK = `/* ────────────── CURRENCY DETECT
 /* Base USD thresholds used to generate local-currency budget ranges */
 const USD_THRESHOLDS = [1000, 3000, 5000, 10000, 25000];
 
+/* Nigeria-specific thresholds in NGN */
+const NGN_THRESHOLDS = [500000, 1500000, 3000000, 5000000, 10000000];
+
 function fmtNum(n) { return n.toLocaleString("en-US"); }
 
-function makeRanges(symbol, rate) {
-  var loc = USD_THRESHOLDS.map(function(t) { return Math.round(t * rate); });
+function makeRanges(symbol, rate, thresholds) {
+  var loc = (thresholds || USD_THRESHOLDS).map(function(t) { return Math.round(t * rate); });
   return [
-    "Under " + symbol + fmtNum(loc[0]),
-    symbol + fmtNum(loc[0]) + " \\u2013 " + symbol + fmtNum(loc[1]),
-    symbol + fmtNum(loc[1]) + " \\u2013 " + symbol + fmtNum(loc[2]),
-    symbol + fmtNum(loc[2]) + " \\u2013 " + symbol + fmtNum(loc[3]),
-    symbol + fmtNum(loc[3]) + " \\u2013 " + symbol + fmtNum(loc[4]),
-    symbol + fmtNum(loc[4]) + "+",
+    { label: "Under " + symbol + fmtNum(loc[0]), isCustom: true },
+    { label: symbol + fmtNum(loc[0]) + " \\u2013 " + symbol + fmtNum(loc[1]) },
+    { label: symbol + fmtNum(loc[1]) + " \\u2013 " + symbol + fmtNum(loc[2]) },
+    { label: symbol + fmtNum(loc[2]) + " \\u2013 " + symbol + fmtNum(loc[3]) },
+    { label: symbol + fmtNum(loc[3]) + " \\u2013 " + symbol + fmtNum(loc[4]) },
+    { label: symbol + fmtNum(loc[4]) + "+" },
   ];
 }
 
-/* Timezone → { symbol, code, rate (vs USD) } */
+/* Timezone → { symbol, code, rate (vs USD), useNGN (bool) } */
 const TZ_MAP = {
   /* ── Africa ── */
-  "Africa/Lagos":                          { s: "\\u20A6", c: "NGN", r: 1500 },
+  "Africa/Lagos":                          { s: "\\u20A6", c: "NGN", r: 1, useNGN: true },
   "Africa/Douala":                         { s: "CFA", c: "XAF", r: 600 },
   "Africa/Bangui":                         { s: "CFA", c: "XAF", r: 600 },
   "Africa/Brazzaville":                    { s: "CFA", c: "XAF", r: 600 },
@@ -207,12 +210,8 @@ const TZ_MAP = {
   "Pacific/Fiji":                          { s: "FJ$", c: "FJD", r: 2.25 },
 };
 
-/* Resolve a single tz string to its config, or null */
-function lookupTZ(tz) {
-  return TZ_MAP[tz] || null;
-}
+function lookupTZ(tz) { return TZ_MAP[tz] || null; }
 
-/* navigator.language → country code → timezone fallback */
 const LANG_TZ = {
   "GB": "Europe/London", "NG": "Africa/Lagos", "CM": "Africa/Douala",
   "GH": "Africa/Accra", "KE": "Africa/Nairobi", "ZA": "Africa/Johannesburg",
@@ -245,7 +244,6 @@ const LANG_TZ = {
   "MZ": "Africa/Maputo", "BW": "Africa/Gaborone",
 };
 
-/* Region fallback for unmapped timezones */
 function regionFallback(tz) {
   var region = tz.split("/")[0];
   if (region === "Europe") return { s: "\\u20AC", c: "EUR", r: 0.92 };
@@ -254,18 +252,23 @@ function regionFallback(tz) {
   return { s: "$", c: "USD", r: 1 };
 }
 
-/* Main detection — client-only to prevent hydration mismatch */
 function getCurrencyFromTimezone() {
   try {
     var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
     var cfg = lookupTZ(tz);
-    if (cfg) return { symbol: cfg.s, code: cfg.c, ranges: makeRanges(cfg.s, cfg.r) };
+    if (cfg) {
+      if (cfg.useNGN) return { symbol: cfg.s, code: cfg.c, ranges: makeRanges(cfg.s, cfg.r, NGN_THRESHOLDS) };
+      return { symbol: cfg.s, code: cfg.c, ranges: makeRanges(cfg.s, cfg.r) };
+    }
   } catch (e) {}
   try {
     var lang = (navigator.language || "").split("-")[1] || "";
     if (lang && LANG_TZ[lang]) {
       var cfg2 = lookupTZ(LANG_TZ[lang]);
-      if (cfg2) return { symbol: cfg2.s, code: cfg2.c, ranges: makeRanges(cfg2.s, cfg2.r) };
+      if (cfg2) {
+        if (cfg2.useNGN) return { symbol: cfg2.s, code: cfg2.c, ranges: makeRanges(cfg2.s, cfg2.r, NGN_THRESHOLDS) };
+        return { symbol: cfg2.s, code: cfg2.c, ranges: makeRanges(cfg2.s, cfg2.r) };
+      }
     }
   } catch (e) {}
   try {
@@ -276,12 +279,42 @@ function getCurrencyFromTimezone() {
   return { symbol: "$", code: "USD", ranges: makeRanges("$", 1) };
 }
 
-const DEFAULT_CURRENCY = { symbol: "$", code: "USD", ranges: makeRanges("$", 1) };`;
+const DEFAULT_CURRENCY = { symbol: "$", code: "USD", ranges: makeRanges("$", 1) };
 
-/* Find and replace the old block */
-var oldBlock = /\/\*\s*Budget ranges[\s\S]*?const DEFAULT_CURRENCY\s*=\s*\{[^}]*\}\s*;/;
+function handleCustomBudget(ranges, currencyCode, onBudgetSelect) {
+  return function(selectedRange) {
+    if (selectedRange && selectedRange.isCustom) {
+      var budget = prompt("Enter your budget in " + currencyCode + ":");
+      if (budget && !isNaN(budget) && Number(budget) > 0) {
+        onBudgetSelect(currencyCode + " " + fmtNum(Number(budget)));
+      } else if (budget !== null) {
+        alert("Please enter a valid number greater than 0");
+      }
+    } else if (selectedRange) {
+      onBudgetSelect(selectedRange.label);
+    }
+  };
+}`;
+
+// Replace from "/* ────────────── CURRENCY DETECTION" to "const DEFAULT_CURRENCY..."
+var oldBlock = /\/\* ─+ CURRENCY DETECTION[\s\S]*?const DEFAULT_CURRENCY\s*=\s*\{[^}]*\}\s*;/;
 var m = p.match(oldBlock);
 if (!m) { console.log('SKIP: could not find old currency block'); process.exit(1); }
 p = p.replace(oldBlock, NEW_BLOCK);
 console.log('OK: Replaced currency block (' + m[0].length + ' chars -> ' + NEW_BLOCK.length + ' chars)');
+
+// Update dropdown handler
+var dropdownPattern = /(onValueChange|onChange)=\{\((\w+)\)\s*=>\s*setSelectedBudget\([^)]+\)\}/;
+var dropdownMatch = p.match(dropdownPattern);
+if (dropdownMatch) {
+  var oldHandler = dropdownMatch[0];
+  var newHandler = 'onValueChange={handleCustomBudget(currency.ranges, currency.code, setSelectedBudget)}';
+  p = p.replace(oldHandler, newHandler);
+  console.log('OK: Updated dropdown to use handleCustomBudget');
+} else {
+  console.log('WARN: Could not auto-update dropdown handler.');
+  console.log('      Manually replace onValueChange with:');
+  console.log('      onValueChange={handleCustomBudget(currency.ranges, currency.code, setSelectedBudget)}');
+}
+
 fs.writeFileSync('src/app/page.tsx', p);
