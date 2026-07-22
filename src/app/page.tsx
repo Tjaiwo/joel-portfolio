@@ -1469,7 +1469,19 @@ export default function Portfolio() {
                     </label>
                     <select
                         value={formData.budget}
-                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                        onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === currency.ranges[0]?.label) {
+                          const budget = prompt("Enter your budget in " + currency.code + ":");
+                          if (budget && !isNaN(Number(budget)) && Number(budget) > 0) {
+                            setFormData({ ...formData, budget: currency.code + " " + Number(budget).toLocaleString("en-US") });
+                          } else if (budget !== null) {
+                            alert("Please enter a valid number greater than 0");
+                          }
+                        } else {
+                          setFormData({ ...formData, budget: val });
+                        }
+                      }}
                         className="form-input w-full px-4 py-3 rounded-md text-sm md:text-[18px] text-foreground appearance-none cursor-pointer"
                       >
                         <option value="" disabled>
