@@ -258,8 +258,7 @@ const NGN_THRESHOLDS = [500000, 1500000, 3000000, 5000000, 10000000];
 
 function fmtNum(n) { return n.toLocaleString("en-US"); }
 
-function makeRanges(symbol, rate, thresholds) {
-  thresholds = thresholds || USD_THRESHOLDS;
+function makeRanges(symbol, rate, thresholds?) {
   thresholds = thresholds || USD_THRESHOLDS;
   var loc = thresholds.map(function(t) { return Math.round(t * rate); });
   return [
