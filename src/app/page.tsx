@@ -950,8 +950,6 @@ export default function Portfolio() {
   /* Currency detection — client-only to prevent hydration mismatch */
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [openExpIdx, setOpenExpIdx] = useState(-1);
-  const [cursorX, setCursorX] = useState(-100);
-  const [cursorY, setCursorY] = useState(-100);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -976,11 +974,6 @@ export default function Portfolio() {
     setCurrency(getCurrencyFromTimezone());
   }, []);
 
-  useEffect(() => {
-    const move = (e) => { setCursorX(e.clientX); setCursorY(e.clientY); };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
 
   useEffect(() => {
     if (!soundEnabled) return;
@@ -1709,10 +1702,6 @@ export default function Portfolio() {
             </motion.form>
           </div>
         </Section>
-
-        {/* CUSTOM CURSOR */}
-        <motion.div className="hidden md:block fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[99999]" animate={{ x: cursorX - 8, y: cursorY - 8 }} transition={{ duration: 0.05, ease: "easeOut" }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
-        <motion.div className="hidden md:block fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[99998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ duration: 0.08, ease: "easeOut" }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
 
         {/* ─── FOOTER ─── */}
         <footer className="py-8 border-t border-border px-4 lg:px-5 mt-[90px] lg:mt-[120px]">
