@@ -665,7 +665,7 @@ function BrowserMockupCard({
   index: number;
 }) {
   const [loaded, setLoaded] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const [frameHovered, setFrameHovered] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -676,32 +676,11 @@ function BrowserMockupCard({
     }, 400);
   }, []);
 
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // Auto-load on mobile when card is in view
-  useEffect(() => {
-    const el = cardRef.current;
-    if (!el) return;
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    if (!isMobile) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setHovered(true);
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <motion.div
-      ref={cardRef}
       variants={fadeInUp}
       custom={index}
       className="browser-card group"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       {/* Browser chrome */}
       <div className="browser-chrome">
@@ -713,50 +692,52 @@ function BrowserMockupCard({
         </span>
       </div>
 
-      {/* Iframe viewport */}
-      <motion.div className="browser-frame relative" whileHover={{ scale: 1.02, rotateY: 2, rotateX: -2 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
-        {/* Screenshot fallback */}
-        {!hasLoaded && (
-          <div className="absolute inset-0 bg-card flex items-center justify-center">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover object-top"
-              onError={(e) => {
-                const target = e.currentTarget;
-                const url = `https://image.thum.io/get/width/800/crop/600/${project.url}`;
-                if (target.src !== url) target.src = url;
-              }}
-            />
-            {!hovered && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/60">
-                <p className="text-[12px] text-muted-foreground font-mono uppercase tracking-widest">Hover to preview</p>
+      {/* Viewport - hologram effect on hover */}
+      <motion.div
+        className="browser-frame relative cursor-pointer"
+        onMouseEnter={() => setFrameHovered(true)}
+        onMouseLeave={() => setFrameHovered(false)}
+        animate={frameHovered ? {
+          scale: 1.04,
+          rotateX: -3,
+          rotateY: 2,
+          z: 30,
+          boxShadow: "0 25px 50px -12px rgba(80, 200, 120, 0.25)"
+        } : {
+          scale: 1,
+          rotateX: 0,
+          rotateY: 0,
+          z: 0,
+          boxShadow: "0 0 0 0 rgba(80, 200, 120, 0)"
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        style={{ perspective: 1000, transformStyle: "preserve-3d" }}
+      >
+        {/* Screenshot (always visible) */}
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover object-top"
+          style={{ opacity: frameHovered && loaded ? 0 : 1, transition: 'opacity 0.3s' }}
+        />
+
+        {/* Iframe loads on frame hover */}
+        {frameHovered && (
+          <div className="absolute inset-0 iframe-scale-container" style={{ zIndex: loaded ? 10 : 5 }}>
+            {!loaded && (
+              <div className="absolute inset-0 flex items-center justify-center bg-background/90 z-20">
+                <div className="iframe-spinner-ring" />
               </div>
             )}
+            <iframe
+              ref={iframeRef}
+              src={project.url}
+              title={project.title}
+              onLoad={handleLoad}
+              sandbox="allow-scripts allow-same-origin"
+              className={loaded ? "opacity-100" : "opacity-0"}
+            />
           </div>
-        )}
-
-        {/* Loading spinner */}
-        {hovered && !loaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10">
-            <div className="iframe-spinner-ring" />
-            <p className="text-[12px] text-muted-foreground/50 mt-3 font-mono uppercase tracking-widest">
-              Loading
-            </p>
-          </div>
-        )}
-
-        {/* Iframe loads only on hover */}
-        {(hovered || hasLoaded) && (
-          <iframe
-            ref={iframeRef}
-            src={hasLoaded ? project.url : project.url}
-            title={project.title}
-            onLoad={handleLoad}
-            loading="lazy"
-            sandbox="allow-scripts allow-same-origin"
-            className={loaded ? "opacity-100" : "opacity-0"}
-          />
         )}
       </motion.div>
 
