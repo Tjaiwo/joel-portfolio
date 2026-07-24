@@ -861,6 +861,33 @@ function CountingStat({ stat, index }) {
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
 
+function useTypewriter(words, { loop = false, typeSpeed = 60, deleteSpeed = 40, pauseTime = 1500 } = {}) {
+  const [text, setText] = useState("");
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const word = words[wordIndex] || words[0] || "";
+    let timer;
+    if (!deleting && charIndex < word.length) {
+      timer = setTimeout(() => setCharIndex(charIndex + 1), typeSpeed);
+    } else if (!deleting && charIndex === word.length) {
+      timer = setTimeout(() => setDeleting(true), pauseTime);
+    } else if (deleting && charIndex > 0) {
+      timer = setTimeout(() => setCharIndex(charIndex - 1), deleteSpeed);
+    } else if (deleting && charIndex === 0) {
+      setDeleting(false);
+      setWordIndex((wordIndex + 1) % words.length);
+    }
+    setText(word.substring(0, charIndex));
+    return () => clearTimeout(timer);
+  }, [charIndex, deleting, wordIndex, words, typeSpeed, deleteSpeed, pauseTime]);
+
+  return text;
+}
+
+
 export default function Portfolio() {
   const activeSection = useActiveSection();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -1115,15 +1142,19 @@ export default function Portfolio() {
                 WEB
                 <br />
                 <span className="text-muted-foreground">
-                  <motion.span
-                    key={titleIndex}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    {["DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"][titleIndex]}
-                  </motion.span>
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={titleIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="inline-block"
+                    >
+                      {useTypewriter([["DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"][titleIndex]], { loop: false, typeSpeed: 60 })}
+                      <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
+                    </motion.span>
+                  </AnimatePresence>
                 </span>
                 <span className="text-primary">.</span>
               </motion.h1>
@@ -1622,8 +1653,8 @@ export default function Portfolio() {
         </Section>
 
         {/* CUSTOM CURSOR */}
-        <motion.div className="hidden md:block fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[99999]" animate={{ x: cursorX - 6, y: cursorY - 6 }} transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }} />
-        <motion.div className="hidden md:block fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[99998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ type: "spring", stiffness: 250, damping: 20, mass: 0.8 }} />
+        <motion.div className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[99999]" animate={{ x: cursorX - 8, y: cursorY - 8 }} transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
+        <motion.div className="fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[99998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ type: "spring", stiffness: 250, damping: 20, mass: 0.8 }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
 
         {/* ─── FOOTER ─── */}
         <footer className="py-8 border-t border-border px-4 lg:px-5 mt-[90px] lg:mt-[120px]">
