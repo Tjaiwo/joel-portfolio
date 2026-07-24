@@ -937,6 +937,8 @@ export default function Portfolio() {
   const [openExpIdx, setOpenExpIdx] = useState(-1);
     const [soundEnabled, setSoundEnabled] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
+
+  useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 1000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
