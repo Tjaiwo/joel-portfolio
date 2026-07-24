@@ -741,24 +741,25 @@ function BrowserMockupCard({
 }
 
 
+// Track which card is hovered globally for the group
 function ShuffleCard({ children, index }: { children: React.ReactNode; index: number }) {
-  const [hovered, setHovered] = useState(false);
+  const isHovered = hoveredCard === index;
+  const isGroupHovered = hoveredCard >= 0;
+  const distance = index - hoveredCard;
+
   return (
     <motion.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      animate={hovered ? {
-        scale: 1.03,
-        rotateZ: (index % 2 === 0 ? 1 : -1) * 1.5,
-        zIndex: 10,
-        transition: { type: "spring", stiffness: 300, damping: 20 }
-      } : {
-        scale: 1,
-        rotateZ: 0,
-        zIndex: 1,
-        transition: { type: "spring", stiffness: 300, damping: 25 }
+      onMouseEnter={() => setHoveredCard(index)}
+      onMouseLeave={() => setHoveredCard(-1)}
+      animate={{
+        scale: isHovered ? 1.05 : isGroupHovered ? 0.97 : 1,
+        rotateZ: isHovered ? 0 : isGroupHovered ? distance * 2 : 0,
+        x: isGroupHovered && !isHovered ? distance * 8 : 0,
+        zIndex: isHovered ? 10 : 1,
+        filter: isGroupHovered && !isHovered ? 'brightness(0.85)' : 'brightness(1)',
       }}
-      style={{ position: 'relative', transformOrigin: 'center bottom' }}
+      transition={{ type: "spring", stiffness: 200, damping: 25 }}
+      style={{ position: 'relative', transformOrigin: 'center center' }}
     >
       {children}
     </motion.div>
@@ -958,6 +959,7 @@ export default function Portfolio() {
   /* Currency detection — client-only to prevent hydration mismatch */
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [openExpIdx, setOpenExpIdx] = useState(-1);
+  const [hoveredCard, setHoveredCard] = useState(-1);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
