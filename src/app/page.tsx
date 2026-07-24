@@ -891,7 +891,7 @@ function useTypewriter(words, { loop = false, typeSpeed = 60, deleteSpeed = 40, 
 
 function playClick() {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain);
