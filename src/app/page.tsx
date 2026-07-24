@@ -882,6 +882,27 @@ export default function Portfolio() {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
+      
+      // Validate budget before sending
+      if (formData.budget) {
+        const val = Number(formData.budget);
+        let minBudget;
+        if (currency.code === 'NGN') {
+          minBudget = 250000;
+        } else if (currency.code === 'GBP') {
+          minBudget = 500;
+        } else if (currency.code === 'EUR') {
+          minBudget = 500;
+        } else {
+          const rate = currency.r || 1;
+          minBudget = Math.round(500 * rate);
+        }
+        if (val < minBudget) {
+          setBudgetError('Minimum budget is ' + currency.code + ' ' + minBudget.toLocaleString("en-US"));
+          return;
+        }
+      }
+      
       setFormState("sending");
       try {
         const res = await fetch("/api/contact", {
@@ -892,6 +913,7 @@ export default function Portfolio() {
         if (res.ok) {
           setFormState("sent");
           setFormData({ name: "", email: "", message: "", budget: "" });
+          setBudgetError("");
           setTimeout(() => setFormState("idle"), 4000);
         } else {
           setFormState("idle");
@@ -902,7 +924,7 @@ export default function Portfolio() {
         alert("Network error. Please check your connection and try again.");
       }
     },
-    [formData]
+    [formData, currency.code, currency.r]
   );
 
   return (
@@ -1503,6 +1525,9 @@ export default function Portfolio() {
                         className={`flex-1 px-4 py-3 text-sm md:text-[18px] text-foreground bg-transparent outline-none border-0 ${budgetError ? 'border-red-500' : ''}`}
                       />
                     </div>
+                    {budgetError && (
+                      <p className="text-red-500 text-xs mt-1">{budgetError}</p>
+                    )}
                   </div>
                   <div>
                     <label className="block text-[14px] text-muted-foreground mb-2 font-mono uppercase tracking-wider">
