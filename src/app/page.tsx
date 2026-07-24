@@ -722,7 +722,7 @@ function BrowserMockupCard({
         />
 
         {/* Iframe loads on frame hover */}
-        <div className="absolute inset-0 iframe-scale-container" style={{ clipPath: "none", overflow: "hidden", zIndex: loaded ? 10 : 5, display: (frameHovered || hasLoaded) ? 'block' : 'none' }}>
+        <div className="absolute inset-0 iframe-scale-container" style={{ clipPath: "none", overflow: "hidden", zIndex: loaded ? 10 : 5, display: frameHovered ? 'block' : 'none', pointerEvents: frameHovered ? 'auto' : 'none' }}>
             {frameHovered && !loaded && (
               <div className="absolute inset-0 flex items-center justify-center bg-background/90 z-20">
                 <div className="iframe-spinner-ring" />
@@ -734,8 +734,8 @@ function BrowserMockupCard({
                 src={project.url}
                 title={project.title}
                 onLoad={handleLoad}
-                sandbox="allow-scripts allow-same-origin"
-                className={loaded ? "opacity-100" : "opacity-0"}
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                className={loaded ? "opacity-100" : "opacity-0"} style={{ position: 'relative', zIndex: 5 }}
               />
             )}
           </div>
