@@ -975,7 +975,7 @@ export default function Portfolio() {
                 key={item.id}
                 initial="hidden"
                 animate="visible"
-                variants={slideInLeft} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+                variants={slideInLeft}
                 onClick={() => scrollTo(item.id)}
                 className={`nav-link w-full text-left flex items-center gap-3 px-3 py-2.5 text-sm md:text-[18px] rounded-md transition-all ${
                   activeSection === item.id
