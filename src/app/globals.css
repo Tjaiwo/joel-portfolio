@@ -512,21 +512,21 @@ main {
 
 /* Scale iframe to fit card */
 .browser-frame iframe {
-  width: 1680px !important;
-  height: 1050px !important;
+  width: 1440px !important;
+  height: 900px !important;
 }
 @media (max-width: 640px) {
   .browser-frame iframe {
-    transform: scale(0.22) !important;
+    transform: scale(0.24) !important;
   }
 }
 @media (min-width: 641px) and (max-width: 1024px) {
   .browser-frame iframe {
-    transform: scale(0.35) !important;
+    transform: scale(0.38) !important;
   }
 }
 @media (min-width: 1025px) {
   .browser-frame iframe {
-    transform: scale(0.4) !important;
+    transform: scale(0.45) !important;
   }
 }
