@@ -647,7 +647,7 @@ function Section({
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <motion.p
-      variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+      variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
       className="text-[12px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-mono"
     >
       {children}
@@ -849,7 +849,7 @@ function CountingStat({ stat, index }) {
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const count = useCountUp(stat.target, inView);
   return (
-    <motion.div ref={ref} variants={fadeInUp} custom={5 + index} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}>
+    <motion.div ref={ref} variants={fadeInUp} custom={5 + index} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
       <h3 className="text-xl md:text-[40px] font-bold text-primary tabular-nums">
         {inView ? count + stat.suffix : '0' + stat.suffix}
       </h3>
@@ -859,26 +859,6 @@ function CountingStat({ stat, index }) {
 }
 
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
-
-function useTypewriter(words, { loop = false, typeSpeed = 80, deleteSpeed = 50 } = {}) {
-  const [charIndex, setCharIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const word = words[0];
-    let timer;
-    if (!deleting && charIndex < word.length) {
-      timer = setTimeout(() => setCharIndex(charIndex + 1), typeSpeed);
-    } else if (!deleting && charIndex === word.length) {
-      if (loop) timer = setTimeout(() => setDeleting(true), 1500);
-    } else if (deleting && charIndex > 0) {
-      timer = setTimeout(() => setCharIndex(charIndex - 1), deleteSpeed);
-    }
-    return () => clearTimeout(timer);
-  }, [charIndex, deleting, words, loop, typeSpeed, deleteSpeed]);
-
-  return words[0].substring(0, charIndex);
-}
 
 
 export default function Portfolio() {
@@ -895,6 +875,7 @@ export default function Portfolio() {
   const [openExpIdx, setOpenExpIdx] = useState(-1);
   const [cursorX, setCursorX] = useState(-100);
   const [cursorY, setCursorY] = useState(-100);
+  const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
      Uses "instant" to avoid fighting with the Framer Motion height animation.
@@ -1120,7 +1101,7 @@ export default function Portfolio() {
               animate="visible"
               className="relative z-10"
             >
-              <motion.div variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="mb-4">
+              <motion.div variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="mb-4">
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[12px] font-mono">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary stat-pulse" />
                   Available
@@ -1128,20 +1109,27 @@ export default function Portfolio() {
               </motion.div>
 
               <motion.h1
-                variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+                variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
               >
                 WEB
                 <br />
                 <span className="text-muted-foreground">
-                  {useTypewriter(["DEVELOPER"], { loop: false, typeSpeed: 80 })}
-                  <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }} className="inline-block ml-0.5">|</motion.span>
+                  <motion.span
+                    key={titleIndex}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    {["DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"][titleIndex]}
+                  </motion.span>
                 </span>
                 <span className="text-primary">.</span>
               </motion.h1>
 
               <motion.p
-                variants={fadeInUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+                variants={fadeInUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8"
               >
                 Hi! I&apos;m <span className="text-foreground font-medium">Joel Akinlosotu</span>. A
@@ -1149,7 +1137,7 @@ export default function Portfolio() {
                 building high-performance, scalable, and SEO-optimized web solutions.
               </motion.p>
 
-              <motion.div variants={fadeInUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="flex flex-wrap gap-4 mb-16">
+              <motion.div variants={fadeInUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-wrap gap-4 mb-16">
                 <button
                   onClick={() => scrollTo("contact")}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] uppercase"
@@ -1166,11 +1154,11 @@ export default function Portfolio() {
 
               {/* Stats */}
               <motion.div
-                variants={fadeInUp} custom={4} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+                variants={fadeInUp} custom={4} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-t border-border pt-8"
               >
                 {STATS.map((stat, i) => (
-                  <motion.div key={stat.label} variants={fadeInUp} custom={5 + i} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}>
+                  <motion.div key={stat.label} variants={fadeInUp} custom={5 + i} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
                     <CountUp from={0} to={stat.target} suffix={stat.suffix} duration={2} delay={i * 0.2} className="text-lg md:text-xl font-bold text-primary" />
                     <p className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</p>
                   </motion.div>
@@ -1187,7 +1175,7 @@ export default function Portfolio() {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
               <motion.h2
-                variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+                variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="text-[28px] md:text-[40px] font-bold leading-tight mb-8"
               >
                 {"I believe in building digital experiences that drive real results for businesses and delight users at every touchpoint.".split(" ").map((word, i) => (
@@ -1195,7 +1183,7 @@ export default function Portfolio() {
                     key={i}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, margin: "-50px" }}
+                    viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: i * 0.08, duration: 0.4 }}
                     className="inline-block mr-[0.25em]"
                   >
@@ -1203,14 +1191,14 @@ export default function Portfolio() {
                   </motion.span>
                 ))}
               </motion.h2>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-muted-foreground leading-relaxed mb-6">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-muted-foreground leading-relaxed mb-6">
                 Notable achievements include developing a high-traffic LMS for a Web3 brand that
                 secured 20k+ unique visitors within two weeks of launch, and consistently reducing
                 website load times by up to 60% through advanced performance optimization.
               </motion.p>
             </div>
 
-            <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="space-y-6">
+            <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-6">
               <div className="p-6 rounded-lg border border-border bg-card/50 space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 rounded-md bg-primary/10">
@@ -1238,7 +1226,7 @@ export default function Portfolio() {
                 {["WordPress", "React", "Figma", "TypeScript", "JavaScript", "SEO"].map((tool) => (
                   <motion.div
                     key={tool}
-                    variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+                    variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                     className="p-3 rounded-lg border border-border bg-card/30 text-center text-[14px] text-muted-foreground hover:text-primary hover:border-primary/20 transition-all"
                   >
                     {tool}
@@ -1252,25 +1240,25 @@ export default function Portfolio() {
         {/* ─── PROJECTS & SKILLS ─── */}
         <Section id="projects-skills">
           <SectionLabel>// Projects &amp; Skills</SectionLabel>
-          <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
+          <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
             FEATURED WORKS
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {PROJECTS.map((project, idx) => (
-              <motion.div key={project.id} id={project.slug ? `project-${project.slug}` : undefined} initial={{ opacity: 0, y: 40, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: false, margin: "-50px" }} transition={{ delay: idx * 0.15, duration: 0.5, ease: "easeOut" }}>
+              <motion.div key={project.id} id={project.slug ? `project-${project.slug}` : undefined} initial={{ opacity: 0, y: 40, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: idx * 0.15, duration: 0.5, ease: "easeOut" }}>
                 <BrowserMockupCard project={project} index={idx} />
               </motion.div>
             ))}
           </div>
 
-          <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
+          <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
             MY STACK
           </motion.h2>
 
           <div className="space-y-12">
             <div>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Core Stack
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1288,7 +1276,7 @@ export default function Portfolio() {
             </div>
 
             <div>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Key Skills &amp; Expertise
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1307,11 +1295,11 @@ export default function Portfolio() {
 
             {/* No-Code / Low-Code row */}
             <div>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 No-Code &amp; Low-Code
               </motion.p>
               <div className="flex flex-wrap gap-3">
-                {["Elementor", "Webflow", "Framer", "Wix", "Bubble", "Make (Integromat)", "Zapier", "Airtable"].map(
+                {["Elementor", "Webflow", "Framer", "Wix", "Bubble", "Make (Integromat)", "Zapier", "Airtable", "AIO"].map(
                   (tool, i) => (
                     <motion.span
                       key={tool}
@@ -1328,7 +1316,7 @@ export default function Portfolio() {
 
             {/* Tools row */}
             <div>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Also Work With
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1352,7 +1340,7 @@ export default function Portfolio() {
         {/* ─── EXPERIENCE ─── */}
         <Section id="experience">
           <SectionLabel>// Experience</SectionLabel>
-          <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
+          <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
             MY EXPERIENCE
           </motion.h2>
 
@@ -1363,7 +1351,7 @@ export default function Portfolio() {
               return (
                 <motion.div
                   key={idx}
-                  variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+                  variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                   className="border border-border rounded-lg overflow-hidden accordion-item"
                 >
                   {/* Accordion header */}
@@ -1459,7 +1447,7 @@ export default function Portfolio() {
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
               <motion.h2
-                variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+                variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="text-[28px] md:text-[40px] font-bold leading-tight mb-6"
               >
                 {"Have a project in mind? Let's build something great together.".split(" ").map((word, i) => (
@@ -1467,7 +1455,7 @@ export default function Portfolio() {
                     key={i}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, margin: "-50px" }}
+                    viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: i * 0.08, duration: 0.4 }}
                     className="inline-block mr-[0.25em]"
                   >
@@ -1475,13 +1463,13 @@ export default function Portfolio() {
                   </motion.span>
                 ))}
               </motion.h2>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="text-muted-foreground leading-relaxed mb-10">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-muted-foreground leading-relaxed mb-10">
                 Whether you need a custom website, performance optimization, or ongoing
                 web administration, I&apos;m here to help bring your vision to life. Feel free to
                 reach out. I typically respond within 24 hours.
               </motion.p>
 
-              <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }} className="space-y-4">
+              <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4">
                 <a
                   href="mailto:joelakinlosotu@gmail.com"
                   className="flex items-center gap-3 text-sm md:text-[18px] text-muted-foreground hover:text-primary transition-colors group"
@@ -1505,7 +1493,7 @@ export default function Portfolio() {
 
             {/* Contact Form */}
             <motion.form
-              variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}
+              variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
               onSubmit={handleSubmit}
               className="space-y-5 p-6 md:p-8 rounded-lg border border-border bg-card/30"
             >
@@ -1634,8 +1622,8 @@ export default function Portfolio() {
         </Section>
 
         {/* CUSTOM CURSOR */}
-        <motion.div className="hidden md:block fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference" animate={{ x: cursorX - 6, y: cursorY - 6 }} transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }} />
-        <motion.div className="hidden md:block fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[9998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ type: "spring", stiffness: 250, damping: 20, mass: 0.8 }} />
+        <motion.div className="hidden md:block fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[99999]" animate={{ x: cursorX - 6, y: cursorY - 6 }} transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }} />
+        <motion.div className="hidden md:block fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[99998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ type: "spring", stiffness: 250, damping: 20, mass: 0.8 }} />
 
         {/* ─── FOOTER ─── */}
         <footer className="py-8 border-t border-border px-4 lg:px-5 mt-[90px] lg:mt-[120px]">
