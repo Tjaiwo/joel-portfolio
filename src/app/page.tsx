@@ -700,21 +700,23 @@ function BrowserMockupCard({
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover object-top"
-          style={{ opacity: loaded ? 0 : 1, transition: 'opacity 0.3s' }}
+          style={{ opacity: (frameHovered || hasLoaded) && loaded ? 0 : 1, transition: 'opacity 0.3s' }}
         />
 
         <div className="absolute inset-0 iframe-scale-container" style={{ overflow: "hidden", opacity: loaded ? 1 : 0, transition: 'opacity 0.3s' }}>
           <div className={`absolute inset-0 flex items-center justify-center bg-background/90 z-20 ${loaded ? 'hidden' : ''}`}>
             <div className="iframe-spinner-ring" />
           </div>
-          <iframe
-            ref={iframeRef}
-            src={frameHovered || hasLoaded ? project.url : undefined}
-            title={project.title}
-            onLoad={handleLoad}
-            sandbox="allow-scripts allow-same-origin"
-            className="absolute inset-0"
-          />
+          {frameHovered || hasLoaded ? (
+            <iframe
+              ref={iframeRef}
+              src={project.url}
+              title={project.title}
+              onLoad={handleLoad}
+              sandbox="allow-scripts allow-same-origin"
+              className="absolute inset-0"
+            />
+          ) : null}
         </div>
       </div>
 
