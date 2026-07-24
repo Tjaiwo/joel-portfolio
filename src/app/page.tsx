@@ -1199,6 +1199,7 @@ export default function Portfolio() {
             <div className="preloader-glitch-slice preloader-slice-1" />
             <div className="preloader-glitch-slice preloader-slice-2" />
             <div className="preloader-glitch-slice preloader-slice-3" />
+            <div className="preloader-glitch-slice preloader-slice-4" />
             
             <div className="relative z-10 text-center">
               <div className="preloader-boot-seq text-[9px] md:text-[10px] font-mono text-primary/40 uppercase tracking-[0.4em] mb-8">
@@ -1207,8 +1208,8 @@ export default function Portfolio() {
               </div>
               
               <div className="preloader-text-wrapper">
-                <h1 className="cinematic-text text-6xl md:text-8xl lg:text-9xl font-black text-primary tracking-tighter" data-text="WELCOME">
-                  WELCOME
+                <h1 className="cinematic-text text-6xl md:text-8xl lg:text-9xl font-black text-primary tracking-tighter" data-text="MANIFEST">
+                  MANIFEST
                 </h1>
               </div>
               
