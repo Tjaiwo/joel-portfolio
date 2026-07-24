@@ -118,7 +118,7 @@ const PROJECTS = [
     slug: "designed-spaces-by-yemi",
     title: "Designed Spaces by Yemi",
     description:
-      "A professional interior design studio website showcasing residential and commercial projects with a portfolio gallery, categorized showcases, and a consultation booking system built on WordPress.",
+      "A comprehensive architectural firm website for a Lagos-based full-service design powerhouse, showcasing 13+ landmark projects with a detailed portfolio, SEO-optimized service pages, and a mobile-first layout.",
     url: "https://designedspacesbyyemi.com/",
     image: "/screenshots/designedspacesbyyemi.png",
     tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"],
