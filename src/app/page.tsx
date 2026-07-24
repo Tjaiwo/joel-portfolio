@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, useInView, useScroll, useSpring, useMotionValueEvent, useTransform } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { CountUp } from "@/components/count-up";
 
 /* ─── Counter hook: animates from 0 → target when in view ─── */
 function useCountUp(target, inView, duration = 2000) {
