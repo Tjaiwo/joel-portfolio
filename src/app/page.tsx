@@ -722,24 +722,23 @@ function BrowserMockupCard({
         />
 
         {/* Iframe loads on frame hover */}
-        {frameHovered && (
-          <div className="absolute inset-0 iframe-scale-container" style={{ clipPath: "none", overflow: "hidden", zIndex: loaded ? 10 : 5 }}>
-            {!loaded && (
+        <div className="absolute inset-0 iframe-scale-container" style={{ clipPath: "none", overflow: "hidden", zIndex: loaded ? 10 : 5, display: (frameHovered || hasLoaded) ? 'block' : 'none' }}>
+            {frameHovered && !loaded && (
               <div className="absolute inset-0 flex items-center justify-center bg-background/90 z-20">
                 <div className="iframe-spinner-ring" />
               </div>
             )}
-            <iframe
-              key={frameHovered ? 'live' : 'off'}
-              ref={iframeRef}
-              src={frameHovered ? project.url : 'about:blank'}
-              title={project.title}
-              onLoad={handleLoad}
-              sandbox="allow-scripts allow-same-origin"
-              className={loaded ? "opacity-100" : "opacity-0"}
-            />
+            {(frameHovered || hasLoaded) && (
+              <iframe
+                ref={iframeRef}
+                src={project.url}
+                title={project.title}
+                onLoad={handleLoad}
+                sandbox="allow-scripts allow-same-origin"
+                className={loaded ? "opacity-100" : "opacity-0"}
+              />
+            )}
           </div>
-        )}
       </motion.div>
 
       {/* Card info footer */}
