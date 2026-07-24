@@ -866,56 +866,52 @@ function CountingStat({ stat, index }) {
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
 
-function useScramble(words, { revealSpeed = 50, scrambleTime = 200, pauseTime = 2500 } = {}) {
-  const [display, setDisplay] = useState(words[0] || "");
-  const [phase, setPhase] = useState(0); // 0=show, 1=scramble, 2=reveal
-  const wordIndex = useRef(0);
-  const wordsRef = useRef(words);
-  wordsRef.current = words;
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&";
+function useScramble(words) {
+  const [display, setDisplay] = useState(words[0]);
+  const idx = useRef(0);
+  const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~";
 
   useEffect(() => {
-    const currentWord = wordsRef.current[wordIndex.current];
-    const nextWord = wordsRef.current[(wordIndex.current + 1) % wordsRef.current.length];
-    const maxLen = Math.max(currentWord.length, nextWord.length);
-    let timer;
+    const word = words[idx.current];
+    const next = words[(idx.current + 1) % words.length];
+    const len = Math.max(word.length, next.length);
 
-    if (phase === 0) {
-      setDisplay(currentWord);
-      timer = setTimeout(() => setPhase(1), pauseTime);
-    } else if (phase === 1) {
+    // Show current word, then scramble, then reveal next
+    setDisplay(word);
+    
+    const t1 = setTimeout(() => {
+      // Scramble for 200ms
       const start = Date.now();
-      timer = setInterval(() => {
-        if (Date.now() - start >= scrambleTime) {
-          clearInterval(timer);
-          setPhase(2);
+      const scrambleInterval = setInterval(() => {
+        if (Date.now() - start > 200) {
+          clearInterval(scrambleInterval);
+          // Reveal next word char by char
+          let i = 0;
+          const revealInterval = setInterval(() => {
+            if (i > next.length) {
+              clearInterval(revealInterval);
+              idx.current = (idx.current + 1) % words.length;
+            } else {
+              let s = "";
+              for (let j = 0; j < len; j++) {
+                s += j < i ? (next[j] || "") : chars[Math.floor(Math.random() * chars.length)];
+              }
+              setDisplay(s);
+              i++;
+            }
+          }, 50);
         } else {
           let s = "";
-          for (let i = 0; i < maxLen; i++) s += chars[Math.floor(Math.random() * chars.length)];
+          for (let j = 0; j < len; j++) s += chars[Math.floor(Math.random() * chars.length)];
           setDisplay(s);
         }
       }, 30);
-    } else if (phase === 2) {
-      let pos = 0;
-      timer = setInterval(() => {
-        if (pos > nextWord.length) {
-          clearInterval(timer);
-          setDisplay(nextWord);
-          wordIndex.current = (wordIndex.current + 1) % words.length;
-          setPhase(0);
-        } else {
-          let s = "";
-          for (let i = 0; i < maxLen; i++) {
-            s += i < pos ? (nextWord[i] || "") : chars[Math.floor(Math.random() * chars.length)];
-          }
-          setDisplay(s);
-          pos++;
-        }
-      }, revealSpeed);
-    }
+    }, 2500);
 
-    return () => clearInterval(timer);
-  }, [phase, scrambleTime, pauseTime, revealSpeed]); // eslint-disable-line
+    return () => {
+      clearTimeout(t1);
+    };
+  }, [idx.current]);
 
   return display;
 }
@@ -1239,7 +1235,7 @@ export default function Portfolio() {
                 className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
               >
                 <span className="text-foreground/70">
-                  {useScramble(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { revealSpeed: 60, scrambleTime: 200, pauseTime: 2500 })}
+                  {useScramble(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"])}
                   <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
                 </span>
                 <span className="text-primary">.</span>
