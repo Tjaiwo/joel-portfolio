@@ -866,32 +866,34 @@ function CountingStat({ stat, index }) {
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
 
-function useScramble(words, { revealSpeed = 60, scrambleTime = 300, pauseTime = 2500 } = {}) {
+function useScramble(words, { revealSpeed = 60, scrambleTime = 200, pauseTime = 2500 } = {}) {
   const [display, setDisplay] = useState(words[0] || "");
   const [wordIndex, setWordIndex] = useState(0);
+  const [running, setRunning] = useState(false);
 
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&";
 
   useEffect(() => {
+    if (running) return;
+    setRunning(true);
+
     const current = words[wordIndex];
     const next = words[(wordIndex + 1) % words.length];
     const maxLen = Math.max(current.length, next.length);
 
-    // Phase 1: pause on current word
     const pauseTimer = setTimeout(() => {
-      // Phase 2: scramble - rapidly flash random chars
       const startTime = Date.now();
       const interval = setInterval(() => {
         const elapsed = Date.now() - startTime;
         if (elapsed >= scrambleTime) {
           clearInterval(interval);
-          // Phase 3: reveal next word character by character from scrambled state
           let pos = 0;
           const revealInterval = setInterval(() => {
             if (pos > next.length) {
               clearInterval(revealInterval);
               setDisplay(next);
-              setWordIndex((wordIndex + 1) % words.length);
+              setWordIndex((prev) => (prev + 1) % words.length);
+              setRunning(false);
             } else {
               let str = "";
               for (let i = 0; i < maxLen; i++) {
@@ -907,19 +909,16 @@ function useScramble(words, { revealSpeed = 60, scrambleTime = 300, pauseTime = 
           }, revealSpeed);
           return;
         }
-        // Full scramble
         let str = "";
         for (let i = 0; i < maxLen; i++) {
           str += chars[Math.floor(Math.random() * chars.length)];
         }
         setDisplay(str);
-      }, 40);
+      }, 30);
     }, pauseTime);
 
-    return () => {
-      clearTimeout(pauseTimer);
-    };
-  }, [wordIndex, words, scrambleTime, pauseTime, revealSpeed]);
+    return () => clearTimeout(pauseTimer);
+  }, [wordIndex, running, words, scrambleTime, pauseTime, revealSpeed]);
 
   return display;
 }
@@ -1145,13 +1144,15 @@ export default function Portfolio() {
           <div className="text-[11px] font-mono text-primary uppercase tracking-wider mb-1" style={{ fontFamily: 'var(--font-geist-mono)' }}>
             Local Time
           </div>
-          <div className="text-primary font-mono mb-3" style={{ fontFamily: 'var(--font-geist-mono)', fontSize: '18px' }}>
-            {useLocalTime()}
+          <div className="text-primary font-mono mb-3" style={{ fontFamily: 'var(--font-geist-mono)', fontSize: '14px' }}>
+            <span className="text-primary font-mono text-[12px]" style={{ fontFamily: 'var(--font-geist-mono)' }}>{useLocalTime()}</span>
           </div>
           <div className="flex items-center gap-2 mt-2">
           <ThemeToggle />
           <button
-            onClick={() => setSoundEnabled(!soundEnabled)}
+            {useLocalTime()}
+            <button
+              onClick={() => setSoundEnabled(!soundEnabled)}
             className="p-2 rounded-md border border-border hover:border-primary/30 transition-colors text-[11px] font-mono text-muted-foreground hover:text-primary"
             title={soundEnabled ? "Sound on" : "Sound off"}
           >
