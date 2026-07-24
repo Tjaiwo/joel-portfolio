@@ -1222,7 +1222,7 @@ export default function Portfolio() {
           </div>
         </motion.div>
       )}
-      <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.6s ease-out 0.3s" }}>
+      <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 1s ease-out 0.5s" }}>
         {/* ─── HERO ─── */}
         <section
           id="home"
