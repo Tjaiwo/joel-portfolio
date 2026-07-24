@@ -1142,19 +1142,8 @@ export default function Portfolio() {
                 WEB
                 <br />
                 <span className="text-muted-foreground">
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={titleIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="inline-block"
-                    >
-                      {useTypewriter([["DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"][titleIndex]], { loop: false, typeSpeed: 60 })}
-                      <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
-                    </motion.span>
-                  </AnimatePresence>
+                  {useTypewriter(["DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { loop: true, typeSpeed: 60, deleteSpeed: 40, pauseTime: 2000 })}
+                  <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
                 </span>
                 <span className="text-primary">.</span>
               </motion.h1>
