@@ -938,7 +938,7 @@ export default function Portfolio() {
     const [soundEnabled, setSoundEnabled] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
 
-  useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2500); return () => clearTimeout(t); }, []);
+  useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
@@ -1222,7 +1222,7 @@ export default function Portfolio() {
           </div>
         </motion.div>
       )}
-      <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 1s ease-out 0.5s" }}>
+      <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.8s ease-out 0.2s" }}>
         {/* ─── HERO ─── */}
         <section
           id="home"
@@ -1293,6 +1293,7 @@ export default function Portfolio() {
               </motion.div>
             </motion.div>
           </ContentWidth>
+      </motion.div>
         </section>
 
         {/* ─── ABOUT ─── */}
