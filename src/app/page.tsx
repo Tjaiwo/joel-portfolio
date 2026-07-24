@@ -861,49 +861,48 @@ function CountingStat({ stat, index }) {
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
 
-function useScramble(words, { typeSpeed = 40, scrambleSpeed = 50, pauseTime = 2500 } = {}) {
+function useScramble(words, { typeSpeed = 30, scrambleTime = 400, pauseTime = 2000 } = {}) {
   const [text, setText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [phase, setPhase] = useState("typing"); // typing | pausing | scrambling | done
+  const [phase, setPhase] = useState("typing"); // typing | pausing | scrambling
 
-  const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~`ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~`";
 
   useEffect(() => {
     const word = words[wordIndex];
     let timer;
 
     if (phase === "typing") {
-      if (charIndex < word.length) {
-        timer = setTimeout(() => setCharIndex(charIndex + 1), typeSpeed);
+      if (text.length < word.length) {
+        timer = setTimeout(() => setText(word.substring(0, text.length + 1)), typeSpeed);
       } else {
         timer = setTimeout(() => setPhase("pausing"), pauseTime);
       }
     } else if (phase === "pausing") {
       timer = setTimeout(() => setPhase("scrambling"), 300);
     } else if (phase === "scrambling") {
-      if (charIndex > 0) {
-        timer = setTimeout(() => setCharIndex(charIndex - 1), scrambleSpeed / 3);
-      } else {
-        setWordIndex((wordIndex + 1) % words.length);
-        setPhase("typing");
-      }
+      // Scramble all chars at once
+      const startTime = Date.now();
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        if (elapsed >= scrambleTime) {
+          clearInterval(interval);
+          setText("");
+          setWordIndex((wordIndex + 1) % words.length);
+          setPhase("typing");
+        } else {
+          let scrambled = "";
+          for (let i = 0; i < word.length; i++) {
+            scrambled += chars[Math.floor(Math.random() * chars.length)];
+          }
+          setText(scrambled);
+        }
+      }, 40);
+      return () => clearInterval(interval);
     }
-
-    // Build display text
-    let display = "";
-    for (let i = 0; i < charIndex; i++) {
-      display += word[i];
-    }
-    if (phase === "scrambling") {
-      for (let i = charIndex; i < word.length; i++) {
-        display += chars[Math.floor(Math.random() * chars.length)];
-      }
-    }
-    setText(display);
 
     return () => clearTimeout(timer);
-  }, [charIndex, phase, wordIndex, words, typeSpeed, scrambleSpeed, pauseTime]);
+  }, [text, phase, wordIndex, words, typeSpeed, scrambleTime, pauseTime]);
 
   return text;
 }
@@ -1212,7 +1211,7 @@ export default function Portfolio() {
                 className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
               >
                 <span className="text-foreground/70">
-                  {useScramble(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { typeSpeed: 40, scrambleSpeed: 50, pauseTime: 2500 })}
+                  {useScramble(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { typeSpeed: 30, scrambleTime: 300, pauseTime: 2000 })}
                   <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
                 </span>
                 <span className="text-primary">.</span>
