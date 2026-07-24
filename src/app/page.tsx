@@ -740,6 +740,32 @@ function BrowserMockupCard({
   );
 }
 
+
+function ShuffleCard({ children, index }: { children: React.ReactNode; index: number }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      animate={hovered ? {
+        scale: 1.03,
+        rotateZ: (index % 2 === 0 ? 1 : -1) * 1.5,
+        zIndex: 10,
+        transition: { type: "spring", stiffness: 300, damping: 20 }
+      } : {
+        scale: 1,
+        rotateZ: 0,
+        zIndex: 1,
+        transition: { type: "spring", stiffness: 300, damping: 25 }
+      }}
+      style={{ position: 'relative', transformOrigin: 'center bottom' }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+
 /* ──────────────────────── BACK TO TOP ──────────────────────── */
 
 function BackToTop() {
@@ -914,6 +940,21 @@ function playClick() {
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.1);
   } catch (e) {}
+}
+
+
+function useLocalTime() {
+  const [time, setTime] = useState("");
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      setTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    };
+    update();
+    const t = setInterval(update, 1000);
+    return () => clearInterval(t);
+  }, []);
+  return time;
 }
 
 
