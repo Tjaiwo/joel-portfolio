@@ -861,50 +861,62 @@ function CountingStat({ stat, index }) {
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
 
-function useScramble(words, { typeSpeed = 30, scrambleTime = 400, pauseTime = 2000 } = {}) {
-  const [text, setText] = useState("");
+function useScramble(words, { revealSpeed = 60, scrambleTime = 300, pauseTime = 2500 } = {}) {
+  const [display, setDisplay] = useState(words[0] || "");
   const [wordIndex, setWordIndex] = useState(0);
-  const [phase, setPhase] = useState("typing"); // typing | pausing | scrambling
 
-  const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~`";
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&";
 
   useEffect(() => {
-    const word = words[wordIndex];
-    let timer;
+    const current = words[wordIndex];
+    const next = words[(wordIndex + 1) % words.length];
+    const maxLen = Math.max(current.length, next.length);
 
-    if (phase === "typing") {
-      if (text.length < word.length) {
-        timer = setTimeout(() => setText(word.substring(0, text.length + 1)), typeSpeed);
-      } else {
-        timer = setTimeout(() => setPhase("pausing"), pauseTime);
-      }
-    } else if (phase === "pausing") {
-      timer = setTimeout(() => setPhase("scrambling"), 300);
-    } else if (phase === "scrambling") {
-      // Scramble all chars at once
+    // Phase 1: pause on current word
+    const pauseTimer = setTimeout(() => {
+      // Phase 2: scramble - rapidly flash random chars
       const startTime = Date.now();
       const interval = setInterval(() => {
         const elapsed = Date.now() - startTime;
         if (elapsed >= scrambleTime) {
           clearInterval(interval);
-          setText("");
-          setWordIndex((wordIndex + 1) % words.length);
-          setPhase("typing");
-        } else {
-          let scrambled = "";
-          for (let i = 0; i < word.length; i++) {
-            scrambled += chars[Math.floor(Math.random() * chars.length)];
-          }
-          setText(scrambled);
+          // Phase 3: reveal next word character by character from scrambled state
+          let pos = 0;
+          const revealInterval = setInterval(() => {
+            if (pos > next.length) {
+              clearInterval(revealInterval);
+              setDisplay(next);
+              setWordIndex((wordIndex + 1) % words.length);
+            } else {
+              let str = "";
+              for (let i = 0; i < maxLen; i++) {
+                if (i < pos) {
+                  str += next[i] || "";
+                } else {
+                  str += chars[Math.floor(Math.random() * chars.length)];
+                }
+              }
+              setDisplay(str);
+              pos++;
+            }
+          }, revealSpeed);
+          return;
         }
+        // Full scramble
+        let str = "";
+        for (let i = 0; i < maxLen; i++) {
+          str += chars[Math.floor(Math.random() * chars.length)];
+        }
+        setDisplay(str);
       }, 40);
-      return () => clearInterval(interval);
-    }
+    }, pauseTime);
 
-    return () => clearTimeout(timer);
-  }, [text, phase, wordIndex, words, typeSpeed, scrambleTime, pauseTime]);
+    return () => {
+      clearTimeout(pauseTimer);
+    };
+  }, [wordIndex, words, scrambleTime, pauseTime, revealSpeed]);
 
-  return text;
+  return display;
 }
 
 
@@ -1211,7 +1223,7 @@ export default function Portfolio() {
                 className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
               >
                 <span className="text-foreground/70">
-                  {useScramble(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { typeSpeed: 30, scrambleTime: 300, pauseTime: 2000 })}
+                  {useScramble(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { revealSpeed: 60, scrambleTime: 200, pauseTime: 2500 })}
                   <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
                 </span>
                 <span className="text-primary">.</span>
