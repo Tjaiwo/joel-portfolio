@@ -950,6 +950,16 @@ export default function Portfolio() {
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
+  useEffect(() => {
+    if (!soundEnabled) return;
+    const handler = (e) => {
+      const el = e.target.closest('a, button, [role="button"], .clickable');
+      if (el) playClick();
+    };
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, [soundEnabled]);
+
   const scrollTo = useCallback((id: string) => {
     setMobileMenuOpen(false);
     setTimeout(() => {
@@ -1669,8 +1679,8 @@ export default function Portfolio() {
         </Section>
 
         {/* CUSTOM CURSOR */}
-        <motion.div className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[99999]" animate={{ x: cursorX - 8, y: cursorY - 8 }} transition={{ duration: 0.05, ease: "easeOut" }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
-        <motion.div className="fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[99998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ duration: 0.08, ease: "easeOut" }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
+        <motion.div className="hidden md:block fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[99999]" animate={{ x: cursorX - 8, y: cursorY - 8 }} transition={{ duration: 0.05, ease: "easeOut" }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
+        <motion.div className="hidden md:block fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[99998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ duration: 0.08, ease: "easeOut" }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
 
         {/* ─── FOOTER ─── */}
         <footer className="py-8 border-t border-border px-4 lg:px-5 mt-[90px] lg:mt-[120px]">
