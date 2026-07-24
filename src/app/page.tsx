@@ -991,7 +991,7 @@ export default function Portfolio() {
           </div>
           <div className="flex items-center gap-3 pt-2 border-t border-border">
             <a
-              href="https://linkedin.com/in/joelakinlosotu"
+              href="https://www.linkedin.com/in/joel-akinlosotu-44b70a149/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-primary hover:border-primary/20 transition-all"
