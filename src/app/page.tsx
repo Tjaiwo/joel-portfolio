@@ -861,28 +861,49 @@ function CountingStat({ stat, index }) {
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
 
-function useTypewriter(words, { loop = false, typeSpeed = 60, deleteSpeed = 40, pauseTime = 1500 } = {}) {
+function useScramble(words, { typeSpeed = 40, scrambleSpeed = 50, pauseTime = 2500 } = {}) {
   const [text, setText] = useState("");
-  const [charIndex, setCharIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [phase, setPhase] = useState("typing"); // typing | pausing | scrambling | done
+
+  const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~`ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
   useEffect(() => {
-    const word = words[wordIndex] || words[0] || "";
+    const word = words[wordIndex];
     let timer;
-    if (!deleting && charIndex < word.length) {
-      timer = setTimeout(() => setCharIndex(charIndex + 1), typeSpeed);
-    } else if (!deleting && charIndex === word.length) {
-      timer = setTimeout(() => setDeleting(true), pauseTime);
-    } else if (deleting && charIndex > 0) {
-      timer = setTimeout(() => setCharIndex(charIndex - 1), deleteSpeed);
-    } else if (deleting && charIndex === 0) {
-      setDeleting(false);
-      setWordIndex((wordIndex + 1) % words.length);
+
+    if (phase === "typing") {
+      if (charIndex < word.length) {
+        timer = setTimeout(() => setCharIndex(charIndex + 1), typeSpeed);
+      } else {
+        timer = setTimeout(() => setPhase("pausing"), pauseTime);
+      }
+    } else if (phase === "pausing") {
+      timer = setTimeout(() => setPhase("scrambling"), 300);
+    } else if (phase === "scrambling") {
+      if (charIndex > 0) {
+        timer = setTimeout(() => setCharIndex(charIndex - 1), scrambleSpeed / 3);
+      } else {
+        setWordIndex((wordIndex + 1) % words.length);
+        setPhase("typing");
+      }
     }
-    setText(word.substring(0, charIndex));
+
+    // Build display text
+    let display = "";
+    for (let i = 0; i < charIndex; i++) {
+      display += word[i];
+    }
+    if (phase === "scrambling") {
+      for (let i = charIndex; i < word.length; i++) {
+        display += chars[Math.floor(Math.random() * chars.length)];
+      }
+    }
+    setText(display);
+
     return () => clearTimeout(timer);
-  }, [charIndex, deleting, wordIndex, words, typeSpeed, deleteSpeed, pauseTime]);
+  }, [charIndex, phase, wordIndex, words, typeSpeed, scrambleSpeed, pauseTime]);
 
   return text;
 }
