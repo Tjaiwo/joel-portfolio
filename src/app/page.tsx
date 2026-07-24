@@ -938,7 +938,7 @@ export default function Portfolio() {
     const [soundEnabled, setSoundEnabled] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
 
-  useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
+  useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2500); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
@@ -1186,30 +1186,37 @@ export default function Portfolio() {
       {/* ══════════ MAIN CONTENT ══════════ */}
       {!glitchDone && (
         <motion.div
-          className="fixed inset-0 z-[99999] bg-[#0a0a0a] flex items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[99999] bg-black flex items-center justify-center overflow-hidden"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <div className="cinematic-preloader">
             <div className="preloader-scanlines" />
+            <div className="preloader-scanlines-heavy" />
             <div className="preloader-vignette" />
             <div className="preloader-noise" />
             <div className="preloader-flash" />
+            <div className="preloader-glitch-slice preloader-slice-1" />
+            <div className="preloader-glitch-slice preloader-slice-2" />
+            <div className="preloader-glitch-slice preloader-slice-3" />
             
             <div className="relative z-10 text-center">
-              <div className="preloader-status text-[10px] md:text-[12px] font-mono text-primary/60 uppercase tracking-[0.5em] mb-6">
-                <span className="animate-pulse">●</span> System Init
+              <div className="preloader-boot-seq text-[9px] md:text-[10px] font-mono text-primary/40 uppercase tracking-[0.4em] mb-8">
+                <div>SYS_BOOT_SEQ_v2.4</div>
+                <div className="mt-1">INITIALIZING_KERNEL<span className="preloader-dots">...</span></div>
               </div>
               
-              <h1 className="cinematic-text text-5xl md:text-7xl lg:text-8xl font-bold text-primary tracking-tighter" data-text="WELCOME">
-                WELCOME
-              </h1>
+              <div className="preloader-text-wrapper">
+                <h1 className="cinematic-text text-6xl md:text-8xl lg:text-9xl font-black text-primary tracking-tighter" data-text="WELCOME">
+                  WELCOME
+                </h1>
+              </div>
               
-              <div className="preloader-bar mt-8 mx-auto" />
+              <div className="preloader-bar mt-10 mx-auto" />
               <div className="preloader-bar-fast mt-1 mx-auto" />
               
-              <p className="text-[10px] md:text-[11px] font-mono text-muted-foreground/40 mt-6 uppercase tracking-[0.3em]">
-                Loading<span className="preloader-dots">...</span>
+              <p className="text-[9px] md:text-[10px] font-mono text-primary/30 mt-8 uppercase tracking-[0.4em]">
+                ESTABLISHING_CONNECTION<span className="preloader-dots">...</span>
               </p>
             </div>
           </div>
