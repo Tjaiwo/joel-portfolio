@@ -213,9 +213,6 @@ html, body {
   animation: subtle-pulse 3s ease-in-out infinite;
 }
 
-  50% { box-shadow: 0 0 0 8px rgba(var(--primary), 0); }
-}
-
 /* Reveal animation */
 @keyframes slide-up {
   from {
