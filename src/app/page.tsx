@@ -844,6 +844,7 @@ export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<(typeof PROJECTS)[0] | null>(null);
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "", budget: "" });
+  const [budgetError, setBudgetError] = useState("");
 
 
   /* Currency detection — client-only to prevent hydration mismatch */
@@ -1476,7 +1477,10 @@ export default function Portfolio() {
                         type="number"
                         placeholder="Enter your budget"
                         value={formData.budget}
-                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, budget: e.target.value });
+                          setBudgetError("");
+                        }}
                         onBlur={(e) => {
                           const val = Number(e.target.value);
                           let minBudget;
@@ -1491,12 +1495,12 @@ export default function Portfolio() {
                             minBudget = Math.round(500 * rate);
                           }
                           if (e.target.value && val < minBudget) {
-                            alert('Minimum budget is ' + currency.code + ' ' + minBudget.toLocaleString("en-US"));
-                            setFormData({ ...formData, budget: '' });
+                            setBudgetError('Minimum budget is ' + currency.code + ' ' + minBudget.toLocaleString("en-US"));
+                          } else {
+                            setBudgetError("");
                           }
                         }}
-                        min={currency.code === 'NGN' ? 250000 : currency.code === 'GBP' ? 500 : currency.code === 'EUR' ? 500 : 500}
-                        className="flex-1 px-4 py-3 text-sm md:text-[18px] text-foreground bg-transparent outline-none border-0"
+                        className={`flex-1 px-4 py-3 text-sm md:text-[18px] text-foreground bg-transparent outline-none border-0 ${budgetError ? 'border-red-500' : ''}`}
                       />
                     </div>
                   </div>
