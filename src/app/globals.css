@@ -509,3 +509,24 @@ html, body {
 main {
   will-change: opacity;
 }
+
+/* Scale iframe to fit card */
+.browser-frame iframe {
+  width: 1680px !important;
+  height: 1050px !important;
+}
+@media (max-width: 640px) {
+  .browser-frame iframe {
+    transform: scale(0.22) !important;
+  }
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  .browser-frame iframe {
+    transform: scale(0.35) !important;
+  }
+}
+@media (min-width: 1025px) {
+  .browser-frame iframe {
+    transform: scale(0.4) !important;
+  }
+}
