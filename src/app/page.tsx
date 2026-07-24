@@ -115,6 +115,17 @@ const PROJECTS = [
   },
   {
     id: 6,
+    slug: "designed-spaces-by-yemi",
+    title: "Designed Spaces by Yemi",
+    description:
+      "A professional interior design studio website showcasing residential and commercial projects with a portfolio gallery, categorized showcases, and a consultation booking system built on WordPress.",
+    url: "https://designedspacesbyyemi.com/",
+    image: "/screenshots/designedspacesbyyemi.png",
+    tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"],
+    designer: true,
+  },
+  {
+    id: 6,
     title: "Evan Micky Photography",
     description:
       "A documentary-style wedding and portrait photography portfolio showcasing engagement sessions, family portraits, and newborn/maternity shoots, with an immersive gallery and seamless inquiry flows.",
