@@ -688,7 +688,7 @@ function BrowserMockupCard({
       </div>
 
       {/* Iframe viewport */}
-      <div className="browser-frame">
+      <motion.div className="browser-frame" whileHover={{ scale: 1.02, rotateY: 2, rotateX: -2 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
         {/* Loading spinner overlay */}
         <div className={`iframe-spinner ${loaded ? "hidden" : ""}`}>
           <div className="iframe-spinner-ring" />
@@ -705,7 +705,7 @@ function BrowserMockupCard({
           loading="lazy"
           sandbox="allow-scripts allow-same-origin"
         />
-      </div>
+      </motion.div>
 
       {/* Card info footer */}
       <div className="p-4 space-y-3">
@@ -871,6 +871,8 @@ export default function Portfolio() {
   /* Currency detection — client-only to prevent hydration mismatch */
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [openExpIdx, setOpenExpIdx] = useState(-1);
+  const [cursorX, setCursorX] = useState(-100);
+  const [cursorY, setCursorY] = useState(-100);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
      Uses "instant" to avoid fighting with the Framer Motion height animation.
@@ -1127,7 +1129,7 @@ export default function Portfolio() {
                   onClick={() => scrollTo("contact")}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] uppercase"
                 >
-                  LET&apos;S TALK <ArrowUpRight size={16} />
+                  <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-2">LET&apos;S TALK <ArrowUpRight size={16} /></motion.span>
                 </button>
                 <button
                   onClick={() => scrollTo("projects-skills")}
@@ -1144,9 +1146,7 @@ export default function Portfolio() {
               >
                 {STATS.map((stat, i) => (
                   <motion.div key={stat.label} variants={fadeInUp} custom={5 + i} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-100px" }}>
-                    <h3 className="text-lg md:text-xl font-bold text-primary">
-                      {stat.value}
-                    </h3>
+                    <CountUp from={0} to={stat.target} suffix={stat.suffix} duration={2} delay={i * 0.2} className="text-lg md:text-xl font-bold text-primary" />
                     <p className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</p>
                   </motion.div>
                 ))}
@@ -1233,9 +1233,9 @@ export default function Portfolio() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {PROJECTS.map((project, idx) => (
-              <div key={project.id} id={project.slug ? `project-${project.slug}` : undefined}>
+              <motion.div key={project.id} id={project.slug ? `project-${project.slug}` : undefined} initial={{ opacity: 0, y: 40, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: false, margin: "-50px" }} transition={{ delay: idx * 0.15, duration: 0.5, ease: "easeOut" }}>
                 <BrowserMockupCard project={project} index={idx} />
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -1607,6 +1607,10 @@ export default function Portfolio() {
             </motion.form>
           </div>
         </Section>
+
+        {/* CUSTOM CURSOR */}
+        <motion.div className="hidden md:block fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference" style={{ translateX: cursorX - 6, translateY: cursorY - 6 }} />
+        <motion.div className="hidden md:block fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[9998]" style={{ translateX: cursorX - 16, translateY: cursorY - 16 }} />
 
         {/* ─── FOOTER ─── */}
         <footer className="py-8 border-t border-border px-4 lg:px-5 mt-[90px] lg:mt-[120px]">

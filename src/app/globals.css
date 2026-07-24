@@ -440,3 +440,16 @@ html, body {
   .mt-8 { margin-top: calc(2rem - 4px) !important; }
   .mt-12 { margin-top: calc(3rem - 4px) !important; }
 }
+
+@keyframes float-tag {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+.skill-tag { animation: float-tag 4s ease-in-out infinite; }
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover ~ .custom-cursor,
+  button:hover ~ .custom-cursor {
+    transform: scale(2);
+  }
+}
