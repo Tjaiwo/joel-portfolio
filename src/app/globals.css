@@ -587,3 +587,10 @@ main {
 @media (min-width: 1281px) {
   .iframe-scale-container iframe { transform: scale(0.30); }
 }
+
+.browser-card {
+  overflow: visible !important;
+}
+.browser-frame {
+  will-change: transform;
+}
