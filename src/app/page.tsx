@@ -1328,7 +1328,7 @@ export default function Portfolio() {
                     key={skill}
                     variants={fadeInUp}
                     custom={i}
-                    className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50"
+                    className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50" style={{ animationDelay: "1.5s" }}
                   >
                     {skill}
                   </motion.span>
@@ -1346,7 +1346,7 @@ export default function Portfolio() {
                     key={skill}
                     variants={fadeInUp}
                     custom={i}
-                    className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50"
+                    className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50" style={{ animationDelay: "0s" }}
                   >
                     {skill}
                   </motion.span>
@@ -1366,7 +1366,7 @@ export default function Portfolio() {
                       key={tool}
                       variants={fadeInUp}
                       custom={i}
-                      className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50"
+                      className="skill-tag px-4 py-2.5 rounded-lg text-sm md:text-[18px] text-foreground bg-card/50" style={{ animationDelay: "0.6s" }}
                     >
                       {tool}
                     </motion.span>

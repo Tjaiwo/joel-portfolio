@@ -443,9 +443,10 @@ html, body {
 
 @keyframes float-tag {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
+  25% { transform: translateY(-4px); }
+  75% { transform: translateY(2px); }
 }
-.skill-tag { animation: float-tag 4s ease-in-out infinite; }
+
 
 @media (hover: hover) and (pointer: fine) {
   a:hover ~ .custom-cursor,
