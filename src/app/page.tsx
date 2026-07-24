@@ -723,7 +723,7 @@ function BrowserMockupCard({
 
         {/* Iframe loads on frame hover */}
         {frameHovered && (
-          <div className="absolute inset-0 iframe-scale-container" style={{ clipPath: "none", overflow: "hidden" }} style={{ zIndex: loaded ? 10 : 5 }}>
+          <div className="absolute inset-0 iframe-scale-container" style={{ clipPath: "none", overflow: "hidden", zIndex: loaded ? 10 : 5 }}>
             {!loaded && (
               <div className="absolute inset-0 flex items-center justify-center bg-background/90 z-20">
                 <div className="iframe-spinner-ring" />
