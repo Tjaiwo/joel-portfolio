@@ -1112,7 +1112,10 @@ export default function Portfolio() {
               >
                 WEB
                 <br />
-                <span className="text-muted-foreground">DEVELOPER</span>
+                <span className="text-muted-foreground">
+                  {useTypewriter(["DEVELOPER"], { loop: false, typeSpeed: 80 })}
+                  <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }} className="inline-block ml-0.5">|</motion.span>
+                </span>
                 <span className="text-primary">.</span>
               </motion.h1>
 
