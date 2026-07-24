@@ -1182,6 +1182,17 @@ export default function Portfolio() {
       </header>
 
       {/* ══════════ MAIN CONTENT ══════════ */}
+      {!glitchDone && (
+        <div className="fixed inset-0 z-[99999] bg-background flex items-center justify-center overflow-hidden">
+          <div className="glitch-container">
+            <h1 className="glitch-text text-4xl md:text-6xl font-bold text-primary" data-text="WELCOME">
+              WELCOME
+            </h1>
+            <div className="glitch-scanlines" />
+            <div className="glitch-flash" />
+          </div>
+        </div>
+      )}
       <main className="flex-1 lg:ml-[280px]">
         {/* ─── HERO ─── */}
         <section
