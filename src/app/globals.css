@@ -498,3 +498,9 @@ html, body {
   50% { transform: translate(3px, -2px); }
   75% { transform: translate(-2px, -3px); }
 }
+
+/* Grain more visible in light mode */
+.light .grain-overlay,
+:root:not(.dark) .grain-overlay {
+  opacity: 0.09 !important;
+}

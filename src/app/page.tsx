@@ -1145,7 +1145,7 @@ export default function Portfolio() {
                 variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
               >
-                <span className="text-muted-foreground">
+                <span className="text-foreground/70">
                   {useTypewriter(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { loop: true, typeSpeed: 60, deleteSpeed: 40, pauseTime: 2000 })}
                   <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
                 </span>
@@ -1183,7 +1183,7 @@ export default function Portfolio() {
               >
                 {STATS.map((stat, i) => (
                   <motion.div key={stat.label} variants={fadeInUp} custom={5 + i} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
-                    <CountUp from={0} to={stat.target} suffix={stat.suffix} duration={2} delay={i * 0.2} className="text-lg md:text-xl font-bold text-primary" />
+                    <CountUp from={0} to={stat.target} suffix={stat.suffix} duration={2} delay={i * 0.2} className="text-xl md:text-2xl font-bold text-primary" />
                     <p className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</p>
                   </motion.div>
                 ))}
