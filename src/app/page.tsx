@@ -1198,25 +1198,11 @@ export default function Portfolio() {
 
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                className="text-[28px] md:text-[40px] font-bold leading-tight mb-8"
-              >
-                {"I believe in building digital experiences that drive real results for businesses and delight users at every touchpoint.".split(" ").map((word, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ delay: i * 0.08, duration: 0.4 }}
-                    className="inline-block mr-[0.25em]"
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </motion.h2>
+              <h2 className="text-[28px] md:text-[40px] font-bold leading-tight mb-8">
+                <span className="text-reveal">
+                  I believe in building digital experiences that drive real results for businesses and delight users at every touchpoint.
+                </span>
+              </h2>
               <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-muted-foreground leading-relaxed mb-6">
                 Notable achievements include developing a high-traffic LMS for a Web3 brand that
                 secured 20k+ unique visitors within two weeks of launch, and consistently reducing

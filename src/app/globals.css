@@ -453,3 +453,19 @@ html, body {
     transform: scale(2);
   }
 }
+
+.text-reveal {
+  background: linear-gradient(90deg, var(--foreground) 0%, var(--foreground) 100%);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: reveal-text 1s ease-out forwards;
+  animation-timeline: view();
+  animation-range: entry 0% entry 100%;
+}
+@keyframes reveal-text {
+  from { background-size: 0% 100%; }
+  to { background-size: 100% 100%; }
+}
