@@ -122,7 +122,6 @@ const PROJECTS = [
     url: "https://designedspacesbyyemi.com/",
     image: "/screenshots/designedspacesbyyemi.png",
     tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"],
-    designer: true,
   },
   {
     id: 6,
