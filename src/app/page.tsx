@@ -741,7 +741,6 @@ function BrowserMockupCard({
 }
 
 
-// Track which card is hovered globally for the group
 function ShuffleCard({ children, index }: { children: React.ReactNode; index: number }) {
   const isHovered = hoveredCard === index;
   const isGroupHovered = hoveredCard >= 0;
