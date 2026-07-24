@@ -938,7 +938,7 @@ export default function Portfolio() {
     const [soundEnabled, setSoundEnabled] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
 
-  useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 1000); return () => clearTimeout(t); }, []);
+  useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
@@ -1185,17 +1185,37 @@ export default function Portfolio() {
 
       {/* ══════════ MAIN CONTENT ══════════ */}
       {!glitchDone && (
-        <div className="fixed inset-0 z-[99999] bg-background flex items-center justify-center overflow-hidden">
-          <div className="glitch-container">
-            <h1 className="glitch-text text-4xl md:text-6xl font-bold text-primary" data-text="WELCOME">
-              WELCOME
-            </h1>
-            <div className="glitch-scanlines" />
-            <div className="glitch-flash" />
+        <motion.div
+          className="fixed inset-0 z-[99999] bg-[#0a0a0a] flex items-center justify-center overflow-hidden"
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <div className="cinematic-preloader">
+            <div className="preloader-scanlines" />
+            <div className="preloader-vignette" />
+            <div className="preloader-noise" />
+            <div className="preloader-flash" />
+            
+            <div className="relative z-10 text-center">
+              <div className="preloader-status text-[10px] md:text-[12px] font-mono text-primary/60 uppercase tracking-[0.5em] mb-6">
+                <span className="animate-pulse">●</span> System Init
+              </div>
+              
+              <h1 className="cinematic-text text-5xl md:text-7xl lg:text-8xl font-bold text-primary tracking-tighter" data-text="WELCOME">
+                WELCOME
+              </h1>
+              
+              <div className="preloader-bar mt-8 mx-auto" />
+              <div className="preloader-bar-fast mt-1 mx-auto" />
+              
+              <p className="text-[10px] md:text-[11px] font-mono text-muted-foreground/40 mt-6 uppercase tracking-[0.3em]">
+                Loading<span className="preloader-dots">...</span>
+              </p>
+            </div>
           </div>
-        </div>
+        </motion.div>
       )}
-      <main className="flex-1 lg:ml-[280px]">
+      <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.6s ease-out 0.3s" }}>
         {/* ─── HERO ─── */}
         <section
           id="home"
