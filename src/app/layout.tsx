@@ -57,7 +57,8 @@ export default function RootLayout({
         <ThemeProvider>{children}</ThemeProvider>
         <Toaster />
         <Analytics />
-      </body>
+        <div className="grain-overlay" aria-hidden="true" />
+    </body>
     </html>
   );
 }
