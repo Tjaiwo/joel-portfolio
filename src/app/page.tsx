@@ -1142,6 +1142,12 @@ export default function Portfolio() {
               <svg className="w-4 h-4 lg:w-5 lg:h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
           </div>
+          <div className="text-[11px] font-mono text-primary uppercase tracking-wider mb-1" style={{ fontFamily: 'var(--font-geist-mono)' }}>
+            Local Time
+          </div>
+          <div className="text-primary font-mono mb-3" style={{ fontFamily: 'var(--font-geist-mono)', fontSize: '18px' }}>
+            {useLocalTime()}
+          </div>
           <div className="flex items-center gap-2 mt-2">
           <ThemeToggle />
           <button
