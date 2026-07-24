@@ -680,9 +680,8 @@ function BrowserMockupCard({
     <motion.div
       variants={fadeInUp}
       custom={index}
-      className="browser-card group" style={{ overflow: "visible" }}
+      className="browser-card group"
     >
-      {/* Browser chrome */}
       <div className="browser-chrome">
         <span className="browser-dot browser-dot-red" />
         <span className="browser-dot browser-dot-yellow" />
@@ -692,56 +691,33 @@ function BrowserMockupCard({
         </span>
       </div>
 
-      {/* Viewport - hologram effect on hover */}
-      <motion.div
+      <div
         className="browser-frame relative cursor-pointer"
         onMouseEnter={() => setFrameHovered(true)}
         onMouseLeave={() => setFrameHovered(false)}
-        animate={frameHovered ? {
-          scale: 1.08,
-          rotateX: -5,
-          rotateY: 4,
-          z: 50,
-          boxShadow: "0 35px 70px -15px rgba(80, 200, 120, 0.35), 0 0 100px -20px rgba(80, 200, 120, 0.2)"
-        } : {
-          scale: 1,
-          rotateX: 0,
-          rotateY: 0,
-          z: 0,
-          boxShadow: "0 0 0 0 rgba(80, 200, 120, 0)"
-        }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        style={{ perspective: 1200, transformStyle: "preserve-3d" }}
       >
-        {/* Screenshot (always visible) */}
         <img
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover object-top"
-          style={{ opacity: frameHovered && loaded ? 0 : 1, transition: 'opacity 0.3s' }}
+          style={{ opacity: loaded ? 0 : 1, transition: 'opacity 0.3s' }}
         />
 
-        {/* Iframe loads on frame hover */}
-        <div className="absolute inset-0 iframe-scale-container" style={{ clipPath: "none", overflow: "hidden", zIndex: loaded ? 10 : 5, display: frameHovered ? 'block' : 'none', pointerEvents: frameHovered ? 'auto' : 'none' }}>
-            {frameHovered && !loaded && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/90 z-20">
-                <div className="iframe-spinner-ring" />
-              </div>
-            )}
-            {(frameHovered || hasLoaded) && (
-              <iframe
-                ref={iframeRef}
-                src={project.url}
-                title={project.title}
-                onLoad={handleLoad}
-                sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                className={loaded ? "opacity-100" : "opacity-0"} style={{ position: 'relative', zIndex: 5 }}
-              />
-            )}
+        <div className="absolute inset-0 iframe-scale-container" style={{ overflow: "hidden", opacity: loaded ? 1 : 0, transition: 'opacity 0.3s' }}>
+          <div className={`absolute inset-0 flex items-center justify-center bg-background/90 z-20 ${loaded ? 'hidden' : ''}`}>
+            <div className="iframe-spinner-ring" />
           </div>
-      </motion.div>
+          <iframe
+            ref={iframeRef}
+            src={frameHovered || hasLoaded ? project.url : undefined}
+            title={project.title}
+            onLoad={handleLoad}
+            sandbox="allow-scripts allow-same-origin"
+            className="absolute inset-0"
+          />
+        </div>
+      </div>
 
-      {/* Card info footer */}
       <div className="p-4 space-y-3">
         <div className="flex items-center justify-between gap-2">
           <a
@@ -774,8 +750,6 @@ function BrowserMockupCard({
             </span>
           ))}
         </div>
-
-        {/* Designer credit line */}
         {project.designer && (
           <div className="pt-2 border-t border-border text-[12px] text-muted-foreground/60">
             UI/UX Designer -{" "}
