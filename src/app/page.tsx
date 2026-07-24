@@ -703,6 +703,11 @@ function BrowserMockupCard({
               src={project.image}
               alt={project.title}
               className="w-full h-full object-cover object-top"
+              onError={(e) => {
+                const target = e.currentTarget;
+                const url = `https://image.thum.io/get/width/800/crop/600/${project.url}`;
+                if (target.src !== url) target.src = url;
+              }}
             />
             {!hovered && (
               <div className="absolute inset-0 flex items-center justify-center bg-background/60">
