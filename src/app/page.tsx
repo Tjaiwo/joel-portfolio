@@ -1691,8 +1691,7 @@ export default function Portfolio() {
             </div>
           </ContentWidth>
         </footer>
-            </motion.main>
-    </AnimatePresence>
+</main>
 
       {/* ══════════ PROJECT MODAL ══════════ */}
       <AnimatePresence>
