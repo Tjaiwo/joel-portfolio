@@ -935,8 +935,8 @@ export default function Portfolio() {
   /* Currency detection — client-only to prevent hydration mismatch */
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [openExpIdx, setOpenExpIdx] = useState(-1);
-  const [hoveredCard, setHoveredCard] = useState(-1);
-  const [soundEnabled, setSoundEnabled] = useState(false);
+    const [soundEnabled, setSoundEnabled] = useState(false);
+  const [glitchDone, setGlitchDone] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
@@ -1321,23 +1321,8 @@ export default function Portfolio() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {PROJECTS.map((project, idx) => (
-              <motion.div
-                key={project.id}
-                onMouseEnter={() => setHoveredCard(idx)}
-                onMouseLeave={() => setHoveredCard(-1)}
-                animate={{
-                  scale: hoveredCard === idx ? 1.05 : hoveredCard >= 0 ? 0.97 : 1,
-                  rotateZ: hoveredCard === idx ? 0 : hoveredCard >= 0 ? (idx - hoveredCard) * 2 : 0,
-                  x: hoveredCard >= 0 && hoveredCard !== idx ? (idx - hoveredCard) * 8 : 0,
-                  zIndex: hoveredCard === idx ? 10 : 1,
-                  filter: hoveredCard >= 0 && hoveredCard !== idx ? 'brightness(0.85)' : 'brightness(1)',
-                }}
-                transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                style={{ position: 'relative', transformOrigin: 'center center' }}
-              >
-                <motion.div id={project.slug ? `project-${project.slug}` : undefined} initial={{ opacity: 0, y: 40, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: idx * 0.15, duration: 0.5, ease: "easeOut" }}>
-                  <BrowserMockupCard project={project} index={idx} />
-                </motion.div>
+              <motion.div key={project.id} id={project.slug ? `project-${project.slug}` : undefined} initial={{ opacity: 0, y: 40, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: idx * 0.15, duration: 0.5, ease: "easeOut" }}>
+                <BrowserMockupCard project={project} index={idx} />
               </motion.div>
             ))}
           </div>
