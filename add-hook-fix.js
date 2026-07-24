@@ -1,7 +1,6 @@
 const fs = require('fs');
 let p = fs.readFileSync('src/app/page.tsx', 'utf8');
 
-// Add useTypewriter hook before the component
 const hook = `function useTypewriter(words, { loop = false, typeSpeed = 80, deleteSpeed = 50 } = {}) {
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
@@ -24,7 +23,7 @@ const hook = `function useTypewriter(words, { loop = false, typeSpeed = 80, dele
 
 `;
 
-p = p.replace("export default function Home() {", hook + "\nexport default function Home() {");
-console.log('✅ useTypewriter hook added');
+p = p.replace("export default function Portfolio() {", hook + "\nexport default function Portfolio() {");
+console.log('✅ useTypewriter hook added before Portfolio');
 
 fs.writeFileSync('src/app/page.tsx', p);

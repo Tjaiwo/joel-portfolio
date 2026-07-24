@@ -860,6 +860,27 @@ function CountingStat({ stat, index }) {
 
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
+function useTypewriter(words, { loop = false, typeSpeed = 80, deleteSpeed = 50 } = {}) {
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[0];
+    let timer;
+    if (!deleting && charIndex < word.length) {
+      timer = setTimeout(() => setCharIndex(charIndex + 1), typeSpeed);
+    } else if (!deleting && charIndex === word.length) {
+      if (loop) timer = setTimeout(() => setDeleting(true), 1500);
+    } else if (deleting && charIndex > 0) {
+      timer = setTimeout(() => setCharIndex(charIndex - 1), deleteSpeed);
+    }
+    return () => clearTimeout(timer);
+  }, [charIndex, deleting, words, loop, typeSpeed, deleteSpeed]);
+
+  return words[0].substring(0, charIndex);
+}
+
+
 export default function Portfolio() {
   const activeSection = useActiveSection();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
