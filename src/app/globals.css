@@ -213,6 +213,13 @@ html, body {
   animation: subtle-pulse 3s ease-in-out infinite;
 }
 
+
+/* Accordion chevron pulse */
+@keyframes pulse-chevron {
+  0%, 100% { opacity: 0.5; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(2px); }
+}
+
 /* Reveal animation */
 @keyframes slide-up {
   from {
