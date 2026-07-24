@@ -635,7 +635,7 @@ function Section({
       ref={ref}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+      variants={staggerContainer}
       className={`scroll-mt-20 lg:scroll-mt-0 pt-[90px] lg:pt-[120px] px-4 md:px-4 lg:px-5 ${className}`}
     >
       <ContentWidth>{children}</ContentWidth>
