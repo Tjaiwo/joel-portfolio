@@ -1352,10 +1352,9 @@ export default function Portfolio() {
                     <motion.span
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.2 }}
-                      className="text-primary shrink-0 ml-4"
-                      style={isOpen ? {} : { animation: 'pulse-chevron 2s ease-in-out infinite' }}
+                      className={`text-primary shrink-0 ml-4 rounded-full ${!isOpen ? 'animate-[pulse-chevron_2s_ease-in-out_infinite]' : ''}`}
                     >
-                      <svg className="w-4 h-4 lg:w-[18px] lg:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                      <svg className="w-[18px] h-[18px] lg:w-[20px] lg:h-[20px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                     </motion.span>
                   </button>
 
