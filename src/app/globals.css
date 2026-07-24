@@ -595,3 +595,16 @@ main {
 .browser-frame {
   will-change: transform;
 }
+
+@keyframes float-tag {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+.skill-tag {
+  animation: float-tag 4s ease-in-out infinite;
+}
+.skill-tag:hover {
+  animation: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(80, 200, 120, 0.15);
+}
