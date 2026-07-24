@@ -870,11 +870,13 @@ function useScramble(words, { revealSpeed = 50, scrambleTime = 200, pauseTime = 
   const [display, setDisplay] = useState(words[0] || "");
   const [phase, setPhase] = useState(0); // 0=show, 1=scramble, 2=reveal
   const wordIndex = useRef(0);
+  const wordsRef = useRef(words);
+  wordsRef.current = words;
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&";
 
   useEffect(() => {
-    const currentWord = words[wordIndex.current];
-    const nextWord = words[(wordIndex.current + 1) % words.length];
+    const currentWord = wordsRef.current[wordIndex.current];
+    const nextWord = wordsRef.current[(wordIndex.current + 1) % wordsRef.current.length];
     const maxLen = Math.max(currentWord.length, nextWord.length);
     let timer;
 
@@ -913,7 +915,7 @@ function useScramble(words, { revealSpeed = 50, scrambleTime = 200, pauseTime = 
     }
 
     return () => clearInterval(timer);
-  }, [phase, words, scrambleTime, pauseTime, revealSpeed]);
+  }, [phase, scrambleTime, pauseTime, revealSpeed]); // eslint-disable-line
 
   return display;
 }
