@@ -866,59 +866,54 @@ function CountingStat({ stat, index }) {
 /* ──────────────────────── MAIN COMPONENT ──────────────────────── */
 
 
-function useScramble(words, { revealSpeed = 60, scrambleTime = 200, pauseTime = 2500 } = {}) {
+function useScramble(words, { revealSpeed = 50, scrambleTime = 200, pauseTime = 2500 } = {}) {
   const [display, setDisplay] = useState(words[0] || "");
-  const [wordIndex, setWordIndex] = useState(0);
-  const [running, setRunning] = useState(false);
-
+  const [phase, setPhase] = useState(0); // 0=show, 1=scramble, 2=reveal
+  const wordIndex = useRef(0);
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&";
 
   useEffect(() => {
-    if (running) return;
-    setRunning(true);
+    const currentWord = words[wordIndex.current];
+    const nextWord = words[(wordIndex.current + 1) % words.length];
+    const maxLen = Math.max(currentWord.length, nextWord.length);
+    let timer;
 
-    const current = words[wordIndex];
-    const next = words[(wordIndex + 1) % words.length];
-    const maxLen = Math.max(current.length, next.length);
-
-    const pauseTimer = setTimeout(() => {
-      const startTime = Date.now();
-      const interval = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        if (elapsed >= scrambleTime) {
-          clearInterval(interval);
-          let pos = 0;
-          const revealInterval = setInterval(() => {
-            if (pos > next.length) {
-              clearInterval(revealInterval);
-              setDisplay(next);
-              setWordIndex((prev) => (prev + 1) % words.length);
-              setRunning(false);
-            } else {
-              let str = "";
-              for (let i = 0; i < maxLen; i++) {
-                if (i < pos) {
-                  str += next[i] || "";
-                } else {
-                  str += chars[Math.floor(Math.random() * chars.length)];
-                }
-              }
-              setDisplay(str);
-              pos++;
-            }
-          }, revealSpeed);
-          return;
+    if (phase === 0) {
+      setDisplay(currentWord);
+      timer = setTimeout(() => setPhase(1), pauseTime);
+    } else if (phase === 1) {
+      const start = Date.now();
+      timer = setInterval(() => {
+        if (Date.now() - start >= scrambleTime) {
+          clearInterval(timer);
+          setPhase(2);
+        } else {
+          let s = "";
+          for (let i = 0; i < maxLen; i++) s += chars[Math.floor(Math.random() * chars.length)];
+          setDisplay(s);
         }
-        let str = "";
-        for (let i = 0; i < maxLen; i++) {
-          str += chars[Math.floor(Math.random() * chars.length)];
-        }
-        setDisplay(str);
       }, 30);
-    }, pauseTime);
+    } else if (phase === 2) {
+      let pos = 0;
+      timer = setInterval(() => {
+        if (pos > nextWord.length) {
+          clearInterval(timer);
+          setDisplay(nextWord);
+          wordIndex.current = (wordIndex.current + 1) % words.length;
+          setPhase(0);
+        } else {
+          let s = "";
+          for (let i = 0; i < maxLen; i++) {
+            s += i < pos ? (nextWord[i] || "") : chars[Math.floor(Math.random() * chars.length)];
+          }
+          setDisplay(s);
+          pos++;
+        }
+      }, revealSpeed);
+    }
 
-    return () => clearTimeout(pauseTimer);
-  }, [wordIndex, running, words, scrambleTime, pauseTime, revealSpeed]);
+    return () => clearInterval(timer);
+  }, [phase, words, scrambleTime, pauseTime, revealSpeed]);
 
   return display;
 }
