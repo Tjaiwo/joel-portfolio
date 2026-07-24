@@ -1139,10 +1139,8 @@ export default function Portfolio() {
                 variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
               >
-                WEB
-                <br />
                 <span className="text-muted-foreground">
-                  {useTypewriter(["DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { loop: true, typeSpeed: 60, deleteSpeed: 40, pauseTime: 2000 })}
+                  {useTypewriter(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"], { loop: true, typeSpeed: 60, deleteSpeed: 40, pauseTime: 2000 })}
                   <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
                 </span>
                 <span className="text-primary">.</span>
