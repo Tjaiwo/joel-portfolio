@@ -1199,7 +1199,9 @@ export default function Portfolio() {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div>
               <motion.h2
-                variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
                 className="text-[28px] md:text-[40px] font-bold leading-tight mb-8"
               >
                 {"I believe in building digital experiences that drive real results for businesses and delight users at every touchpoint.".split(" ").map((word, i) => (
@@ -1646,8 +1648,8 @@ export default function Portfolio() {
         </Section>
 
         {/* CUSTOM CURSOR */}
-        <motion.div className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[99999]" animate={{ x: cursorX - 8, y: cursorY - 8 }} transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
-        <motion.div className="fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[99998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ type: "spring", stiffness: 250, damping: 20, mass: 0.8 }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
+        <motion.div className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[99999]" animate={{ x: cursorX - 8, y: cursorY - 8 }} transition={{ duration: 0.05, ease: "easeOut" }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
+        <motion.div className="fixed top-0 left-0 w-8 h-8 border border-primary/50 rounded-full pointer-events-none z-[99998]" animate={{ x: cursorX - 16, y: cursorY - 16 }} transition={{ duration: 0.08, ease: "easeOut" }} style={{ opacity: cursorX > 0 ? 1 : 0 }} />
 
         {/* ─── FOOTER ─── */}
         <footer className="py-8 border-t border-border px-4 lg:px-5 mt-[90px] lg:mt-[120px]">
