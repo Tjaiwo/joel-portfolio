@@ -888,6 +888,24 @@ function useTypewriter(words, { loop = false, typeSpeed = 60, deleteSpeed = 40, 
 }
 
 
+
+function playClick() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = 1200;
+    osc.type = "sine";
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.1);
+  } catch (e) {}
+}
+
+
 export default function Portfolio() {
   const activeSection = useActiveSection();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -902,6 +920,7 @@ export default function Portfolio() {
   const [openExpIdx, setOpenExpIdx] = useState(-1);
   const [cursorX, setCursorX] = useState(-100);
   const [cursorY, setCursorY] = useState(-100);
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
@@ -1081,6 +1100,13 @@ export default function Portfolio() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
+              onClick={() => setSoundEnabled(!soundEnabled)}
+              className="p-2 rounded-md border border-border hover:border-primary/30 transition-colors text-[11px] font-mono text-muted-foreground hover:text-primary"
+              title={soundEnabled ? "Sound on" : "Sound off"}
+            >
+              {soundEnabled ? "🔊" : "🔇"}
+            </button>
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-foreground"
               aria-label="Toggle menu"
@@ -1163,7 +1189,7 @@ export default function Portfolio() {
 
               <motion.div variants={fadeInUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-wrap gap-4 mb-16">
                 <button
-                  onClick={() => scrollTo("contact")}
+                  onClick={() => { if (soundEnabled) playClick(); scrollTo("contact"); }}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] uppercase"
                 >
                   <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-2">LET&apos;S TALK <ArrowUpRight size={16} /></motion.span>
@@ -1665,7 +1691,8 @@ export default function Portfolio() {
             </div>
           </ContentWidth>
         </footer>
-      </main>
+            </motion.main>
+    </AnimatePresence>
 
       {/* ══════════ PROJECT MODAL ══════════ */}
       <AnimatePresence>

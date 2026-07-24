@@ -504,3 +504,8 @@ html, body {
 :root:not(.dark) .grain-overlay {
   opacity: 0.09 !important;
 }
+
+/* Page transitions */
+main {
+  will-change: opacity;
+}
