@@ -925,6 +925,12 @@ export default function Portfolio() {
     setCurrency(getCurrencyFromTimezone());
   }, []);
 
+  useEffect(() => {
+    const move = (e) => { setCursorX(e.clientX); setCursorY(e.clientY); };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
   const scrollTo = useCallback((id: string) => {
     setMobileMenuOpen(false);
     setTimeout(() => {
