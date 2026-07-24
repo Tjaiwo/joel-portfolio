@@ -1293,7 +1293,6 @@ export default function Portfolio() {
               </motion.div>
             </motion.div>
           </ContentWidth>
-      </motion.div>
         </section>
 
         {/* ─── ABOUT ─── */}
