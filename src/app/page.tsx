@@ -741,29 +741,6 @@ function BrowserMockupCard({
 }
 
 
-function ShuffleCard({ children, index }: { children: React.ReactNode; index: number }) {
-  const isHovered = hoveredCard === index;
-  const isGroupHovered = hoveredCard >= 0;
-  const distance = index - hoveredCard;
-
-  return (
-    <motion.div
-      onMouseEnter={() => setHoveredCard(index)}
-      onMouseLeave={() => setHoveredCard(-1)}
-      animate={{
-        scale: isHovered ? 1.05 : isGroupHovered ? 0.97 : 1,
-        rotateZ: isHovered ? 0 : isGroupHovered ? distance * 2 : 0,
-        x: isGroupHovered && !isHovered ? distance * 8 : 0,
-        zIndex: isHovered ? 10 : 1,
-        filter: isGroupHovered && !isHovered ? 'brightness(0.85)' : 'brightness(1)',
-      }}
-      transition={{ type: "spring", stiffness: 200, damping: 25 }}
-      style={{ position: 'relative', transformOrigin: 'center center' }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 
 /* ──────────────────────── BACK TO TOP ──────────────────────── */
@@ -1344,11 +1321,24 @@ export default function Portfolio() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {PROJECTS.map((project, idx) => (
-              <ShuffleCard key={project.id} index={idx}>
+              <motion.div
+                key={project.id}
+                onMouseEnter={() => setHoveredCard(idx)}
+                onMouseLeave={() => setHoveredCard(-1)}
+                animate={{
+                  scale: hoveredCard === idx ? 1.05 : hoveredCard >= 0 ? 0.97 : 1,
+                  rotateZ: hoveredCard === idx ? 0 : hoveredCard >= 0 ? (idx - hoveredCard) * 2 : 0,
+                  x: hoveredCard >= 0 && hoveredCard !== idx ? (idx - hoveredCard) * 8 : 0,
+                  zIndex: hoveredCard === idx ? 10 : 1,
+                  filter: hoveredCard >= 0 && hoveredCard !== idx ? 'brightness(0.85)' : 'brightness(1)',
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                style={{ position: 'relative', transformOrigin: 'center center' }}
+              >
                 <motion.div id={project.slug ? `project-${project.slug}` : undefined} initial={{ opacity: 0, y: 40, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: idx * 0.15, duration: 0.5, ease: "easeOut" }}>
                   <BrowserMockupCard project={project} index={idx} />
                 </motion.div>
-              </ShuffleCard>
+              </motion.div>
             ))}
           </div>
 
