@@ -759,34 +759,28 @@ main {
 
 
 /* Matrix Rain - CSS only */
-.matrix-rain {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-}
-.matrix-rain span {
-  position: absolute;
-  top: -100px;
-  font-family: monospace;
-  font-size: 14px;
-  color: #50C878;
-  animation: matrix-drop linear infinite;
-  opacity: 0;
-}
-:root:not(.dark) .matrix-rain span {
-  opacity: 0.5;
-}
-.dark .matrix-rain span {
-  opacity: 0.2;
-}
-@keyframes matrix-drop {
-  0% { transform: translateY(-100px); opacity: 0; }
+
   10% { opacity: 1; }
   90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.matrix-rain {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 1; overflow: hidden;
+}
+.rain-beam {
+  position: absolute; top: -100px;
+  background: linear-gradient(to bottom, transparent, rgba(80, 200, 120, 0.3), rgba(80, 200, 120, 0.6), rgba(80, 200, 120, 0.3), transparent);
+  border-radius: 1px;
+  animation: beam-drop linear infinite;
+  filter: blur(1px);
+}
+:root:not(.dark) .rain-beam { opacity: 0.7; }
+.dark .rain-beam { opacity: 0.3; }
+@keyframes beam-drop {
+  0% { transform: translateY(-100px); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
   100% { transform: translateY(100vh); opacity: 0; }
 }
