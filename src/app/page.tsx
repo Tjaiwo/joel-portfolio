@@ -985,10 +985,10 @@ function useLocalTime() {
 
 
 export default function Portfolio() {
+  const [burnIn, setBurnIn] = useState(false);
   const activeSection = useActiveSection();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [burnIn, setBurnIn] = useState(false);
-    const [selectedProject, setSelectedProject] = useState<(typeof PROJECTS)[0] | null>(null);
+      const [selectedProject, setSelectedProject] = useState<(typeof PROJECTS)[0] | null>(null);
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "", budget: "" });
   const [budgetError, setBudgetError] = useState("");
