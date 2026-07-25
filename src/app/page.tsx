@@ -1247,11 +1247,13 @@ export default function Portfolio() {
 
               <motion.h1
                 variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-                className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text"
+                className="text-[40px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[44px] md:leading-[0.95] mb-6 glow-text min-h-[1.2em]"
               >
-                <span className="text-foreground/70">
-                  {useScramble(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"])}
-                  <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
+                <span className="text-foreground/70 inline-block min-h-[1.2em]">
+                  <span className="inline-block">
+                    {useScramble(["WEB DEVELOPER", "SEO EXPERT", "NO/LOW CODE HASHIRA"])}
+                    <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }}>|</motion.span>
+                  </span>
                 </span>
                 <span className="text-primary">.</span>
               </motion.h1>
