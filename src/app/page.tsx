@@ -1250,7 +1250,7 @@ export default function Portfolio() {
                 className="text-[34px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-6 glow-text"
                 style={{ minHeight: 'clamp(48px, 12vw, 80px)' }}
               >
-                <span className="text-foreground/70">
+                <span className="text-foreground/70 inline-block" style={{ minWidth: "320px" }}>
                   {useScramble(["WEB DEVELOPER.", "SEO EXPERT.", "NO/LOW CODE HASHIRA."])}
                   <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }} className="text-primary">|</motion.span>
                 </span>
