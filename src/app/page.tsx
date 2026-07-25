@@ -1662,7 +1662,7 @@ export default function Portfolio() {
                   <h3 className="text-[20px] md:text-[24px] font-bold mt-2 mb-3">{item.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                 </motion.div>
-              )))}
+              ))}
             </div>
           </div>
         </Section>
