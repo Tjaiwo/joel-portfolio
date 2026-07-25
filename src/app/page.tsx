@@ -610,7 +610,27 @@ function useActiveSection() {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
+  
+
+  // Burn-in effect on theme switch
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.attributeName === 'class') {
+          const html = document.documentElement;
+          const isDark = html.classList.contains('dark');
+          // trigger burn only when switching FROM dark TO light
+          if (!isDark && m.oldValue?.includes('dark')) {
+            setBurnIn(true);
+            setTimeout(() => setBurnIn(false), 600);
+          }
+        }
+      }
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeOldValue: true });
+    return () => observer.disconnect();
   }, []);
+}, []);
   return active;
 }
 
@@ -742,6 +762,47 @@ function BrowserMockupCard({
 
 
 
+
+
+/* ──────────────────────── MATRIX RAIN ──────────────────────── */
+function MatrixRain() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops: number[] = Array(columns).fill(1);
+    const draw = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#50C878';
+      ctx.font = `${fontSize}px monospace`;
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    };
+    const interval = setInterval(draw, 50);
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0 opacity-30" />;
+}
 
 /* ──────────────────────── BACK TO TOP ──────────────────────── */
 
@@ -936,7 +997,9 @@ export default function Portfolio() {
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [openExpIdx, setOpenExpIdx] = useState(-1);
     const [soundEnabled, setSoundEnabled] = useState(false);
+  const [matrixRain, setMatrixRain] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
+  const [burnIn, setBurnIn] = useState(false);
 
   useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
@@ -1125,6 +1188,13 @@ export default function Portfolio() {
           >
             {soundEnabled ? "🔊" : "🔇"}
           </button>
+          <button
+            onClick={() => setMatrixRain(!matrixRain)}
+            className="p-2 rounded-md border border-border hover:border-primary/30 transition-colors text-[11px] font-mono text-muted-foreground hover:text-primary"
+            title={matrixRain ? "Matrix rain on" : "Matrix rain off"}
+          >
+            {matrixRain ? "🌧️" : "💧"}
+          </button>
         </div>
         </motion.div>
       </aside>
@@ -1222,6 +1292,12 @@ export default function Portfolio() {
             </div>
           </div>
         </motion.div>
+      )}
+      {burnIn && (
+        <div className="fixed inset-0 z-[99999] pointer-events-none bg-white mix-blend-difference">
+          <div className="absolute inset-0 burn-in-scanlines" />
+          <div className="absolute inset-0 burn-in-flash" />
+        </div>
       )}
       <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.8s ease-out 0.2s" }}>
         {/* ─── HERO ─── */}
@@ -1554,6 +1630,40 @@ export default function Portfolio() {
                 </motion.div>
               );
             })}
+          </div>
+        </Section>
+
+        {/* ─── PROCESS TIMELINE ─── */}
+        <Section id="process">
+          <SectionLabel>// My Process</SectionLabel>
+          <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
+            FROM IDEA TO LAUNCH
+          </motion.h2>
+          <div className="overflow-x-auto pb-8 -mx-4 px-4 scrollbar-none">
+            <div className="flex gap-6 md:gap-10 min-w-max">
+              {[
+                { step: "01", title: "Discovery", desc: "Deep dive into your business goals, target audience, and competitive landscape." },
+                { step: "02", title: "Strategy", desc: "Crafting a tailored roadmap with sitemaps, user flows, and content architecture." },
+                { step: "03", title: "Design", desc: "High-fidelity mockups & interactive prototypes that align with your brand." },
+                { step: "04", title: "Build", desc: "Clean, performant code — custom WordPress themes, plugins, and integrations." },
+                { step: "05", title: "Optimize", desc: "Speed tuning, SEO hardening, and accessibility audits for maximum reach." },
+                { step: "06", title: "Launch", desc: "Smooth deployment, monitoring, and handover with training and documentation." }
+              ].map((item, i) => (
+                <motion.div
+                  key={item.step}
+                  variants={fadeInUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex-shrink-0 w-[260px] md:w-[300px] p-6 rounded-lg border border-border bg-card/30 hover:bg-card/50 transition-colors group"
+                >
+                  <span className="text-primary text-[12px] font-mono tracking-widest">{item.step}</span>
+                  <h3 className="text-[20px] md:text-[24px] font-bold mt-2 mb-3">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </motion.div>
+              )))}
+            </div>
           </div>
         </Section>
 
