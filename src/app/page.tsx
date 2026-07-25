@@ -612,24 +612,6 @@ function useActiveSection() {
     return () => observer.disconnect();
   
 
-  // Burn-in effect on theme switch
-  useEffect(() => {
-    const observer = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        if (m.attributeName === 'class') {
-          const html = document.documentElement;
-          const isDark = html.classList.contains('dark');
-          // trigger burn only when switching FROM dark TO light
-          if (!isDark && m.oldValue?.includes('dark')) {
-            setBurnIn(true);
-            setTimeout(() => setBurnIn(false), 600);
-          }
-        }
-      }
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeOldValue: true });
-    return () => observer.disconnect();
-  }, []);
 }, []);
   return active;
 }
@@ -991,6 +973,7 @@ export default function Portfolio() {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "", budget: "" });
   const [budgetError, setBudgetError] = useState("");
+  const [burnIn, setBurnIn] = useState(false);
   const [burnIn, setBurnIn] = useState(false);
 
 
