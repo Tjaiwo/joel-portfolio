@@ -982,7 +982,6 @@ export default function Portfolio() {
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [openExpIdx, setOpenExpIdx] = useState(-1);
     const [soundEnabled, setSoundEnabled] = useState(false);
-  const [matrixRain, setMatrixRain] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
   
   useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
@@ -1172,13 +1171,7 @@ export default function Portfolio() {
           >
             {soundEnabled ? "🔊" : "🔇"}
           </button>
-          <button
-            onClick={() => setMatrixRain(!matrixRain)}
-            className="p-2 rounded-md border border-border hover:border-primary/30 transition-colors text-[11px] font-mono text-muted-foreground hover:text-primary"
-            title={matrixRain ? "Matrix rain on" : "Matrix rain off"}
-          >
-            {matrixRain ? "🌧️" : "💧"}
-          </button>
+
         </div>
         </motion.div>
       </aside>
