@@ -771,9 +771,9 @@ function MatrixRain() {
     
     const draw = () => {
       const isDark = document.documentElement.classList.contains('dark');
-      ctx.fillStyle = isDark ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.08)';
+      ctx.fillStyle = isDark ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = isDark ? 'rgba(80, 200, 120, 0.2)' : 'rgba(80, 200, 120, 0.4)';
+      ctx.fillStyle = isDark ? 'rgba(80, 200, 120, 0.5)' : 'rgba(80, 200, 120, 0.7)';
       ctx.font = `${fontSize}px monospace`;
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
@@ -789,7 +789,7 @@ function MatrixRain() {
       window.removeEventListener('resize', resize);
     };
   }, []);
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />;
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none" style={{ zIndex: 1, opacity: 1 }} />;
 }
 
 /* ──────────────────────── BACK TO TOP ──────────────────────── */
