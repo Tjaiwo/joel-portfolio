@@ -612,6 +612,8 @@ function useActiveSection() {
     return () => observer.disconnect();
   
 
+  const [burnIn, setBurnIn] = useState(false);
+
   // Burn-in effect on theme switch
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
@@ -985,8 +987,7 @@ function useLocalTime() {
 
 
 export default function Portfolio() {
-  const [burnIn, setBurnIn] = useState(false);
-  const activeSection = useActiveSection();
+    const activeSection = useActiveSection();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
       const [selectedProject, setSelectedProject] = useState<(typeof PROJECTS)[0] | null>(null);
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
