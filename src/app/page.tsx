@@ -974,7 +974,6 @@ export default function Portfolio() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "", budget: "" });
   const [budgetError, setBudgetError] = useState("");
   const [burnIn, setBurnIn] = useState(false);
-  const [burnIn, setBurnIn] = useState(false);
 
 
   /* Currency detection — client-only to prevent hydration mismatch */
