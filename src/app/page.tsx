@@ -1247,7 +1247,7 @@ export default function Portfolio() {
 
               <motion.h1
                 variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-                className="text-[36px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-6 glow-text"
+                className="text-[32px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-6 glow-text"
                 style={{ minHeight: 'clamp(48px, 12vw, 80px)' }}
               >
                 <span className="text-foreground/70">
