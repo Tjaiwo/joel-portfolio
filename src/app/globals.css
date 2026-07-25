@@ -759,6 +759,3 @@ main {
 
 
   10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(calc(100vh + 120px)); opacity: 0; }
-}
