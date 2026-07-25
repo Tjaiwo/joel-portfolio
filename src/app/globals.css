@@ -757,3 +757,36 @@ main {
 @keyframes noise-shift { 0%,100% { transform: translate(0,0); } 25% { transform: translate(-4px,3px); } 50% { transform: translate(3px,-4px); } 75% { transform: translate(-2px,-2px); } }
 @keyframes dots-blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
+
+/* Matrix Rain - CSS only */
+.matrix-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.matrix-rain span {
+  position: absolute;
+  top: -100px;
+  font-family: monospace;
+  font-size: 14px;
+  color: #50C878;
+  animation: matrix-drop linear infinite;
+  opacity: 0;
+}
+:root:not(.dark) .matrix-rain span {
+  opacity: 0.5;
+}
+.dark .matrix-rain span {
+  opacity: 0.2;
+}
+@keyframes matrix-drop {
+  0% { transform: translateY(-100px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
