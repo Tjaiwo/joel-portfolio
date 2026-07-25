@@ -1000,6 +1000,7 @@ export default function Portfolio() {
   const [matrixRain, setMatrixRain] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
   const [burnIn, setBurnIn] = useState(false);
+  const [burnIn, setBurnIn] = useState(false);
 
   useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
