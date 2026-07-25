@@ -1231,17 +1231,24 @@ export default function Portfolio() {
         </motion.div>
       )}
       <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.8s ease-out 0.2s" }}>
-        {/* ─── HERO ─── */}
-        <div className="matrix-rain" aria-hidden="true">
-          {"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&".split("").map((char, i) => (
-            <span key={i} style={{
-              left: ((i * 37) % 100) + '%',
-              animationDuration: (3 + (i % 5)) + 's',
-              animationDelay: ((i * 0.7) % 5) + 's',
-              fontSize: (10 + (i % 16)) + 'px'
-            }}>{char}</span>
+        {/* ─── MATRIX RAIN ─── */}
+        <div className="rain-container" aria-hidden="true">
+          {[...Array(35)].map((_, i) => (
+            <div
+              key={i}
+              className="rain-beam"
+              style={{
+                left: ((i * 29 + 7) % 100) + '%',
+                height: (60 + Math.random() * 100) + 'px',
+                animationDuration: (2.5 + Math.random() * 4) + 's',
+                animationDelay: (Math.random() * 3) + 's',
+                opacity: undefined
+              }}
+            />
           ))}
         </div>
+
+        {/* ─── HERO ─── */}
         <section
           id="home"
           className="flex flex-col justify-start lg:justify-center lg:min-h-screen relative overflow-hidden pt-[120px] lg:pt-0 px-4 md:px-4 lg:px-5"
