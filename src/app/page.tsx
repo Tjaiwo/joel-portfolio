@@ -1231,23 +1231,6 @@ export default function Portfolio() {
         </motion.div>
       )}
       <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.8s ease-out 0.2s" }}>
-        {/* ─── MATRIX RAIN ─── */}
-        <div className="rain-container" aria-hidden="true">
-          {[...Array(35)].map((_, i) => (
-            <div
-              key={i}
-              className="rain-beam"
-              style={{
-                left: ((i * 29 + 7) % 100) + '%',
-                height: (60 + Math.random() * 100) + 'px',
-                animationDuration: (2.5 + Math.random() * 4) + 's',
-                animationDelay: (Math.random() * 3) + 's',
-                opacity: undefined
-              }}
-            />
-          ))}
-        </div>
-
         {/* ─── HERO ─── */}
         <section
           id="home"
