@@ -612,8 +612,6 @@ function useActiveSection() {
     return () => observer.disconnect();
   
 
-  const [burnIn, setBurnIn] = useState(false);
-
   // Burn-in effect on theme switch
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
@@ -993,6 +991,7 @@ export default function Portfolio() {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "", budget: "" });
   const [budgetError, setBudgetError] = useState("");
+  const [burnIn, setBurnIn] = useState(false);
 
 
   /* Currency detection — client-only to prevent hydration mismatch */
