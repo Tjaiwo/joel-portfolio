@@ -1379,7 +1379,7 @@ export default function Portfolio() {
           <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
             FROM IDEA TO LAUNCH
           </motion.h2>
-          <div className="timeline-scroll mb-20">
+          <div className="timeline-scroll mb-20 w-full" style={{ maxWidth: '100vw' }}>
             {[
               { step: "01", title: "Discovery", desc: "Deep dive into your business goals, audience, and competition." },
               { step: "02", title: "Strategy", desc: "Sitemaps, user flows, and a clear content architecture." },
