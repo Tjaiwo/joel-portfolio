@@ -1,9 +1,9 @@
 const fs = require('fs');
 let p = fs.readFileSync('src/app/page.tsx', 'utf8');
 
-// Find the end of Featured Works section and insert timeline before MY STACK
-const featuredEnd = '{/* ─── MY STACK ─── */}';
-const timelineSection = `{/* ─── PROCESS ─── */}
+const myStackHeading = '          <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">\n            MY STACK\n          </motion.h2>';
+
+const timeline = `          {/* ─── PROCESS TIMELINE ─── */}
           <div className="mb-20">
             <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
               FROM IDEA TO LAUNCH
@@ -39,17 +39,16 @@ const timelineSection = `{/* ─── PROCESS ─── */}
             </div>
           </div>
 
-          {/* ─── MY STACK ─── */}`;
+          ${myStackHeading}`;
 
-p = p.replace(featuredEnd, timelineSection);
-console.log('✅ Timeline added under Featured Projects');
+p = p.replace(myStackHeading, timeline);
+console.log('✅ Timeline inserted before MY STACK');
 
-// Add scrollbar-none CSS if not present
+// Add CSS
 let css = fs.readFileSync('src/app/globals.css', 'utf8');
 if (!css.includes('scrollbar-none')) {
   css += '\n.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }\n.scrollbar-none::-webkit-scrollbar { display: none; }\n';
   fs.writeFileSync('src/app/globals.css', css);
-  console.log('✅ Scrollbar CSS added');
 }
 
 fs.writeFileSync('src/app/page.tsx', p);
