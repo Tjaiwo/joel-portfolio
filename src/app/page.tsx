@@ -751,38 +751,6 @@ function BrowserMockupCard({
 /* ──────────────────────── MATRIX RAIN ──────────────────────── */
 
 /* ──────────────────────── STACKING CARD ──────────────────────── */
-function StackingCard({ children, index, total }: { children: React.ReactNode; index: number; total: number }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-  // Earlier cards (lower index) scale down more as you scroll
-  const scale = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.88, 0.82]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 0.9], [1, 0.7, 0.3]);
-  const blur = useTransform(scrollYProgress, [0, 0.3, 0.7], [0, 0, 6]);
-
-  return (
-    <motion.div
-      ref={ref}
-      className="sticky top-16 md:top-24"
-      style={{
-        zIndex: index,
-        scale,
-        opacity,
-        filter: `blur(${blur}px)`,
-        marginBottom: index < total - 1 ? '20px' : '0'
-      }}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ delay: index * 0.08, duration: 0.4 }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 /* ──────────────────────── BACK TO TOP ──────────────────────── */
 
 function BackToTop() {
@@ -1408,13 +1376,11 @@ export default function Portfolio() {
             FEATURED WORKS
           </motion.h2>
 
-          <div className="stacking-projects mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {PROJECTS.map((project, idx) => (
-              <StackingCard key={project.id} index={idx} total={PROJECTS.length}>
-                <div className="stack-card">
-                  <BrowserMockupCard project={project} index={idx} />
-                </div>
-              </StackingCard>
+              <motion.div key={project.id} id={project.slug ? `project-${project.slug}` : undefined} initial={{ opacity: 0, y: 40, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: idx * 0.15, duration: 0.5, ease: "easeOut" }}>
+                <BrowserMockupCard project={project} index={idx} />
+              </motion.div>
             ))}
           </div>
 
