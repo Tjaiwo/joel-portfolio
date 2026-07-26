@@ -931,6 +931,40 @@ function useLocalTime() {
 }
 
 
+
+/* ─── Magnetic hover wrapper (mouse-following effect) ─── */
+function MagneticButton({ children, strength = 0.4, className = "" }) {
+  const ref = useRef(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMove = (e) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const dx = e.clientX - centerX;
+    const dy = e.clientY - centerY;
+    setOffset({ x: dx * strength, y: dy * strength });
+  };
+
+  const handleLeave = () => setOffset({ x: 0, y: 0 });
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      animate={{ x: offset.x, y: offset.y }}
+      transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.3 }}
+      className={className}
+      style={{ display: "inline-block", willChange: "transform" }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function Portfolio() {
     const activeSection = useActiveSection();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -1282,12 +1316,14 @@ export default function Portfolio() {
               </motion.p>
 
               <motion.div variants={fadeInUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-wrap gap-4 mb-16">
-                <button
-                  onClick={() => { if (soundEnabled) playClick(); scrollTo("contact"); }}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] uppercase"
-                >
-                  <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-2">LET&apos;S TALK <ArrowUpRight size={16} /></motion.span>
-                </button>
+                <MagneticButton strength={0.3}>
+                  <button
+                    onClick={() => { if (soundEnabled) playClick(); scrollTo("contact"); }}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] uppercase"
+                  >
+                    <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-2">LET&apos;S TALK <ArrowUpRight size={16} /></motion.span>
+                  </button>
+                </MagneticButton>
                 <button
                   onClick={() => scrollTo("projects-skills")}
                   className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium text-sm md:text-[18px] rounded-md hover:border-foreground/20 transition-all uppercase"

@@ -129,7 +129,7 @@
   }
 }
 
-/* Responsive base font — 16px all screens *//
+/* Responsive base font — 16px all screens */
 html, body {
   font-size: 16px !important;
 }
@@ -758,7 +758,6 @@ main {
 @keyframes dots-blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 
 
-  10% { opacity: 1; }
 
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
