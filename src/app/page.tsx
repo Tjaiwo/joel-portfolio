@@ -1406,7 +1406,7 @@ export default function Portfolio() {
                       <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-[1px] bg-border group-hover:bg-primary/30 transition-colors" />
                     )}
                   </motion.div>
-                )))}
+                ))}
               </div>
             </div>
           </div>
