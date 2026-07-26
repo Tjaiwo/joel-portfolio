@@ -630,7 +630,7 @@ function Section({
   children: React.ReactNode;
   className?: string;
 }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   return (
     <motion.section
@@ -835,7 +835,7 @@ function BackToTop() {
 
 /* ─── Animated counter stat ─── */
 function CountingStat({ stat, index }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const count = useCountUp(stat.target, inView);
   return (
@@ -934,7 +934,7 @@ function useLocalTime() {
 
 /* ─── Magnetic hover wrapper (mouse-following effect) ─── */
 function MagneticButton({ children, strength = 0.4, className = "" }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const handleMove = (e) => {
