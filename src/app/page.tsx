@@ -753,39 +753,6 @@ function BrowserMockupCard({
 /* ──────────────────────── STACKING CARD ──────────────────────── */
 
 /* ──────────────────────── SKILLS MARQUEE ──────────────────────── */
-function SkillsMarquee() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-  const row1X = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const row2X = useTransform(scrollYProgress, [0, 1], ["-30%", "0%"]);
-
-  const allSkills = [...SKILLS_CORE, ...SKILLS_KEY, ...SKILLS_NOCODE];
-  const row1 = allSkills.slice(0, Math.ceil(allSkills.length / 2));
-  const row2 = allSkills.slice(Math.ceil(allSkills.length / 2));
-
-  return (
-    <div ref={ref} className="skills-marquee">
-      <motion.div className="marquee-row" style={{ x: row1X }}>
-        {[...row1, ...row1, ...row1].map((skill, i) => (
-          <span key={i} className="marquee-tag">
-            {skill}
-          </span>
-        ))}
-      </motion.div>
-      <motion.div className="marquee-row" style={{ x: row2X }}>
-        {[...row2, ...row2, ...row2].map((skill, i) => (
-          <span key={i} className="marquee-tag">
-            {skill}
-          </span>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
-
 /* ──────────────────────── BACK TO TOP ──────────────────────── */
 
 function BackToTop() {
@@ -1513,7 +1480,7 @@ export default function Portfolio() {
           
           <SkillsMarquee />
 
-          <div className="space-y-12 mt-20">
+          <div className="space-y-12">
             <div>
               <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Core Stack
