@@ -1514,8 +1514,6 @@ export default function Portfolio() {
           <SkillsMarquee />
 
           <div className="space-y-12 mt-20">
-
-          <div className="space-y-12">
             <div>
               <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Core Stack
@@ -1593,7 +1591,6 @@ export default function Portfolio() {
                 )}
               </div>
             </div>
-          </div>
         </Section>
 
         {/* ─── EXPERIENCE ─── */}
