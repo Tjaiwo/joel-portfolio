@@ -820,10 +820,6 @@ main {
   .timeline-track { gap: 1.5rem; padding: 0 2rem 1rem; }
   .timeline-card { flex: 0 0 280px; }
 }
-
-
-  30% { opacity: 1; }
-  100% { opacity: 0; }
 }
 
 /* Burn-in: triggers when switching to light mode */
