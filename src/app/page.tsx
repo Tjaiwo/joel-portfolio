@@ -1380,7 +1380,7 @@ export default function Portfolio() {
             FROM IDEA TO LAUNCH
           </motion.h2>
           <div className="timeline-bleed mb-20">
-            <div style={{ display: "flex", flexWrap: "nowrap", overflowX: "scroll", gap: "1rem", paddingBottom: "1rem", WebkitOverflowScrolling: "touch" }}>
+            <div className="timeline-track">
             {[
               { step: "01", title: "Discovery", desc: "Deep dive into your business goals, audience, and competition." },
               { step: "02", title: "Strategy", desc: "Sitemaps, user flows, and a clear content architecture." },
@@ -1396,7 +1396,7 @@ export default function Portfolio() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.1 }}
-                className="timeline-card" style={{ flex: "0 0 260px", minWidth: "260px" }}
+                className="timeline-card"
               >
                 <span className="text-primary text-[11px] font-mono tracking-[0.3em]">{item.step}</span>
                 <h3 className="text-[18px] md:text-[20px] font-bold mt-2 mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
