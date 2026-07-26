@@ -1374,12 +1374,26 @@ export default function Portfolio() {
             FEATURED WORKS
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-            {PROJECTS.map((project, idx) => (
-              <motion.div key={project.id} id={project.slug ? `project-${project.slug}` : undefined} initial={{ opacity: 0, y: 40, scale: 0.95 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: idx * 0.15, duration: 0.5, ease: "easeOut" }}>
-                <BrowserMockupCard project={project} index={idx} />
-              </motion.div>
-            ))}
+          <div className="stacking-projects mb-20">
+            {PROJECTS.map((project, idx) => {
+              const targetScale = 1 - (PROJECTS.length - 1 - idx) * 0.03;
+              return (
+                <motion.div
+                  key={project.id}
+                  className="sticky top-24 md:top-32"
+                  style={{
+                    zIndex: idx,
+                    marginTop: idx === 0 ? 0 : undefined
+                  }}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: idx * 0.1, duration: 0.5 }}
+                >
+                  <BrowserMockupCard project={project} index={idx} />
+                </motion.div>
+              );
+            })}
           </div>
 
           <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">

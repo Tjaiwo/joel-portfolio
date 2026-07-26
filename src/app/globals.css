@@ -907,3 +907,18 @@ html.dark .burn-vignette { animation: burn-vignette 0.6s ease-out forwards; }
   40% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+.stacking-projects {
+  position: relative;
+}
+.stacking-projects > div {
+  position: sticky;
+}
+.stacking-projects > div:not(:first-child) {
+  margin-top: -60vh;
+}
+@media (max-width: 767px) {
+  .stacking-projects > div:not(:first-child) {
+    margin-top: -50vh;
+  }
+}
