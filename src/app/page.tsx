@@ -757,31 +757,26 @@ function StackingCard({ children, index, total }: { children: React.ReactNode; i
     target: ref,
     offset: ["start end", "end start"]
   });
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.95, 0.92]);
-  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.8], [1, 1, 0.3]);
-  const blur = useTransform(scrollYProgress, [0, 0.3, 0.7], [0, 0, 4]);
-  const shadow = useTransform(scrollYProgress, [0, 0.5], [
-    "0 4px 20px rgba(0,0,0,0.1)",
-    "0 20px 60px rgba(0,0,0,0.3)"
-  ]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, -20]);
+  // Earlier cards (lower index) scale down more as you scroll
+  const scale = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.88, 0.82]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 0.9], [1, 0.7, 0.3]);
+  const blur = useTransform(scrollYProgress, [0, 0.3, 0.7], [0, 0, 6]);
 
   return (
     <motion.div
       ref={ref}
-      className="sticky top-20 md:top-28"
+      className="sticky top-16 md:top-24"
       style={{
-        zIndex: total - index,
+        zIndex: index,
         scale,
         opacity,
         filter: `blur(${blur}px)`,
-        boxShadow: shadow,
-        y
+        marginBottom: index < total - 1 ? '20px' : '0'
       }}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ delay: index * 0.08, duration: 0.4 }}
     >
       {children}
     </motion.div>
@@ -1416,7 +1411,9 @@ export default function Portfolio() {
           <div className="stacking-projects mb-20">
             {PROJECTS.map((project, idx) => (
               <StackingCard key={project.id} index={idx} total={PROJECTS.length}>
-                <BrowserMockupCard project={project} index={idx} />
+                <div className="stack-card">
+                  <BrowserMockupCard project={project} index={idx} />
+                </div>
               </StackingCard>
             ))}
           </div>
