@@ -815,30 +815,7 @@ main {
 
 
 
-.timeline-bleed {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-}
-.timeline-track {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding: 0 1rem 1rem;
-  scrollbar-width: none;
-}
-.timeline-track::-webkit-scrollbar { display: none; }
-.timeline-card {
-  flex: 0 0 260px;
-  padding: 1.25rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.03);
-  transition: all 0.2s;
-}
-.timeline-card:hover {
-  background: rgba(80,200,120,0.05);
-  border-color: rgba(80,200,120,0.25);
-}
+
 @media (min-width: 768px) {
   .timeline-track { gap: 1.5rem; padding: 0 2rem 1rem; }
   .timeline-card { flex: 0 0 280px; }
