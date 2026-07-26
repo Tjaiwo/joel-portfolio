@@ -965,6 +965,44 @@ function MagneticButton({ children, strength = 0.4, className = "" }) {
   );
 }
 
+
+/* ─── Scroll-driven character animation ─── */
+function ScrollRevealText({ text, className = "" }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.85", "end 0.25"]
+  });
+
+  const characters = text.split("");
+
+  return (
+    <p ref={ref} className={className}>
+      {characters.map((char, i) => {
+        const start = i / characters.length;
+        const end = start + 1 / characters.length;
+        return (
+          <ScrollChar
+            key={i}
+            char={char}
+            progress={scrollYProgress}
+            range={[start, end]}
+          />
+        );
+      })}
+    </p>
+  );
+}
+
+function ScrollChar({ char, progress, range }) {
+  const opacity = useTransform(progress, range, [0.15, 1]);
+  return (
+    <motion.span style={{ opacity, display: "inline" }}>
+      {char === " " ? "\u00A0" : char}
+    </motion.span>
+  );
+}
+
 export default function Portfolio() {
     const activeSection = useActiveSection();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -1319,9 +1357,9 @@ export default function Portfolio() {
                 <MagneticButton strength={0.3}>
                   <button
                     onClick={() => { if (soundEnabled) playClick(); scrollTo("contact"); }}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] uppercase"
+                    className="gradient-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-full uppercase tracking-wider transition-all hover:shadow-[0_0_40px_rgba(80,200,120,0.3)] hover:scale-105"
                   >
-                    <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-flex items-center gap-2">LET&apos;S TALK <ArrowUpRight size={16} /></motion.span>
+                    LET&apos;S TALK <ArrowUpRight size={16} />
                   </button>
                 </MagneticButton>
                 <button
@@ -1353,13 +1391,24 @@ export default function Portfolio() {
           <SectionLabel>// About Me</SectionLabel>
 
           <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <div>
-              <h2 className="text-[28px] md:text-[40px] font-bold leading-tight mb-8">
-                <span className="text-reveal">
-                  I believe in building digital experiences that drive real results for businesses and delight users at every touchpoint.
-                </span>
-              </h2>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-muted-foreground leading-relaxed mb-6">
+            <div className="min-w-0">
+              <motion.h2
+                variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+                className="text-[28px] md:text-[40px] font-bold leading-tight mb-8"
+              >
+                {"I believe in building digital experiences that drive real results for businesses and delight users at every touchpoint.".split(" ").map((word, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + i * 0.06, duration: 0.35 }}
+                    className="inline-block mr-[0.25em]"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </motion.h2>
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-muted-foreground leading-relaxed mb-6 text-[16px] md:text-[18px] max-w-xl">
                 Notable achievements include developing a high-traffic LMS for a Web3 brand that
                 secured 20k+ unique visitors within two weeks of launch, and consistently reducing
                 website load times by up to 60% through advanced performance optimization.
