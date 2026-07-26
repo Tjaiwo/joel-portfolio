@@ -1401,7 +1401,7 @@ export default function Portfolio() {
                 <h3 className="text-[18px] md:text-[20px] font-bold mt-2 mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
                 <p className="text-[13px] text-muted-foreground leading-relaxed">{item.desc}</p>
               </motion.div>
-            )))}
+            ))}
           </div>
 
           <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
