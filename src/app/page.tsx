@@ -1478,7 +1478,6 @@ export default function Portfolio() {
             MY STACK
           </motion.h2>
           
-          <SkillsMarquee />
 
           <div className="space-y-12">
             <div>
