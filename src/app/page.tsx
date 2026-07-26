@@ -1357,17 +1357,19 @@ export default function Portfolio() {
                 <MagneticButton strength={0.3}>
                   <button
                     onClick={() => { if (soundEnabled) playClick(); scrollTo("contact"); }}
-                    className="gradient-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-full uppercase tracking-wider transition-all hover:shadow-[0_0_40px_rgba(80,200,120,0.3)] hover:scale-105"
+                    className="gradient-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-md uppercase tracking-wider transition-all hover:shadow-[0_0_40px_rgba(80,200,120,0.3)] hover:scale-105"
                   >
                     LET&apos;S TALK <ArrowUpRight size={16} />
                   </button>
                 </MagneticButton>
-                <button
-                  onClick={() => scrollTo("projects-skills")}
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium text-sm md:text-[18px] rounded-md hover:border-foreground/20 transition-all uppercase"
-                >
-                  VIEW PROJECTS
-                </button>
+                <MagneticButton strength={0.3}>
+                  <button
+                    onClick={() => { if (soundEnabled) playClick(); scrollTo("projects-skills"); }}
+                    className="outline-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-md uppercase tracking-wider transition-all"
+                  >
+                    VIEW PROJECTS
+                  </button>
+                </MagneticButton>
               </motion.div>
 
               {/* Stats */}
