@@ -822,9 +822,6 @@ main {
 }
 
 
-  25% { opacity: 1; }
-  100% { opacity: 0; }
-}
 
 /* Cinematic burn-in on theme switch (both directions) */
 .theme-burn {
