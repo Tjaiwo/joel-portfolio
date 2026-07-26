@@ -930,7 +930,7 @@ html.dark .burn-vignette { animation: burn-vignette 0.6s ease-out forwards; }
 .outline-cta {
   background: transparent;
   color: #50C878;
-  border: 2px solid #50C878;
+  border: 1px solid #50C878;
   position: relative;
   overflow: hidden;
 }
