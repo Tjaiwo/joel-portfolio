@@ -1230,7 +1230,13 @@ export default function Portfolio() {
           </div>
         </motion.div>
       )}
-      <div className="burn-overlay" aria-hidden="true" />
+      <div className="theme-burn" aria-hidden="true">
+        <div className="burn-scanlines" />
+        <div className="burn-glitch-red" />
+        <div className="burn-glitch-cyan" />
+        <div className="burn-flash" />
+        <div className="burn-vignette" />
+      </div>
       <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.8s ease-out 0.2s" }}>
         {/* ─── HERO ─── */}
         <section
