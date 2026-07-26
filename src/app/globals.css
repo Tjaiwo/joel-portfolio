@@ -298,7 +298,7 @@ html, body {
 }
 .form-input:focus {
   border-color: var(--primary);
-  background: var(--muted);
+  background: #1a1a1a;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
   outline: none;
 }
@@ -321,7 +321,7 @@ html, body {
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--border);
-  background: var(--card);
+  background: #0C0C0C;
   transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .browser-card:hover {
