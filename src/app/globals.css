@@ -812,3 +812,22 @@ main {
   .timeline-scroll { gap: 1.5rem; }
   .timeline-card { flex: 0 0 280px; }
 }
+
+.timeline-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+}
+.timeline-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0 1rem 1rem 1rem;
+}
+@media (min-width: 768px) {
+  .timeline-scroll { gap: 1.5rem; padding: 0 2rem 1rem 2rem; }
+}
