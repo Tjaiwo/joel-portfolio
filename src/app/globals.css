@@ -762,3 +762,31 @@ main {
 
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
+
+.timeline-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+}
+.timeline-scroll::-webkit-scrollbar { display: none; }
+.timeline-card {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: all 0.2s;
+}
+.timeline-card:hover {
+  background: var(--card-hover);
+  border-color: rgba(80, 200, 120, 0.2);
+}
+@media (min-width: 768px) {
+  .timeline-scroll { gap: 1.5rem; }
+  .timeline-card { flex: 0 0 280px; }
+}
