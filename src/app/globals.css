@@ -948,3 +948,37 @@ html.dark .burn-vignette { animation: burn-vignette 0.6s ease-out forwards; }
 .outline-cta:hover {
   box-shadow: 0 0 30px rgba(80,200,120,0.2);
 }
+
+.skills-marquee {
+  overflow: hidden;
+  padding: 2rem 0;
+  position: relative;
+}
+.marquee-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  will-change: transform;
+}
+.marquee-tag {
+  flex-shrink: 0;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(80, 200, 120, 0.2);
+  background: rgba(80, 200, 120, 0.05);
+  color: #50C878;
+  font-family: monospace;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+.marquee-tag:hover {
+  background: rgba(80, 200, 120, 0.15);
+  border-color: rgba(80, 200, 120, 0.4);
+}
+@media (min-width: 768px) {
+  .marquee-tag {
+    font-size: 1rem;
+    padding: 0.875rem 1.75rem;
+  }
+}
