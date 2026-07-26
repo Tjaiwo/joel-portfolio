@@ -936,7 +936,6 @@ export default function Portfolio() {
   const [formState, setFormState] = useState<"idle" | "sending" | "sent">("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "", budget: "" });
   const [budgetError, setBudgetError] = useState("");
-  const [burnIn, setBurnIn] = useState(false);
   
 
   /* Currency detection — client-only to prevent hydration mismatch */
@@ -1231,12 +1230,7 @@ export default function Portfolio() {
           </div>
         </motion.div>
       )}
-      {burnIn && (
-        <div className="fixed inset-0 z-[99999] pointer-events-none">
-          <div className="burn-scanlines" />
-          <div className="burn-flash" />
-        </div>
-      )}
+      <div className="burn-overlay" aria-hidden="true" />
       <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.8s ease-out 0.2s" }}>
         {/* ─── HERO ─── */}
         <section
