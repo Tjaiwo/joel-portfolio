@@ -749,6 +749,45 @@ function BrowserMockupCard({
 /* ──────────────────────── MATRIX RAIN ──────────────────────── */
 
 /* ──────────────────────── MATRIX RAIN ──────────────────────── */
+
+/* ──────────────────────── STACKING CARD ──────────────────────── */
+function StackingCard({ children, index, total }: { children: React.ReactNode; index: number; total: number }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.95, 0.92]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.8], [1, 1, 0.3]);
+  const blur = useTransform(scrollYProgress, [0, 0.3, 0.7], [0, 0, 4]);
+  const shadow = useTransform(scrollYProgress, [0, 0.5], [
+    "0 4px 20px rgba(0,0,0,0.1)",
+    "0 20px 60px rgba(0,0,0,0.3)"
+  ]);
+  const y = useTransform(scrollYProgress, [0, 0.5], [0, -20]);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="sticky top-20 md:top-28"
+      style={{
+        zIndex: total - index,
+        scale,
+        opacity,
+        filter: `blur(${blur}px)`,
+        boxShadow: shadow,
+        y
+      }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 /* ──────────────────────── BACK TO TOP ──────────────────────── */
 
 function BackToTop() {
@@ -1375,25 +1414,11 @@ export default function Portfolio() {
           </motion.h2>
 
           <div className="stacking-projects mb-20">
-            {PROJECTS.map((project, idx) => {
-              const targetScale = 1 - (PROJECTS.length - 1 - idx) * 0.03;
-              return (
-                <motion.div
-                  key={project.id}
-                  className="sticky top-24 md:top-32"
-                  style={{
-                    zIndex: idx,
-                    marginTop: idx === 0 ? 0 : undefined
-                  }}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: idx * 0.1, duration: 0.5 }}
-                >
-                  <BrowserMockupCard project={project} index={idx} />
-                </motion.div>
-              );
-            })}
+            {PROJECTS.map((project, idx) => (
+              <StackingCard key={project.id} index={idx} total={PROJECTS.length}>
+                <BrowserMockupCard project={project} index={idx} />
+              </StackingCard>
+            ))}
           </div>
 
           <motion.h2 variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[28px] md:text-[40px] font-bold mb-12">
