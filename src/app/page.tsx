@@ -1820,7 +1820,7 @@ export default function Portfolio() {
                   <button
                     type="submit"
                     disabled={formState === "sending"}
-                    className= active:scale-[0.97]"w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.97]"
                   >
                     {formState === "sending" ? (
                       <>
