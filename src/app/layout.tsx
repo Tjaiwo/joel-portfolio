@@ -58,7 +58,8 @@ export default function RootLayout({
         <Toaster />
         <Analytics />
         <div className="grain-overlay" aria-hidden="true" />
-    </body>
+      <SpeedInsights />
+  </body>
     </html>
   );
 }
