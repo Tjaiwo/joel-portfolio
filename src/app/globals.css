@@ -999,7 +999,9 @@ html.dark .burn-vignette { animation: burn-vignette 0.6s ease-out forwards; }
 
 /* Breathing glow on hero background */
 @keyframes breath-glow {
-  0%, 100% { opacity: 0.03; transform: scale(1); }
+  0%, 100% { opacity: 0.04; transform: scale(1); }
+  50% { opacity: 0.12; transform: scale(1.08); }
+}
   50% { opacity: 0.06; transform: scale(1.05); }
 }
 .hero-bg-accent {
