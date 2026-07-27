@@ -1021,6 +1021,7 @@ export default function Portfolio() {
     const [soundEnabled, setSoundEnabled] = useState(false);
   const [copied, setCopied] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
+  const [konami, setKonami] = useState(false);
   
   useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
@@ -1351,6 +1352,27 @@ export default function Portfolio() {
         <div className="burn-flash" />
         <div className="burn-vignette" />
       </div>
+      {konami && (
+        <div className="fixed inset-0 z-[99999] pointer-events-none flex items-center justify-center">
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            exit={{ scale: 0, rotate: 180 }}
+            className="text-center"
+          >
+            <div className="text-6xl md:text-8xl font-black text-primary mb-4 animate-bounce">
+              ⬆⬆⬇⬇⬅➡⬅➡🅱🅰
+            </div>
+            <p className="text-2xl md:text-4xl font-bold text-primary animate-pulse">
+              CHEAT CODE ACTIVATED
+            </p>
+            <p className="text-sm md:text-lg text-muted-foreground mt-2 font-mono">
+              You found the secret. Now go build something great.
+            </p>
+          </motion.div>
+          <div className="absolute inset-0 konami-confetti pointer-events-none" />
+        </div>
+      )}
       <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.8s ease-out 0.2s" }}>
         {/* ─── HERO ─── */}
         <section
