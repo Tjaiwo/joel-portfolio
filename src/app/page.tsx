@@ -1124,9 +1124,15 @@ export default function Portfolio() {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <h2 className="text-xl font-bold tracking-tight">
-              Joel<span className="text-primary">.</span>
-            </h2>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="text-left hover:opacity-70 transition-opacity cursor-pointer"
+              aria-label="Scroll to top"
+            >
+              <h2 className="text-xl font-bold tracking-tight">
+                Joel<span className="text-primary">.</span>
+              </h2>
+            </button>
             <p className="text-[14px] text-muted-foreground mt-1 tracking-wider uppercase">
               Web Developer
             </p>
@@ -1237,9 +1243,15 @@ export default function Portfolio() {
       {/* ══════════ MOBILE HEADER ══════════ */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="flex items-center justify-between px-5 py-4">
-          <h2 className="text-[24px] md:text-[28px] font-bold tracking-tight">
-            Joel<span className="text-primary">.</span>
-          </h2>
+          <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="text-left hover:opacity-70 transition-opacity"
+              aria-label="Scroll to top"
+            >
+              <h2 className="text-[24px] md:text-[28px] font-bold tracking-tight">
+                Joel<span className="text-primary">.</span>
+              </h2>
+            </button>
           <div className="flex items-center gap-2">
             <span className="text-primary font-mono text-[11px] mr-2" style={{ fontFamily: 'var(--font-geist-mono)' }}>{useLocalTime()}</span>
             <ThemeToggle />
