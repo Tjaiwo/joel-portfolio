@@ -1023,7 +1023,7 @@ export default function Portfolio() {
   const [glitchDone, setGlitchDone] = useState(false);
   const [konami, setKonami] = useState(false);
   const logoTapRef = useRef(0);
-  const logoTapTimer = useRef<NodeJS.Timeout>();
+  const logoTapTimer = useRef<ReturnType<typeof setTimeout>>();
   
   useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
