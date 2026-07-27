@@ -686,18 +686,7 @@ function BrowserMockupCard({
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="browser-frame relative block overflow-hidden ripple-container"
-        onMouseDown={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const ripple = document.createElement('span');
-          ripple.className = 'ripple-effect';
-          ripple.style.left = x + 'px';
-          ripple.style.top = y + 'px';
-          e.currentTarget.appendChild(ripple);
-          setTimeout(() => ripple.remove(), 600);
-        }}
+        className="browser-frame relative block overflow-hidden ripple-card"
       >
         <img
           src={project.image}

@@ -973,20 +973,29 @@ html.dark .burn-vignette { animation: burn-vignette 0.6s ease-out forwards; }
   .hero-blur-reveal { animation: none; opacity: 1; }
 }
 
-.ripple-container {
+
+  100% { transform: translate(-50%, -50%) scale(30); opacity: 0; }
+}
+
+.ripple-card {
   position: relative;
 }
-.ripple-effect {
+.ripple-card::after {
+  content: "";
   position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
   border-radius: 50%;
-  background: rgba(80, 200, 120, 0.3);
-  width: 20px;
-  height: 20px;
+  background: rgba(80, 200, 120, 0.15);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
   pointer-events: none;
-  animation: ripple-expand 0.6s ease-out forwards;
-  z-index: 5;
+  z-index: 2;
 }
-@keyframes ripple-expand {
-  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(30); opacity: 0; }
+.ripple-card:hover::after {
+  width: 200%;
+  height: 200%;
+  opacity: 0;
 }
