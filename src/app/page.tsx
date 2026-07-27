@@ -1952,7 +1952,7 @@ export default function Portfolio() {
                   href={selectedProject.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className= active:scale-[0.97]"inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all active:scale-[0.97]"
                 >
                   Visit Live Site <ExternalLink size={16} />
                 </a>
