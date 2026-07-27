@@ -570,11 +570,12 @@ function handleCustomBudget(ranges, currencyCode, onBudgetSelect) {
 /* ────────────────────── ANIMATION VARIANTS ────────────────────── */
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 40, filter: "blur(4px)" },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
+    filter: "blur(0px)",
+    transition: { delay: i * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
   }),
 };
 
@@ -1359,7 +1360,7 @@ export default function Portfolio() {
                 <MagneticButton strength={0.3}>
                   <button
                     onClick={() => { if (soundEnabled) playClick(); scrollTo("contact"); }}
-                    className="gradient-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-md uppercase tracking-wider transition-all hover:shadow-[0_0_40px_rgba(80,200,120,0.3)] hover:scale-105"
+                    className="gradient-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-md uppercase tracking-wider transition-all hover:shadow-[0_0_40px_rgba(80,200,120,0.3)] hover:scale-105 active:scale-[0.97]"
                   >
                     LET&apos;S TALK <ArrowUpRight size={16} />
                   </button>
@@ -1374,7 +1375,14 @@ export default function Portfolio() {
                 </MagneticButton>
               </motion.div>
 
-              {/* Stats */}
+
+
+              <motion.p
+                variants={fadeInUp} custom={9} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+                className="text-muted-foreground/50 text-xs md:text-sm font-light mt-6 tracking-wide"
+              >
+                Trusted by 50+ clients across 4 continents. Based in Lagos, NG. 10+ years of delivering results.
+              </motion.p>
               <motion.div
                 variants={fadeInUp} custom={4} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-t border-border pt-8"
@@ -1812,7 +1820,7 @@ export default function Portfolio() {
                   <button
                     type="submit"
                     disabled={formState === "sending"}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className= active:scale-[0.97]"w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all hover:shadow-[0_0_30px_rgba(80,200,120,0.15)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {formState === "sending" ? (
                       <>
@@ -1944,7 +1952,7 @@ export default function Portfolio() {
                   href={selectedProject.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all"
+                  className= active:scale-[0.97]"inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium text-sm md:text-[18px] rounded-md hover:bg-primary/90 transition-all"
                 >
                   Visit Live Site <ExternalLink size={16} />
                 </a>
