@@ -1022,6 +1022,8 @@ export default function Portfolio() {
   const [copied, setCopied] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
   const [konami, setKonami] = useState(false);
+  const logoTapRef = useRef(0);
+  const logoTapTimer = useRef<NodeJS.Timeout>();
   
   useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
@@ -1126,7 +1128,18 @@ export default function Portfolio() {
             className="mb-12"
           >
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                logoTapRef.current += 1;
+                if (logoTapTimer.current) clearTimeout(logoTapTimer.current);
+                if (logoTapRef.current >= 5) {
+                  setKonami(true);
+                  setTimeout(() => setKonami(false), 4000);
+                  logoTapRef.current = 0;
+                } else {
+                  logoTapTimer.current = setTimeout(() => { logoTapRef.current = 0; }, 1500);
+                }
+              }}
               className="text-left hover:opacity-70 transition-opacity cursor-pointer"
               aria-label="Scroll to top"
             >
@@ -1245,7 +1258,18 @@ export default function Portfolio() {
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="flex items-center justify-between px-5 py-4">
           <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                logoTapRef.current += 1;
+                if (logoTapTimer.current) clearTimeout(logoTapTimer.current);
+                if (logoTapRef.current >= 5) {
+                  setKonami(true);
+                  setTimeout(() => setKonami(false), 4000);
+                  logoTapRef.current = 0;
+                } else {
+                  logoTapTimer.current = setTimeout(() => { logoTapRef.current = 0; }, 1500);
+                }
+              }}
               className="text-left hover:opacity-70 transition-opacity"
               aria-label="Scroll to top"
             >
