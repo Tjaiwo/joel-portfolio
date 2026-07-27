@@ -1162,6 +1162,7 @@ export default function Portfolio() {
           className="space-y-4"
         >
           <div className="space-y-2">
+            <div className="flex items-center gap-2">
             <a
               href="mailto:joelakinlosotu@gmail.com"
               className="flex items-center gap-2 text-[14px] text-muted-foreground hover:text-primary transition-colors"
@@ -1175,7 +1176,7 @@ export default function Portfolio() {
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
-              className="ml-2 p-1 rounded hover:bg-primary/10 transition-colors"
+              className="p-1 rounded hover:bg-primary/10 transition-colors"
               title="Copy email"
             >
               {copied ? (
@@ -1187,6 +1188,7 @@ export default function Portfolio() {
                 </svg>
               )}
             </button>
+          </div>
             <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
               <MapPin size={13} />
               Lagos, Nigeria
@@ -1724,6 +1726,7 @@ export default function Portfolio() {
               </motion.p>
 
               <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4">
+                <div className="flex items-center gap-3">
                 <a
                   href="mailto:joelakinlosotu@gmail.com"
                   className="flex items-center gap-3 text-sm md:text-[18px] text-muted-foreground hover:text-primary transition-colors group"
@@ -1739,7 +1742,7 @@ export default function Portfolio() {
                     setCopied(true);
                     setTimeout(() => setCopied(false), 2000);
                   }}
-                  className="ml-2 p-1.5 rounded-md border border-border hover:border-primary/20 hover:bg-primary/5 transition-all"
+                  className="p-1.5 rounded-md border border-border hover:border-primary/20 hover:bg-primary/5 transition-all"
                   title="Copy email"
                 >
                   {copied ? (
@@ -1751,6 +1754,7 @@ export default function Portfolio() {
                     </svg>
                   )}
                 </button>
+              </div>
 
               </motion.div>
             </div>
