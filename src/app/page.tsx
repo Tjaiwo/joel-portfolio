@@ -1019,6 +1019,7 @@ export default function Portfolio() {
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [openExpIdx, setOpenExpIdx] = useState(-1);
     const [soundEnabled, setSoundEnabled] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [glitchDone, setGlitchDone] = useState(false);
   
   useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
@@ -1168,6 +1169,24 @@ export default function Portfolio() {
               <Mail size={13} />
               joelakinlosotu@gmail.com
             </a>
+            <button
+              onClick={async () => {
+                await navigator.clipboard.writeText("joelakinlosotu@gmail.com");
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="ml-2 p-1 rounded hover:bg-primary/10 transition-colors"
+              title="Copy email"
+            >
+              {copied ? (
+                <span className="text-primary text-[10px] font-mono">Copied!</span>
+              ) : (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground hover:text-primary transition-colors">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              )}
+            </button>
             <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
               <MapPin size={13} />
               Lagos, Nigeria
@@ -1231,10 +1250,14 @@ export default function Portfolio() {
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-foreground"
+              className="hamburger-btn p-2"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              <div className="hamburger-lines">
+                <span className={`hamburger-line ${mobileMenuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
+                <span className={`hamburger-line ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+                <span className={`hamburger-line ${mobileMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+              </div>
             </button>
           </div>
         </div>
@@ -1710,6 +1733,24 @@ export default function Portfolio() {
                   </div>
                   joelakinlosotu@gmail.com
                 </a>
+                <button
+                  onClick={async () => {
+                    await navigator.clipboard.writeText("joelakinlosotu@gmail.com");
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="ml-2 p-1.5 rounded-md border border-border hover:border-primary/20 hover:bg-primary/5 transition-all"
+                  title="Copy email"
+                >
+                  {copied ? (
+                    <span className="text-primary text-[10px] font-mono">Copied!</span>
+                  ) : (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                  )}
+                </button>
 
               </motion.div>
             </div>
