@@ -1354,8 +1354,8 @@ export default function Portfolio() {
               animate="visible"
               className="relative z-10"
             >
-              <motion.div variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="mb-4">
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-[12px] font-mono">
+              <motion.div variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="hero-blur-reveal mb-4" style={{ animationDelay: "0.1s" }}>
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md text-primary text-[12px] font-mono shadow-[0_0_20px_rgba(80,200,120,0.1)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary stat-pulse" />
                   Available
                 </span>
@@ -1363,7 +1363,7 @@ export default function Portfolio() {
 
               <motion.h1
                 variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-                className="text-[36px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-6 glow-text"
+                className="hero-blur-reveal text-[36px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-6 glow-text" style={{ animationDelay: "0.25s" }}
                 style={{ minHeight: 'clamp(48px, 12vw, 80px)' }}
               >
                 <span className="text-foreground/70">
@@ -1374,7 +1374,7 @@ export default function Portfolio() {
 
               <motion.p
                 variants={fadeInUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-                className="text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8"
+                className="hero-blur-reveal text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8" style={{ animationDelay: "0.42s" }}
               >
                 Hi! I&apos;m <span className="text-foreground font-medium">Joel Akinlosotu</span>. A
                 results-driven Web Developer &amp; Systems Architect with 10+ years of experience
