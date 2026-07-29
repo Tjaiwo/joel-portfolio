@@ -1181,11 +1181,11 @@ export default function Portfolio() {
           <div className="flex items-center gap-2 mt-2">
           <ThemeToggle />
           <button
-              onClick={() => setSoundEnabled(!soundEnabled)}
+              onClick={() => {}}
             className="p-2 rounded-md border border-border hover:border-primary/30 transition-colors text-[11px] font-mono text-muted-foreground hover:text-primary"
-            title={soundEnabled ? "Sound on" : "Sound off"}
+            title=""
           >
-            {soundEnabled ? "🔊" : "🔇"}
+            ""
           </button>
 
         </div>
@@ -1205,14 +1205,14 @@ export default function Portfolio() {
               </h2>
             </button>
           <div className="flex items-center gap-2">
-            <span className="text-primary font-mono text-[11px] mr-2" style={{ fontFamily: 'var(--font-geist-mono)' }}>{useLocalTime()}</span>
+            
             <ThemeToggle />
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
               className="p-2 rounded-md border border-border hover:border-primary/30 transition-colors text-[11px] font-mono text-muted-foreground hover:text-primary"
-              title={soundEnabled ? "Sound on" : "Sound off"}
+              title=""
             >
-              {soundEnabled ? "🔊" : "🔇"}
+              ""
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
