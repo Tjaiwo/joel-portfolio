@@ -739,6 +739,8 @@ main {
 /* Breathing glow on hero background */
 @keyframes breath-glow {
   0%, 100% { opacity: 0.04; transform: scale(1); }
+  50% { opacity: 0.12; transform: scale(1.08); }
+}
 .hero-bg-accent {
   animation: breath-glow 4s ease-in-out infinite;
 }
