@@ -71,7 +71,7 @@ const PROJECTS = [
       "A full-service aviation company website offering private jet charter, helicopter services, air cargo logistics, FBO operations, and MRO services, with an integrated booking system and a fleet showcase built on WordPress.",
     url: "https://flyelinair.com/",
     image: "/screenshots/flyelinair.png",
-    tags: ["WordPress", "Elementor", "Booking System", "Fleet Management", "SEO"]
+    tags: ["WordPress", "Elementor", "Booking System", "Fleet Management", "SEO"],
     results: "Integrated booking system with fleet showcase for 4+ aircraft types",,
     designer: true,
   },
@@ -94,7 +94,7 @@ const PROJECTS = [
       "A corporate website for Nigeria's leading creative production and media company, showcasing 20+ years of event production, TV & documentary production, commercials, and strategic media execution for top brands.",
     url: "https://cedarrush.ng/",
     image: "/screenshots/cedarrush.png",
-    tags: ["WordPress", "Elementor", "Media", "Portfolio", "SEO"]
+    tags: ["WordPress", "Elementor", "Media", "Portfolio", "SEO"],
     results: "Showcasing 20+ years of production for top Nigerian brands",,
   },
   {
@@ -105,7 +105,7 @@ const PROJECTS = [
       "A Nigerian ride-hailing web platform offering solo rides, carpooling, car rentals, and corporate booking, with fare estimation, ride tracking, and driver management features built on WordPress.",
     url: "https://kakaride.ng/",
     image: "/screenshots/kakaride.png",
-    tags: ["WordPress", "Custom Plugins", "API Integration", "Mobile-First", "Elementor", "SEO"]
+    tags: ["WordPress", "Custom Plugins", "API Integration", "Mobile-First", "Elementor", "SEO"],
     results: "4-tier ride service with fare estimation & OTP-secured trips",,
     designer: true,
   },
@@ -117,7 +117,7 @@ const PROJECTS = [
       "A fine jewelry e-commerce store for a 45-year-old Denver-based jeweler, featuring custom engagement ring design, fine jewelry collections, jewelry buying services, and certified appraisals — backed by a 4.9/5 Google rating.",
     url: "https://www.diamondsourcejewelers.com",
     image: "/screenshots/diamondsourcejewelers.png",
-    tags: ["WordPress", "WooCommerce", "E-Commerce", "Luxury Brand", "Elementor", "SEO"]
+    tags: ["WordPress", "WooCommerce", "E-Commerce", "Luxury Brand", "Elementor", "SEO"],
     results: "4.9/5 Google rating across 100+ reviews · Denver local SEO",,
   },
   {
@@ -128,7 +128,7 @@ const PROJECTS = [
       "A comprehensive architectural firm website for a Lagos-based full-service design powerhouse, showcasing 13+ landmark projects with a detailed portfolio, SEO-optimized service pages, and a mobile-first layout.",
     url: "https://designedspacesbyyemi.com/",
     image: "/screenshots/designedspacesbyyemi.png",
-    tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"]
+    tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"],
     results: "Portfolio showcasing 13+ landmark architectural projects",,
   },
   {
@@ -138,7 +138,7 @@ const PROJECTS = [
       "A documentary-style wedding and portrait photography portfolio showcasing engagement sessions, family portraits, and newborn/maternity shoots, with an immersive gallery and seamless inquiry flows.",
     url: "https://evanmickyphotography.com/",
     image: "/screenshots/evanmickyphotography.png",
-    tags: ["WordPress", "Portfolio", "Gallery", "Responsive Design", "Elementor", "SEO"]
+    tags: ["WordPress", "Portfolio", "Gallery", "Responsive Design", "Elementor", "SEO"],
     results: "Immersive gallery with seamless inquiry & booking flows",,
   },
 ];
