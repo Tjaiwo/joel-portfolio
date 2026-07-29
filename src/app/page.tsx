@@ -1422,7 +1422,7 @@ export default function Portfolio() {
 
               {/* Mini tools grid */}
               <div className="grid grid-cols-3 gap-3">
-                {["WordPress", "React", "Figma", "TypeScript", "JavaScript", "SEO"],.map((tool) => (
+                {["WordPress", "React", "Figma", "TypeScript", "JavaScript", "SEO"].map((tool) => (
                   <motion.div
                     key={tool}
                     variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
