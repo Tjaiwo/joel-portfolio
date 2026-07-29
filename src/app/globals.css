@@ -583,6 +583,8 @@ main {
 
 @keyframes float-tag {
   0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
 .skill-tag {
   animation: float-tag 4s ease-in-out infinite;
 }
