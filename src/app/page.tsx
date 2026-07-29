@@ -73,6 +73,7 @@ const PROJECTS = [
     image: "/screenshots/flyelinair.png",
     tags: ["WordPress", "Elementor", "Booking System", "Fleet Management", "SEO"],
     results: "Integrated booking system with fleet showcase for 4+ aircraft types",
+    results: "Integrated booking system with fleet showcase for 4+ aircraft types",
     designer: true,
   },
   {
@@ -85,6 +86,7 @@ const PROJECTS = [
     image: "/screenshots/claytonprints.png",
     tags: ["WordPress", "WooCommerce", "Elementor", "E-Commerce"],
     results: "Structured 8+ product categories with seamless checkout flow",
+    results: "Structured 8+ product categories with seamless checkout flow",
     designer: true,
   },
   {
@@ -96,6 +98,7 @@ const PROJECTS = [
     image: "/screenshots/cedarrush.png",
     tags: ["WordPress", "Elementor", "Media", "Portfolio", "SEO"],
     results: "Showcasing 20+ years of production for top Nigerian brands",
+    results: "Showcasing 20+ years of production for top Nigerian brands",
   },
   {
     id: 4,
@@ -106,6 +109,7 @@ const PROJECTS = [
     url: "https://kakaride.ng/",
     image: "/screenshots/kakaride.png",
     tags: ["WordPress", "Custom Plugins", "API Integration", "Mobile-First", "Elementor", "SEO"],
+    results: "4-tier ride service with fare estimation & OTP-secured trips",
     results: "4-tier ride service with fare estimation & OTP-secured trips",
     designer: true,
   },
@@ -119,6 +123,7 @@ const PROJECTS = [
     image: "/screenshots/diamondsourcejewelers.png",
     tags: ["WordPress", "WooCommerce", "E-Commerce", "Luxury Brand", "Elementor", "SEO"],
     results: "4.9/5 Google rating across 100+ reviews · Denver local SEO",
+    results: "4.9/5 Google rating across 100+ reviews · Denver local SEO",
   },
   {
     id: 6,
@@ -130,6 +135,7 @@ const PROJECTS = [
     image: "/screenshots/designedspacesbyyemi.png",
     tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"],
     results: "Portfolio showcasing 13+ landmark architectural projects",
+    results: "Portfolio showcasing 13+ landmark architectural projects",
   },
   {
     id: 6,
@@ -139,6 +145,7 @@ const PROJECTS = [
     url: "https://evanmickyphotography.com/",
     image: "/screenshots/evanmickyphotography.png",
     tags: ["WordPress", "Portfolio", "Gallery", "Responsive Design", "Elementor", "SEO"],
+    results: "Immersive gallery with seamless inquiry & booking flows",
     results: "Immersive gallery with seamless inquiry & booking flows",
   },
 ];
