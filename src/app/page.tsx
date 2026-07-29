@@ -71,7 +71,8 @@ const PROJECTS = [
       "A full-service aviation company website offering private jet charter, helicopter services, air cargo logistics, FBO operations, and MRO services, with an integrated booking system and a fleet showcase built on WordPress.",
     url: "https://flyelinair.com/",
     image: "/screenshots/flyelinair.png",
-    tags: ["WordPress", "Elementor", "Booking System", "Fleet Management", "SEO"],
+    tags: ["WordPress", "Elementor", "Booking System", "Fleet Management", "SEO"]
+    results: "Integrated booking system with fleet showcase for 4+ aircraft types",,
     designer: true,
   },
   {
@@ -82,7 +83,8 @@ const PROJECTS = [
       "An e-commerce store selling printing equipment and supplies — cutting machines, heat presses, sublimation printers, DTF printers, vinyls, inks, and accessories — with a large product catalog and WooCommerce integration.",
     url: "https://claytonprints.com/",
     image: "/screenshots/claytonprints.png",
-    tags: ["WordPress", "WooCommerce", "Elementor", "E-Commerce"],
+    tags: ["WordPress", "WooCommerce", "Elementor", "E-Commerce"]
+    results: "Structured 8+ product categories with seamless checkout flow",,
     designer: true,
   },
   {
@@ -92,7 +94,8 @@ const PROJECTS = [
       "A corporate website for Nigeria's leading creative production and media company, showcasing 20+ years of event production, TV & documentary production, commercials, and strategic media execution for top brands.",
     url: "https://cedarrush.ng/",
     image: "/screenshots/cedarrush.png",
-    tags: ["WordPress", "Elementor", "Media", "Portfolio", "SEO"],
+    tags: ["WordPress", "Elementor", "Media", "Portfolio", "SEO"]
+    results: "Showcasing 20+ years of production for top Nigerian brands",,
   },
   {
     id: 4,
@@ -102,7 +105,8 @@ const PROJECTS = [
       "A Nigerian ride-hailing web platform offering solo rides, carpooling, car rentals, and corporate booking, with fare estimation, ride tracking, and driver management features built on WordPress.",
     url: "https://kakaride.ng/",
     image: "/screenshots/kakaride.png",
-    tags: ["WordPress", "Custom Plugins", "API Integration", "Mobile-First", "Elementor", "SEO"],
+    tags: ["WordPress", "Custom Plugins", "API Integration", "Mobile-First", "Elementor", "SEO"]
+    results: "4-tier ride service with fare estimation & OTP-secured trips",,
     designer: true,
   },
   {
@@ -113,7 +117,8 @@ const PROJECTS = [
       "A fine jewelry e-commerce store for a 45-year-old Denver-based jeweler, featuring custom engagement ring design, fine jewelry collections, jewelry buying services, and certified appraisals — backed by a 4.9/5 Google rating.",
     url: "https://www.diamondsourcejewelers.com",
     image: "/screenshots/diamondsourcejewelers.png",
-    tags: ["WordPress", "WooCommerce", "E-Commerce", "Luxury Brand", "Elementor", "SEO"],
+    tags: ["WordPress", "WooCommerce", "E-Commerce", "Luxury Brand", "Elementor", "SEO"]
+    results: "4.9/5 Google rating across 100+ reviews · Denver local SEO",,
   },
   {
     id: 6,
@@ -123,7 +128,8 @@ const PROJECTS = [
       "A comprehensive architectural firm website for a Lagos-based full-service design powerhouse, showcasing 13+ landmark projects with a detailed portfolio, SEO-optimized service pages, and a mobile-first layout.",
     url: "https://designedspacesbyyemi.com/",
     image: "/screenshots/designedspacesbyyemi.png",
-    tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"],
+    tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"]
+    results: "Portfolio showcasing 13+ landmark architectural projects",,
   },
   {
     id: 6,
@@ -132,7 +138,8 @@ const PROJECTS = [
       "A documentary-style wedding and portrait photography portfolio showcasing engagement sessions, family portraits, and newborn/maternity shoots, with an immersive gallery and seamless inquiry flows.",
     url: "https://evanmickyphotography.com/",
     image: "/screenshots/evanmickyphotography.png",
-    tags: ["WordPress", "Portfolio", "Gallery", "Responsive Design", "Elementor", "SEO"],
+    tags: ["WordPress", "Portfolio", "Gallery", "Responsive Design", "Elementor", "SEO"]
+    results: "Immersive gallery with seamless inquiry & booking flows",,
   },
 ];
 
@@ -725,6 +732,12 @@ function BrowserMockupCard({
             </span>
           ))}
         </div>
+        {project.results && (
+          <p className="text-[12px] text-primary font-medium flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            {project.results}
+          </p>
+        )}
         {project.designer && (
           <div className="pt-2 border-t border-border text-[12px] text-muted-foreground/60">
             UI/UX Designer -{" "}
