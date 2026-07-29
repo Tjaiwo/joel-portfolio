@@ -902,36 +902,6 @@ function useScramble(words) {
 
 
 
-function playClick() {
-  try {
-    const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.frequency.value = 1200;
-    osc.type = "sine";
-    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.1);
-  } catch (e) {}
-}
-
-
-function useLocalTime() {
-  const [time, setTime] = useState("");
-  useEffect(() => {
-    const update = () => {
-      const now = new Date();
-      setTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-    };
-    update();
-    const t = setInterval(update, 1000);
-    return () => clearInterval(t);
-  }, []);
-  return time;
-}
 
 
 
@@ -1020,10 +990,6 @@ export default function Portfolio() {
   const [openExpIdx, setOpenExpIdx] = useState(-1);
     const [soundEnabled, setSoundEnabled] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [glitchDone, setGlitchDone] = useState(false);
-  const [konami, setKonami] = useState(false);
-  const logoTapRef = useRef(0);
-  const logoTapTimer = useRef<any>(null);
   
   useEffect(() => { const t = setTimeout(() => setGlitchDone(true), 2000); return () => clearTimeout(t); }, []);
   const [titleIndex, setTitleIndex] = useState(0);
@@ -1050,15 +1016,6 @@ export default function Portfolio() {
   }, []);
 
 
-  useEffect(() => {
-    if (!soundEnabled) return;
-    const handler = (e) => {
-      const el = e.target.closest('a, button, [role="button"], .clickable');
-      if (el) playClick();
-    };
-    document.addEventListener("click", handler);
-    return () => document.removeEventListener("click", handler);
-  }, [soundEnabled]);
 
   const scrollTo = useCallback((id: string) => {
     setMobileMenuOpen(false);
@@ -1128,18 +1085,7 @@ export default function Portfolio() {
             className="mb-12"
           >
             <button
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                logoTapRef.current += 1;
-                if (logoTapTimer.current) clearTimeout(logoTapTimer.current);
-                if (logoTapRef.current >= 5) {
-                  setKonami(true);
-                  setTimeout(() => setKonami(false), 4000);
-                  logoTapRef.current = 0;
-                } else {
-                  logoTapTimer.current = setTimeout(() => { logoTapRef.current = 0; }, 1500);
-                }
-              }}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="text-left hover:opacity-70 transition-opacity cursor-pointer"
               aria-label="Scroll to top"
             >
@@ -1234,12 +1180,6 @@ export default function Portfolio() {
               <svg className="w-4 h-4 lg:w-5 lg:h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
           </div>
-          <div className="text-[11px] font-mono text-primary uppercase tracking-wider mb-1" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-            Local Time
-          </div>
-          <div className="text-primary font-mono mb-3" style={{ fontFamily: 'var(--font-geist-mono)', fontSize: '14px' }}>
-            <span className="text-primary font-mono text-[12px]" style={{ fontFamily: 'var(--font-geist-mono)' }}>{useLocalTime()}</span>
-          </div>
           <div className="flex items-center gap-2 mt-2">
           <ThemeToggle />
           <button
@@ -1258,19 +1198,8 @@ export default function Portfolio() {
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="flex items-center justify-between px-5 py-4">
           <button
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                logoTapRef.current += 1;
-                if (logoTapTimer.current) clearTimeout(logoTapTimer.current);
-                if (logoTapRef.current >= 5) {
-                  setKonami(true);
-                  setTimeout(() => setKonami(false), 4000);
-                  logoTapRef.current = 0;
-                } else {
-                  logoTapTimer.current = setTimeout(() => { logoTapRef.current = 0; }, 1500);
-                }
-              }}
-              className="text-left hover:opacity-70 transition-opacity"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="text-left hover:opacity-70 transition-opacity cursor-pointer"
               aria-label="Scroll to top"
             >
               <h2 className="text-[24px] md:text-[28px] font-bold tracking-tight">
@@ -1330,74 +1259,7 @@ export default function Portfolio() {
       </header>
 
       {/* ══════════ MAIN CONTENT ══════════ */}
-      {!glitchDone && (
-        <motion.div
-          className="fixed inset-0 z-[99999] bg-black flex items-center justify-center overflow-hidden"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-        >
-          <div className="cinematic-preloader">
-            <div className="preloader-scanlines" />
-            <div className="preloader-scanlines-heavy" />
-            <div className="preloader-vignette" />
-            <div className="preloader-noise" />
-            <div className="preloader-flash" />
-            <div className="preloader-glitch-slice preloader-slice-1" />
-            <div className="preloader-glitch-slice preloader-slice-2" />
-            <div className="preloader-glitch-slice preloader-slice-3" />
-            <div className="preloader-glitch-slice preloader-slice-4" />
-            
-            <div className="relative z-10 text-center">
-              <div className="preloader-boot-seq text-[9px] md:text-[10px] font-mono text-primary/40 uppercase tracking-[0.4em] mb-8">
-                <div>SYS_BOOT_SEQ_v2.4</div>
-                <div className="mt-1">INITIALIZING_KERNEL<span className="preloader-dots">...</span></div>
-              </div>
-              
-              <div className="preloader-text-wrapper">
-                <h1 className="cinematic-text text-6xl md:text-8xl lg:text-9xl font-black text-primary tracking-tighter" data-text="MANIFEST">
-                  MANIFEST
-                </h1>
-              </div>
-              
-              <div className="preloader-bar mt-10 mx-auto" />
-              <div className="preloader-bar-fast mt-1 mx-auto" />
-              
-              <p className="text-[9px] md:text-[10px] font-mono text-primary/30 mt-8 uppercase tracking-[0.4em]">
-                ESTABLISHING_CONNECTION<span className="preloader-dots">...</span>
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      )}
-      <div className="theme-burn" aria-hidden="true">
-        <div className="burn-scanlines" />
-        <div className="burn-glitch-red" />
-        <div className="burn-glitch-cyan" />
-        <div className="burn-flash" />
-        <div className="burn-vignette" />
-      </div>
-      {konami && (
-        <div className="fixed inset-0 z-[99999] pointer-events-none flex items-center justify-center">
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            exit={{ scale: 0, rotate: 180 }}
-            className="text-center"
-          >
-            <div className="text-6xl md:text-8xl font-black text-primary mb-4 animate-bounce">
-              ⬆⬆⬇⬇⬅➡⬅➡🅱🅰
-            </div>
-            <p className="text-2xl md:text-4xl font-bold text-primary animate-pulse">
-              CHEAT CODE ACTIVATED
-            </p>
-            <p className="text-sm md:text-lg text-muted-foreground mt-2 font-mono">
-              You found the secret. Now go build something great.
-            </p>
-          </motion.div>
-          <div className="absolute inset-0 konami-confetti pointer-events-none" />
-        </div>
-      )}
-      <main className="flex-1 lg:ml-[280px]" style={{ opacity: glitchDone ? 1 : 0, transition: "opacity 0.8s ease-out 0.2s" }}>
+      <main className="flex-1 lg:ml-[280px]" >
         {/* ─── HERO ─── */}
         <section
           id="home"
@@ -1415,7 +1277,7 @@ export default function Portfolio() {
               <motion.div variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="hero-blur-reveal mb-4" style={{ animationDelay: "0.1s" }}>
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md text-primary text-[12px] font-mono shadow-[0_0_20px_rgba(80,200,120,0.1)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary stat-pulse" />
-                  Available
+                  Currently: Building high-performance web solutions
                 </span>
               </motion.div>
 
@@ -1441,7 +1303,7 @@ export default function Portfolio() {
               <motion.div variants={fadeInUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-wrap gap-4 mb-16">
                 <MagneticButton strength={0.3}>
                   <button
-                    onClick={() => { if (soundEnabled) playClick(); scrollTo("contact"); }}
+                    onClick={() => { scrollTo("contact"); }}
                     className="gradient-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-md uppercase tracking-wider transition-all hover:shadow-[0_0_40px_rgba(80,200,120,0.3)] hover:scale-105 active:scale-[0.97]"
                   >
                     LET&apos;S TALK <ArrowUpRight size={16} />
@@ -1449,7 +1311,7 @@ export default function Portfolio() {
                 </MagneticButton>
                 <MagneticButton strength={0.3}>
                   <button
-                    onClick={() => { if (soundEnabled) playClick(); scrollTo("projects-skills"); }}
+                    onClick={() => { scrollTo("projects-skills"); }}
                     className="outline-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-md uppercase tracking-wider transition-all"
                   >
                     VIEW PROJECTS
