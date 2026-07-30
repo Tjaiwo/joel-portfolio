@@ -1103,9 +1103,9 @@ export default function Portfolio() {
               className="text-left hover:opacity-70 transition-opacity cursor-pointer"
               aria-label="Scroll to top"
             >
-              <h2 className="text-xl font-bold tracking-tight">
-                Joel<span className="text-primary">.</span>
-              </h2>
+              <h2 className="text-xl font-bold tracking-tight" style={{ fontFamily: "var(--font-geist-sans)" }}>
+              &lt;<span className="text-foreground">JA</span><span className="text-primary">/</span>&gt;
+            </h2>
             </button>
             <p className="text-[14px] text-muted-foreground mt-1 tracking-wider uppercase">
               Web Developer
@@ -1216,9 +1216,9 @@ export default function Portfolio() {
               className="text-left hover:opacity-70 transition-opacity cursor-pointer"
               aria-label="Scroll to top"
             >
-              <h2 className="text-[24px] md:text-[28px] font-bold tracking-tight">
-                Joel<span className="text-primary">.</span>
-              </h2>
+              <h2 className="text-[24px] md:text-[28px] font-bold tracking-tight" style={{ fontFamily: "var(--font-geist-sans)" }}>
+            &lt;<span className="text-foreground">JA</span><span className="text-primary">/</span>&gt;
+          </h2>
             </button>
           <div className="flex items-center gap-2">
             
