@@ -1004,6 +1004,7 @@ export default function Portfolio() {
   const [openExpIdx, setOpenExpIdx] = useState(-1);
     const [soundEnabled, setSoundEnabled] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
   
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
   /* Scroll accordion header into view AFTER the expand/collapse animation finishes (300ms).
@@ -1271,6 +1272,29 @@ export default function Portfolio() {
       </header>
 
       {/* ══════════ MAIN CONTENT ══════════ */}
+      {loading && (
+        <div className="fixed inset-0 z-[99999] bg-[#0C0C0C] flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="text-center"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-primary">
+              Joel<span className="text-foreground">.</span>
+            </h2>
+            <div className="mt-4 w-32 h-[2px] bg-[#1a1a1a] rounded-full overflow-hidden mx-auto">
+              <motion.div
+                className="h-full bg-primary rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+              />
+            </div>
+          </motion.div>
+        </div>
+      )}
       <main className="flex-1 lg:ml-[280px]" >
         {/* ─── HERO ─── */}
         <section
