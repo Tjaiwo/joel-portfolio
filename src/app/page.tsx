@@ -1027,6 +1027,7 @@ export default function Portfolio() {
   useEffect(() => {
     setCurrency(getCurrencyFromTimezone());
   }, []);
+  useEffect(() => { const t = setTimeout(() => setLoading(false), 1000); return () => clearTimeout(t); }, []);
 
 
 
