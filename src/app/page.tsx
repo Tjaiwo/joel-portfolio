@@ -1216,6 +1216,7 @@ export default function Portfolio() {
           <div className="flex items-center gap-2">
             
             <ThemeToggle />
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="hamburger-btn p-2"
               aria-label="Toggle menu"
