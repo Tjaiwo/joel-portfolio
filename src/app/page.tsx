@@ -1216,14 +1216,6 @@ export default function Portfolio() {
           <div className="flex items-center gap-2">
             
             <ThemeToggle />
-            <button
-              onClick={() => setSoundEnabled(!soundEnabled)}
-              className="p-2 rounded-md border border-border hover:border-primary/30 transition-colors text-[11px] font-mono text-muted-foreground hover:text-primary"
-              title=""
-            >
-              ""
-            </button>
-            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="hamburger-btn p-2"
               aria-label="Toggle menu"
