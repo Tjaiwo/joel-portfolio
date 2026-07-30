@@ -1356,7 +1356,7 @@ export default function Portfolio() {
               >
                 {STATS.map((stat, i) => (
                   <motion.div key={stat.label} variants={fadeInUp} custom={5 + i} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
-                    <CountUp from={0} to={stat.target} suffix={stat.suffix} duration={2} delay={i * 0.2} className="text-xl md:text-2xl font-bold text-primary" />
+                    <CountUp from={0} to={stat.target} suffix={stat.suffix} duration={2} delay={i * 0.2} className="text-2xl md:text-3xl font-bold text-primary" />
                     <p className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</p>
                   </motion.div>
                 ))}
