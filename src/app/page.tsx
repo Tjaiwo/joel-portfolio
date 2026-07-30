@@ -1300,7 +1300,7 @@ export default function Portfolio() {
               <motion.div variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="hero-blur-reveal mb-4" style={{ animationDelay: "0.1s" }}>
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md text-primary text-[12px] font-mono shadow-[0_0_20px_rgba(80,200,120,0.1)]">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary stat-pulse" />
-                  Currently: Building high-performance web solutions
+                  Currently: Open to work
                 </span>
               </motion.div>
 
