@@ -1002,8 +1002,7 @@ export default function Portfolio() {
   /* Currency detection — client-only to prevent hydration mismatch */
   const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [openExpIdx, setOpenExpIdx] = useState(-1);
-    const [soundEnabled, setSoundEnabled] = useState(false);
-  const [copied, setCopied] = useState(false);
+    const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
   
   const expRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -1196,13 +1195,7 @@ export default function Portfolio() {
           </div>
           <div className="flex items-center gap-2 mt-2">
           <ThemeToggle />
-          <button
-              onClick={() => {}}
-            className="p-2 rounded-md border border-border hover:border-primary/30 transition-colors text-[11px] font-mono text-muted-foreground hover:text-primary"
-            title=""
-          >
-            ""
-          </button>
+          
 
         </div>
         </motion.div>
@@ -1282,8 +1275,8 @@ export default function Portfolio() {
             transition={{ duration: 0.3 }}
             className="text-center"
           >
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-primary">
-              Joel<span className="text-foreground">.</span>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ fontFamily: "var(--font-geist-sans)" }}>
+              <span className="text-foreground">&lt;JA</span><span className="text-primary">/&gt;</span>
             </h2>
             <div className="mt-4 w-32 h-[2px] bg-[#1a1a1a] rounded-full overflow-hidden mx-auto">
               <motion.div
