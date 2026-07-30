@@ -869,12 +869,12 @@ function CountingStat({ stat, index }) {
 
 function useScramble(words) {
   const [display, setDisplay] = useState(words[0]);
-  const idx = useRef(0);
+  const [wordIndex, setWordIndex] = useState(0);
   const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~";
 
   useEffect(() => {
-    const word = words[idx.current];
-    const next = words[(idx.current + 1) % words.length];
+    const word = words[wordIndex];
+    const next = words[(wordIndex + 1) % words.length];
 
     setDisplay(word);
     
@@ -887,7 +887,8 @@ function useScramble(words) {
           const revealInterval = setInterval(() => {
             if (i > next.length) {
               clearInterval(revealInterval);
-              idx.current = (idx.current + 1) % words.length;
+              setDisplay(next);
+              setWordIndex((prev) => (prev + 1) % words.length);
             } else {
               let s = "";
               for (let j = 0; j < next.length; j++) {
@@ -908,7 +909,7 @@ function useScramble(words) {
     }, 2500);
 
     return () => clearTimeout(t1);
-  }, [idx.current]);
+  }, [wordIndex]);
 
   return display;
 }
