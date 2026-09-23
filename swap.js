@@ -1,131 +1,21 @@
-/**
- * swap.js — Swap Elin Group & Mediapool with Clayton Prints & Cedar Rush
- * Run from portfolio root: node swap.js
- */
-const fs = require('fs');
-const FILE = 'src/app/page.tsx';
-
-if (!fs.existsSync(FILE)) {
-  console.error('Cannot find ' + FILE + ' — run from portfolio root.');
-  process.exit(1);
-}
-
-let content = fs.readFileSync(FILE, 'utf8');
-
-function findBlock(src, title) {
-  const idx = src.indexOf('title: "' + title + '"');
-  if (idx === -1) return null;
-  let start = idx;
-  while (start > 0 && src[start] !== '{') start--;
-  let depth = 0, end = start;
-  for (let i = start; i < src.length; i++) {
-    if (src[i] === '{') depth++;
-    if (src[i] === '}') { depth--; if (depth === 0) { end = i; break; } }
-  }
-  return { start, end, text: src.substring(start, end + 1) };
-}
-
-function setId(blockText, newId) {
-  return blockText.replace(/(id:\s*)\d+/, '$1' + newId);
-}
-
-console.log('--- Swapping PROJECTS[] positions ---');
-
-const clayton = findBlock(content, 'Clayton Prints');
-const cedar   = findBlock(content, 'Cedar Rush');
-const elinGrp = findBlock(content, 'Elin Group');
-const mediapl = findBlock(content, 'Mediapool');
-
-if (!clayton || !cedar || !elinGrp || !mediapl) {
-  console.error('Could not find all 4 projects.');
-  process.exit(1);
-}
-
-const claytonId  = clayton.text.match(/id:\s*(\d+)/)[1];
-const cedarId    = cedar.text.match(/id:\s*(\d+)/)[1];
-const elinGrpId  = elinGrp.text.match(/id:\s*(\d+)/)[1];
-const mediaplId  = mediapl.text.match(/id:\s*(\d+)/)[1];
-
-console.log('  IDs: Clayton=' + claytonId + ', Cedar=' + cedarId + ', ElinGroup=' + elinGrpId + ', Mediapool=' + mediaplId);
-
-const replacements = [
-  { start: mediapl.start, end: mediapl.end, newText: setId(cedar.text, mediaplId) },
-  { start: elinGrp.start, end: elinGrp.end, newText: setId(clayton.text, elinGrpId) },
-  { start: cedar.start, end: cedar.end, newText: setId(mediapl.text, cedarId) },
-  { start: clayton.start, end: clayton.end, newText: setId(elinGrp.text, claytonId) },
-].sort((a, b) => b.start - a.start);
-
-for (const r of replacements) {
-  content = content.substring(0, r.start) + r.newText + content.substring(r.end + 1);
-}
-console.log('PROJECTS[] swapped');
-
-console.log('--- Swapping Experience sub-projects ---');
-
-const freelanceIdx = content.indexOf('company: "Freelance"');
-const digisplashIdx = content.indexOf('company: "Digisplash"', freelanceIdx);
-
-if (freelanceIdx !== -1 && digisplashIdx !== -1) {
-  const expSection = content.substring(freelanceIdx, digisplashIdx);
-  const egSub = findBlock(expSection, 'Elin Group');
-  const cpSub = findBlock(expSection, 'Clayton Prints');
-  const mpSub = findBlock(expSection, 'Mediapool');
-
-  if (egSub && cpSub) {
-    const absEgStart = freelanceIdx + egSub.start;
-    const absEgEnd   = freelanceIdx + egSub.end;
-    const absCpStart = freelanceIdx + cpSub.start;
-    const absCpEnd   = freelanceIdx + cpSub.end;
-    const egText = content.substring(absEgStart, absEgEnd + 1);
-    const cpText = content.substring(absCpStart, absCpEnd + 1);
-
-    if (absEgStart > absCpStart) {
-      content = content.substring(0, absEgStart) + cpText + content.substring(absEgEnd + 1);
-      content = content.substring(0, absCpStart) + egText + content.substring(absCpEnd + 1);
-    } else {
-      content = content.substring(0, absCpStart) + egText + content.substring(absCpEnd + 1);
-      content = content.substring(0, absEgStart) + cpText + content.substring(absEgEnd + 1);
-    }
-    console.log('Elin Group and Clayton Prints swapped');
-
-    if (mpSub) {
-      const newFreelanceIdx = content.indexOf('company: "Freelance"');
-      const newDigisplashIdx = content.indexOf('company: "Digisplash"', newFreelanceIdx);
-      const newExpSection = content.substring(newFreelanceIdx, newDigisplashIdx);
-      const newEg = findBlock(newExpSection, 'Elin Group');
-      const newMp = findBlock(newExpSection, 'Mediapool');
-
-      if (newEg && newMp) {
-        const egAbsEnd = newFreelanceIdx + newEg.end;
-        const mpAbsStart = newFreelanceIdx + newMp.start;
-        const between = content.substring(egAbsEnd + 1, mpAbsStart).trim();
-
-        if (between.length > 5) {
-          console.log('  Moving Mediapool after Elin Group...');
-          const mpAbsEnd = newFreelanceIdx + newMp.end;
-          const mpText = content.substring(mpAbsStart, mpAbsEnd + 1);
-          content = content.substring(0, mpAbsStart) + content.substring(mpAbsEnd + 1);
-
-          const rfIdx = content.indexOf('company: "Freelance"');
-          const dgIdx = content.indexOf('company: "Digisplash"', rfIdx);
-          const rfSec = content.substring(rfIdx, dgIdx);
-          const rfEg = findBlock(rfSec, 'Elin Group');
-
-          if (rfEg) {
-            const afterEgEnd = rfIdx + rfEg.end;
-            let insertAt = afterEgEnd + 1;
-            const needsComma = content[afterEgEnd] !== ',';
-            const insertStr = (needsComma ? ',' : '') + '\n      ' + mpText;
-            content = content.substring(0, insertAt) + insertStr + content.substring(insertAt);
-            console.log('  Mediapool moved');
-          }
-        }
-      }
-    }
-  }
-}
-
-content = content.replace(/\},\s*\n\s*,/g, '},\n');
-
-fs.writeFileSync(FILE, content, 'utf8');
-console.log('\nAll changes saved to ' + FILE);
+const fs=require('fs'),f='src/app/page.tsx';let c=fs.readFileSync(f,'utf8');
+function fb(s,t){const i=s.indexOf('title: "'+t+'"');if(i<0)return null;let st=i;while(st>0&&s[st]!=='{')st--;let d=0,en=st;for(let j=st;j<s.length;j++){if(s[j]==='{')d++;if(s[j]==='}'){d--;if(d===0){en=j;break;}}}return{s:st,e:en,t:s.substring(st,en+1)};}
+function si(b,id){return b.replace(/(id:\s*)\d+/,'$1'+id);}
+const cp=fb(c,'Clayton Prints'),cr=fb(c,'Cedar Rush'),eg=fb(c,'Elin Group'),mp=fb(c,'Mediapool');
+if(!cp||!cr||!eg||!mp){console.error('Missing block:',{cp:!!cp,cr:!!cr,eg:!!eg,mp:!!mp});process.exit(1);}
+const ci=cp.t.match(/id:\s*(\d+)/)[1],ri=cr.t.match(/id:\s*(\d+)/)[1],ei=eg.t.match(/id:\s*(\d+)/)[1],mi=mp.t.match(/id:\s*(\d+)/)[1];
+console.log('IDs: CP='+ci+' CR='+ri+' EG='+ei+' MP='+mi);
+const rp=[[mp.s,mp.e,si(cr.t,mi)],[eg.s,eg.e,si(cp.t,ei)],[cr.s,cr.e,si(mp.t,ri)],[cp.s,cp.e,si(eg.t,ci)]].sort((a,b)=>b[0]-a[0]);
+for(const r of rp)c=c.substring(0,r[0])+r[2]+c.substring(r[1]+1);
+console.log('PROJECTS swapped');
+const fi=c.indexOf('company: "Freelance"'),di=c.indexOf('company: "Digisplash"',fi);
+if(fi>0&&di>0){const es=c.substring(fi,di),esg=fb(es,'Elin Group'),ecp=fb(es,'Clayton Prints'),emp=fb(es,'Mediapool');
+if(esg&&ecp){const a1=fi+esg.s,a2=fi+esg.e,b1=fi+ecp.s,b2=fi+ecp.e;const gt=c.substring(a1,a2+1),ct=c.substring(b1,b2+1);
+if(a1>b1){c=c.substring(0,a1)+ct+c.substring(a2+1);c=c.substring(0,b1)+gt+c.substring(b2+1);}else{c=c.substring(0,b1)+gt+c.substring(b2+1);c=c.substring(0,a1)+ct+c.substring(a2+1);}
+console.log('Experience EG<->CP swapped');
+if(emp){const nf=c.indexOf('company: "Freelance"'),nd=c.indexOf('company: "Digisplash"',nf),ns=c.substring(nf,nd),neg=fb(ns,'Elin Group'),nmp=fb(ns,'Mediapool');
+if(neg&&nmp){const ee=nf+neg.e,ms=nf+nmp.start,bt=c.substring(ee+1,ms).trim();
+if(bt.length>5){const me=nf+nmp.end,mt=c.substring(ms,me+1);c=c.substring(0,ms)+c.substring(me+1);
+const rf=c.indexOf('company: "Freelance"'),rd=c.indexOf('company: "Digisplash"',rf),rs=c.substring(rf,rd),reg=fb(rs,'Elin Group');
+if(reg){const ae=rf+reg.e,ia=ae+1,nc=c[ae]!==',',ins=(nc?',':'')+'\n      '+mt;c=c.substring(0,ia)+ins+c.substring(ia);console.log('Mediapool moved after EG');}}}}}}
+c=c.replace(/\},\s*\n\s*,/g,'},\n');fs.writeFileSync(f,c,'utf8');console.log('Done!');
