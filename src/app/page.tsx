@@ -227,6 +227,7 @@ const EXPERIENCE = [
           "Optimized the site for SEO and performance, handling a large product catalog while maintaining fast load times and smooth browsing on all devices.",
         ],
       },
+
       {
         title: "Diamond Source Jewelers",
         projectId: "diamond-source-jewelers",
