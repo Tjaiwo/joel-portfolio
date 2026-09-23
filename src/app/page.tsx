@@ -99,18 +99,6 @@ const PROJECTS = [
   },
   {
     id: 4,
-    slug: "kakaride",
-    title: "Kakaride",
-    description:
-      "A Nigerian ride-hailing web platform offering solo rides, carpooling, car rentals, and corporate booking, with fare estimation, ride tracking, and driver management features built on WordPress.",
-    url: "https://kakaride.ng/",
-    image: "/screenshots/kakaride.png",
-    tags: ["WordPress", "Custom Plugins", "API Integration", "Mobile-First", "Elementor", "SEO"],
-    results: "4-tier ride service with fare estimation & OTP-secured trips",
-    designer: true,
-  },
-  {
-    id: 5,
     slug: "diamond-source-jewelers",
     title: "Diamond Source Jewelers",
     description:
@@ -121,7 +109,7 @@ const PROJECTS = [
     results: "4.9/5 Google rating across 100+ reviews · Denver local SEO",
   },
   {
-    id: 6,
+    id: 5,
     slug: "designed-spaces-by-yemi",
     title: "Designed Spaces by Yemi",
     description:
@@ -140,6 +128,30 @@ const PROJECTS = [
     image: "/screenshots/evanmickyphotography.png",
     tags: ["WordPress", "Portfolio", "Gallery", "Responsive Design", "Elementor", "SEO"],
     results: "Immersive gallery with seamless inquiry & booking flows",
+  },
+  {
+    id: 7,
+    slug: "elin-group",
+    title: "Elin Group",
+    description:
+      "A corporate website for a diversified African industrial platform operating across energy, aviation, mining, construction, real estate, and power sectors — showcasing seven subsidiary businesses, leadership, sustainability initiatives, and career opportunities.",
+    url: "https://elin-group.com/",
+    image: "/screenshots/elingroup.png",
+    tags: ["WordPress", "Elementor", "Corporate", "Multi-Business", "SEO"],
+    results: "7 subsidiary brands unified under one industrial platform",
+    designer: true,
+  },
+  {
+    id: 8,
+    slug: "mediapool",
+    title: "Mediapool",
+    description:
+      "A creative media buying and planning agency website showcasing media consultancy, buying, and planning services with a portfolio of campaigns for brands like Renmoney, Zedvance, CrusaderSterling Pensions, and Mixta Africa.",
+    url: "https://mediapool.ng/",
+    image: "/screenshots/mediapool.png",
+    tags: ["WordPress", "Elementor", "Media", "Agency", "SEO"],
+    results: "Media campaigns for 4+ major Nigerian brands",
+    designer: true,
   },
 ];
 
@@ -216,16 +228,6 @@ const EXPERIENCE = [
         ],
       },
       {
-        title: "Kakaride",
-        projectId: "kakaride",
-        descriptions: [
-          "Built a ride-hailing web platform on WordPress with custom plugins supporting four service tiers — solo rides, carpooling, car rentals with drivers, and corporate ride accounts.",
-          "Implemented fare estimation, ride tracking, and an OTP-secured trip system to deliver a safe and transparent e-hailing experience for Nigerian commuters.",
-          "Designed a mobile-first responsive interface with a streamlined booking flow — from pickup/drop-off entry to driver details and trip history — optimized for user retention.",
-          "Optimized the site for performance and SEO with dedicated landing pages for each service category, ensuring strong search visibility for ride-hailing queries in Nigeria.",
-        ],
-      },
-      {
         title: "Diamond Source Jewelers",
         projectId: "diamond-source-jewelers",
         descriptions: [
@@ -243,6 +245,26 @@ const EXPERIENCE = [
           "Developed a detailed project portfolio showcasing 13+ landmark projects including AG Heights, The Earl Of Ilabere, Cedar Shore, Baylad Mews, The Silverleaf, and Beronia Mid Rise — with individual project pages featuring image galleries and descriptions across residential, commercial, and mixed-use categories.",
           "Designed a responsive, mobile-first layout with Elementor and the Mrittik theme that communicates prestige and creative excellence, aligning with the brand's positioning as an award-winning architecture firm serving high-end clients across Nigeria.",
           "Implemented SEO-optimized service pages, a Contact Form 7 inquiry system, a testimonial carousel with Swiper.js, and full social media integration across six platforms — with Google Tag Manager, Schema.org structured data, and lazy-loaded imagery for performance.",
+        ],
+      },
+      {
+        title: "Elin Group",
+        projectId: "elin-group",
+        descriptions: [
+          "Built a corporate website for Elin Group, a diversified African industrial platform operating across energy, aviation, mining, construction, real estate, and power sectors — showcasing seven subsidiary businesses under one unified brand.",
+          "Developed dedicated subsidiary pages for Elin Oil & Gas Services, Elin Air & Aviation Services, Elin Mining Limited, Elin Construction, Elin Realty, ENE Gas & Power, and Meffio Turbine Energy Limited — each with tailored service descriptions and operational highlights.",
+          "Designed a premium corporate layout with Elementor featuring leadership profiles, sustainability initiatives (Vision 2030), career opportunities, and operational assets sections that communicate scale and industrial authority.",
+          "Implemented SEO-optimized architecture with Schema.org structured data, performance-optimized asset delivery, and responsive design ensuring seamless experience across all devices and screen sizes.",
+        ],
+      },
+      {
+        title: "Mediapool",
+        projectId: "mediapool",
+        descriptions: [
+          "Built a creative media agency website for Mediapool, a subsidiary of The Reef Group, offering media planning, media buying, and media consultancy services to brands across Nigeria.",
+          "Developed a portfolio section showcasing successful campaigns for major Nigerian brands including Renmoney, Zedvance, CrusaderSterling Pensions, and Mixta Africa — with individual case study pages highlighting results and strategy.",
+          "Designed a playful, water-themed creative layout with Elementor that reflects the brand's 'lifeguard' positioning — rescuing advertising budgets from waste and guiding clients to prime-time placements.",
+          "Implemented SEO-optimized service pages, a streamlined contact flow for media inquiries, and responsive design optimized for fast loading across all devices and screen sizes.",
         ],
       },
     ],
