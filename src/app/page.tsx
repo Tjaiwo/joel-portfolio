@@ -1315,7 +1315,7 @@ export default function Portfolio() {
           className="flex flex-col justify-start lg:justify-center lg:min-h-screen relative overflow-hidden pt-[120px] lg:pt-0 px-4 md:px-4 lg:px-5"
         >
           {/* Background accent */}
-          <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/[0.03] rounded-full blur-[120px] pointer-events-none hero-bg-accent" />
+          <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/[0.03] rounded-full blur-[120px] pointer-events-none " />
 
           <ContentWidth>
             <motion.div
@@ -1331,8 +1331,7 @@ export default function Portfolio() {
               </motion.div>
 
               <motion.h1
-                variants={fadeInUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-                className="hero-blur-reveal text-[36px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-6 glow-text" style={{ animationDelay: "0.25s", minHeight: 'clamp(48px, 12vw, 80px)' }}
+                className="text-[36px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-6 glow-text" style={{ minHeight: 'clamp(48px, 12vw, 80px)' }}
               >
                 <span className="text-foreground/70">
                   {useScramble(["WEB DEVELOPER.", "SEO EXPERT.", "LOW-CODE PRO."])}
