@@ -70,7 +70,7 @@ const PROJECTS = [
     description:
       "A full-service aviation company website offering private jet charter, helicopter services, air cargo logistics, FBO operations, and MRO services, with an integrated booking system and a fleet showcase built on WordPress.",
     url: "https://flyelinair.com/",
-    image: "/screenshots/flyelinair.png",
+    image: "/screenshots/flyelinair.webp",
     tags: ["WordPress", "Elementor", "Booking System", "Fleet Management", "SEO"],
     results: "Integrated booking system with fleet showcase for 4+ aircraft types",
     designer: true,
@@ -82,7 +82,7 @@ const PROJECTS = [
     description:
       "A corporate website for a diversified African industrial platform operating across energy, aviation, mining, construction, real estate, and power sectors — showcasing seven subsidiary businesses, leadership, sustainability initiatives, and career opportunities.",
     url: "https://elin-group.com/",
-    image: "/screenshots/elingroup.png",
+    image: "/screenshots/elingroup.webp",
     tags: ["WordPress", "Elementor", "Corporate", "Multi-Business", "SEO"],
     results: "7 subsidiary brands unified under one industrial platform",
     designer: true,
@@ -94,7 +94,7 @@ const PROJECTS = [
     description:
       "A creative media buying and planning agency website showcasing media consultancy, buying, and planning services with a portfolio of campaigns for brands like Renmoney, Zedvance, CrusaderSterling Pensions, and Mixta Africa.",
     url: "https://mediapool.ng/",
-    image: "/screenshots/mediapool.png",
+    image: "/screenshots/mediapool.webp",
     tags: ["WordPress", "Elementor", "Media", "Agency", "SEO"],
     results: "Media campaigns for 4+ major Nigerian brands",
     designer: true,
@@ -106,7 +106,7 @@ const PROJECTS = [
     description:
       "A fine jewelry e-commerce store for a 45-year-old Denver-based jeweler, featuring custom engagement ring design, fine jewelry collections, jewelry buying services, and certified appraisals — backed by a 4.9/5 Google rating.",
     url: "https://www.diamondsourcejewelers.com",
-    image: "/screenshots/diamondsourcejewelers.png",
+    image: "/screenshots/diamondsourcejewelers.webp",
     tags: ["WordPress", "WooCommerce", "E-Commerce", "Luxury Brand", "Elementor", "SEO"],
     results: "4.9/5 Google rating across 100+ reviews · Denver local SEO",
   },
@@ -117,7 +117,7 @@ const PROJECTS = [
     description:
       "A comprehensive architectural firm website for a Lagos-based full-service design powerhouse, showcasing 13+ landmark projects with a detailed portfolio, SEO-optimized service pages, and a mobile-first layout.",
     url: "https://designedspacesbyyemi.com/",
-    image: "/screenshots/designedspacesbyyemi.png",
+    image: "/screenshots/designedspacesbyyemi.webp",
     tags: ["WordPress", "Elementor", "Portfolio", "Booking System", "SEO"],
     results: "Portfolio showcasing 13+ landmark architectural projects",
   },
@@ -127,7 +127,7 @@ const PROJECTS = [
     description:
       "A documentary-style wedding and portrait photography portfolio showcasing engagement sessions, family portraits, and newborn/maternity shoots, with an immersive gallery and seamless inquiry flows.",
     url: "https://evanmickyphotography.com/",
-    image: "/screenshots/evanmickyphotography.png",
+    image: "/screenshots/evanmickyphotography.webp",
     tags: ["WordPress", "Portfolio", "Gallery", "Responsive Design", "Elementor", "SEO"],
     results: "Immersive gallery with seamless inquiry & booking flows",
   },
@@ -138,7 +138,7 @@ const PROJECTS = [
     description:
       "An e-commerce store selling printing equipment and supplies — cutting machines, heat presses, sublimation printers, DTF printers, vinyls, inks, and accessories — with a large product catalog and WooCommerce integration.",
     url: "https://claytonprints.com/",
-    image: "/screenshots/claytonprints.png",
+    image: "/screenshots/claytonprints.webp",
     tags: ["WordPress", "WooCommerce", "Elementor", "E-Commerce"],
     results: "Structured 8+ product categories with seamless checkout flow",
     designer: true,
@@ -149,7 +149,7 @@ const PROJECTS = [
     description:
       "A corporate website for Nigeria's leading creative production and media company, showcasing 20+ years of event production, TV & documentary production, commercials, and strategic media execution for top brands.",
     url: "https://cedarrush.ng/",
-    image: "/screenshots/cedarrush.png",
+    image: "/screenshots/cedarrush.webp",
     tags: ["WordPress", "Elementor", "Media", "Portfolio", "SEO"],
     results: "Showcasing 20+ years of production for top Nigerian brands",
   },
@@ -722,6 +722,8 @@ function BrowserMockupCard({
         <img
           src={project.image}
           alt={project.title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
       </a>
