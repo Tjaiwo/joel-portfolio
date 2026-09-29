@@ -1,6 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  compress: true,
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "@radix-ui/react-accordion",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-toast",
+      "@radix-ui/react-select",
+      "@radix-ui/react-tooltip",
+      "next-themes",
+    ],
+  },
   images: { unoptimized: true },
   // Force browsers to always fetch fresh assets
   headers: async () => [
