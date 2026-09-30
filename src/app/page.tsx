@@ -66,7 +66,7 @@ export default function Page() {
     <>
       <EditorialHero />
 
-      <section className="lp-section pt-[80px] lg:pt-[180px]">
+      <section className="lp-section pt-[100px] lg:pt-[180px]">
         <p className="lp-section-label">Selected work: 100% shipped by Joel</p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
