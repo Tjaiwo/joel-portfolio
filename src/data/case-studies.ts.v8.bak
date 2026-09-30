@@ -335,7 +335,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     meta: {
       industry: "Photography / Creative",
       services: ["Web Design", "WordPress Development", "Gallery System", "Performance", "SEO"],
-      date: "July 2026",
+      date: "October 2025",
       duration: "2 weeks",
     },
     liveUrl: "https://evanmickyphotography.com/",
@@ -457,7 +457,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     meta: {
       industry: "Creative Agency / Experiential Design",
       services: ["Web Design", "WordPress Development", "Portfolio Architecture", "Performance", "SEO"],
-      date: "November 2024",
+      date: "July 2026",
       duration: "3 weeks",
     },
     liveUrl: "https://atomdsn.com/",
@@ -575,7 +575,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     meta: {
       industry: "E-Commerce / Jewelry",
       services: ["Product Catalog Management", "WooCommerce", "Data Migration", "Quality Assurance"],
-      date: "September 2022",
+      date: "May 2026",
       duration: "2 weeks",
     },
     liveUrl: "https://www.diamondsourcejewelers.com",
@@ -630,7 +630,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     meta: {
       industry: "Architecture / Construction",
       services: ["Web Design", "WordPress Development", "Portfolio Architecture", "SEO"],
-      date: "May 2024",
+      date: "June 2026",
       duration: "3 weeks",
     },
     liveUrl: "https://designedspacesbyyemi.com/",
@@ -686,7 +686,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     meta: {
       industry: "Media Production / Events",
       services: ["Web Design", "WordPress Development", "Content Architecture", "SEO"],
-      date: "February 2026",
+      date: "September 2025",
       duration: "3 weeks",
     },
     liveUrl: "https://cedarrush.ng/",
