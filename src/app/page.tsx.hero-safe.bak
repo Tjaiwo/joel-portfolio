@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, useInView, useScroll, useSpring, useMotionValueEvent, useTransform } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CountUp } from "@/components/count-up";
-import { EditorialHero } from "@/components/editorial-hero";
 
 /* ─── Counter hook: animates from 0 → target when in view ─── */
 function useCountUp(target, inView, duration = 2000) {
@@ -1252,7 +1251,79 @@ export default function Portfolio() {
       )}
       <main className="flex-1 lg:ml-[280px]" >
         {/* ─── HERO ─── */}
-        <EditorialHero />
+        <section
+          id="home"
+          className="flex flex-col justify-start lg:justify-center lg:min-h-screen relative overflow-hidden pt-[120px] lg:pt-0 px-4 md:px-4 lg:px-5"
+        >
+          {/* Background accent */}
+          <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/[0.03] rounded-full blur-[120px] pointer-events-none " />
+
+          <ContentWidth>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              className="relative z-10"
+            >
+              <motion.div variants={fadeInUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="hero-blur-reveal mb-4" style={{ animationDelay: "0.1s" }}>
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md text-primary text-[12px] font-mono shadow-[0_0_20px_rgba(80,200,120,0.1)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary stat-pulse" />
+                  Currently: Open to work
+                </span>
+              </motion.div>
+
+              <motion.h1
+                className="text-[36px] md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.2] mb-6 glow-text" style={{ minHeight: 'clamp(48px, 12vw, 80px)' }}
+              >
+                <span className="text-foreground/70">
+                  {useScramble(["WEB DEVELOPER.", "SEO EXPERT.", "LOW-CODE PRO."])}
+                  <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.4, repeat: Infinity }} className="text-primary">|</motion.span>
+                </span>
+              </motion.h1>
+
+              <motion.p
+                variants={fadeInUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+                className="hero-blur-reveal text-[18px] text-muted-foreground max-w-xl leading-relaxed mb-8" style={{ animationDelay: "0.42s" }}
+              >
+                Hi! I&apos;m <span className="text-foreground font-medium">Joel Akinlosotu</span>. A
+                results-driven Web Developer &amp; Systems Architect with 10+ years of experience
+                building high-performance, scalable, and SEO-optimized web solutions.
+              </motion.p>
+
+              <motion.div variants={fadeInUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="flex flex-wrap gap-4 mb-16">
+                <MagneticButton strength={0.3}>
+                  <button
+                    onClick={() => { scrollTo("contact"); }}
+                    className="gradient-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-md uppercase tracking-wider transition-all hover:shadow-[0_0_40px_rgba(80,200,120,0.3)] hover:scale-105 active:scale-[0.97]"
+                  >
+                    LET&apos;S TALK <ArrowUpRight size={16} />
+                  </button>
+                </MagneticButton>
+                <MagneticButton strength={0.3}>
+                  <button
+                    onClick={() => { scrollTo("projects-skills"); }}
+                    className="outline-cta inline-flex items-center gap-2 px-8 py-3.5 font-medium text-sm md:text-[18px] rounded-md uppercase tracking-wider transition-all"
+                  >
+                    VIEW PROJECTS
+                  </button>
+                </MagneticButton>
+              </motion.div>
+
+
+
+              <motion.p
+                variants={fadeInUp} custom={9} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+                className="text-muted-foreground/50 text-xs md:text-sm font-light mt-6 tracking-wide"
+              >
+                Trusted by 50+ clients across 4 continents. Based in Lagos, NG. 10+ years of delivering results.
+              </motion.p>
+              <motion.div
+                variants={fadeInUp} custom={4} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
+                className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-t border-border pt-8"
+              >
+              </motion.div>
+            </motion.div>
+          </ContentWidth>
+        </section>
 
         {/* ─── ABOUT ─── */}
         <Section id="about" className="!pt-[120px]">
