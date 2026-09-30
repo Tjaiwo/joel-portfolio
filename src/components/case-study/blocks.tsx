@@ -1,106 +1,196 @@
 "use client";
+
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import type { CaseStudyBlock } from "@/data/case-studies";
 
-export function BlockRenderer({ block, index }: { block: CaseStudyBlock; index: number }) {
+export function BlockRenderer({ block }: { block: CaseStudyBlock; index: number }) {
   switch (block.type) {
-    case "text": return <TextBlock block={block} index={index} />;
-    case "text-image": return <TextImageBlock block={block} index={index} />;
-    case "image": return <ImageBlock block={block} index={index} />;
-    case "gallery": return <GalleryBlock block={block} index={index} />;
-    case "quote": return <QuoteBlock block={block} index={index} />;
-    case "stats": return <StatsBlock block={block} index={index} />;
+    case "text": return <TextBlock block={block} />;
+    case "text-image": return <TextImageBlock block={block} />;
+    case "image": return <ImageBlock block={block} />;
+    case "gallery": return <GalleryBlock block={block} />;
+    case "quote": return <QuoteBlock block={block} />;
+    case "stats": return <StatsBlock block={block} />;
     default: return null;
   }
 }
 
-function TextBlock({ block, index }: { block: Extract<CaseStudyBlock, { type: "text" }>; index: number }) {
+function TextBlock({ block }: { block: Extract<CaseStudyBlock, { type: "text" }> }) {
   return (
-    <section id={block.id} className="mx-auto max-w-4xl px-6 py-20 sm:py-28 lg:px-12 scroll-mt-20">
-      <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7, delay: 0.05 * Math.min(index, 4) }}>
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
-        <div className="mt-8 space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {block.body.map((para, i) => (<p key={i}>{para}</p>))}
+    <section id={block.id} className="mx-auto max-w-3xl px-6 py-16 sm:py-20 lg:px-12 scroll-mt-20">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6 }}
+      >
+        <h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-8" style={{ fontFamily: "var(--font-serif)" }}>
+          {block.heading}
+        </h2>
+        <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+          {block.body.map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
         </div>
       </motion.div>
     </section>
   );
 }
 
-function TextImageBlock({ block, index }: { block: Extract<CaseStudyBlock, { type: "text-image" }>; index: number }) {
-  const isFull = block.imagePosition === "full" || !block.imagePosition;
-  if (isFull) {
-    return (
-      <section id={block.id} className="mx-auto max-w-6xl px-6 py-20 sm:py-28 lg:px-12 scroll-mt-20">
-        <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7 }}>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
-          <div className="mt-8 max-w-3xl space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            {block.body.map((para, i) => (<p key={i}>{para}</p>))}
-          </div>
-        </motion.div>
-        <motion.figure initial={{ opacity: 0, scale: 0.96, y: 40 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} className="mt-14 overflow-hidden rounded-xl border border-border/40 bg-muted/30">
-          <img src={block.image.src} alt={block.image.alt} className="w-full h-auto object-cover" loading="lazy" />
-          {block.image.caption && (<figcaption className="border-t border-border/40 px-6 py-4 text-sm text-muted-foreground">{block.image.caption}</figcaption>)}
-        </motion.figure>
-      </section>
-    );
-  }
+function TextImageBlock({ block }: { block: Extract<CaseStudyBlock, { type: "text-image" }> }) {
   return (
-    <section id={block.id} className="mx-auto max-w-6xl px-6 py-20 sm:py-28 lg:px-12 scroll-mt-20">
-      <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-        <motion.div initial={{ opacity: 0, x: block.imagePosition === "left" ? 30 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7 }} className={block.imagePosition === "left" ? "lg:order-2" : ""}>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
-          <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            {block.body.map((para, i) => (<p key={i}>{para}</p>))}
+    <section id={block.id} className="scroll-mt-20">
+      <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20 lg:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-8" style={{ fontFamily: "var(--font-serif)" }}>
+            {block.heading}
+          </h2>
+          <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {block.body.map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
           </div>
         </motion.div>
-        <motion.figure initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className={"overflow-hidden rounded-xl border border-border/40 " + (block.imagePosition === "left" ? "lg:order-1" : "")}>
-          <img src={block.image.src} alt={block.image.alt} className="w-full h-auto object-cover" loading="lazy" />
-        </motion.figure>
       </div>
+
+      <motion.figure
+        initial={{ opacity: 0, scale: 0.96, y: 40 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full overflow-hidden lg:mx-auto lg:max-w-5xl lg:px-12"
+      >
+        <div className="border-t border-b border-dotted border-border lg:border lg:rounded-none">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={block.image.src}
+            alt={block.image.alt}
+            className="w-full h-auto object-cover"
+            loading="lazy"
+          />
+        </div>
+        {block.image.caption && (
+          <figcaption className="px-6 py-4 text-sm text-muted-foreground lg:px-0">
+            {block.image.caption}
+          </figcaption>
+        )}
+      </motion.figure>
     </section>
   );
 }
 
-function ImageBlock({ block, index }: { block: Extract<CaseStudyBlock, { type: "image" }>; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.05]);
+function ImageBlock({ block }: { block: Extract<CaseStudyBlock, { type: "image" }> }) {
   return (
-    <section id={block.id} ref={ref} className="relative my-12 h-[60vh] overflow-hidden sm:my-20 sm:h-[80vh]">
-      <motion.div style={block.parallax ? { y, scale } : {}} className="absolute inset-0 -z-10">
-        <motion.div initial={{ clipPath: "inset(15% 0 15% 0)", opacity: 0.6 }} whileInView={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }} className="h-full w-full">
-          <img src={block.src} alt={block.alt} className="h-[130%] w-full object-cover object-top" loading="lazy" />
-        </motion.div>
-      </motion.div>
-      {block.caption && (
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} className="absolute bottom-6 left-6 right-6 lg:bottom-10 lg:left-10">
-          <p className="max-w-xl rounded-lg bg-background/70 px-4 py-2.5 text-sm text-foreground backdrop-blur-md sm:text-base">{block.caption}</p>
-        </motion.div>
-      )}
+    <section className="my-12 sm:my-16 lg:my-20">
+      <ParallaxImage src={block.src} alt={block.alt} caption={block.caption} />
     </section>
   );
 }
 
-function GalleryBlock({ block, index }: { block: Extract<CaseStudyBlock, { type: "gallery" }>; index: number }) {
+function ParallaxImage({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Desktop gets parallax transforms; mobile gets static (0,0,1,1)
+  const y = useTransform(scrollYProgress, [0, 1], isDesktop ? ["-12%", "12%"] : ["0%", "0%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], isDesktop ? [1.15, 1, 1.05] : [1, 1, 1]);
+
+  return (
+    <div className="w-full lg:mx-auto lg:max-w-6xl lg:px-12">
+      <figure
+        ref={ref}
+        className={
+          isDesktop
+            ? "relative h-[60vh] overflow-hidden border border-dotted border-border"
+            : "w-full overflow-hidden border-t border-b border-dotted border-border"
+        }
+      >
+        {isDesktop ? (
+          <motion.div style={{ y, scale }} className="absolute inset-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={alt}
+              className="h-[130%] w-full object-cover object-top"
+              loading="lazy"
+            />
+          </motion.div>
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={src}
+            alt={alt}
+            className="w-full h-auto object-cover"
+            loading="lazy"
+          />
+        )}
+        {caption && (
+          isDesktop ? (
+            <div className="absolute bottom-4 left-4 right-4 lg:bottom-6 lg:left-6">
+              <p className="inline-block bg-background/80 px-3 py-1.5 text-xs text-foreground backdrop-blur-sm sm:text-sm">
+                {caption}
+              </p>
+            </div>
+          ) : (
+            <figcaption className="px-6 py-4 text-sm text-muted-foreground">
+              {caption}
+            </figcaption>
+          )
+        )}
+      </figure>
+    </div>
+  );
+}
+
+function GalleryBlock({ block }: { block: Extract<CaseStudyBlock, { type: "gallery" }> }) {
   const cols = block.columns || 3;
   const colClass = cols === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3";
+
   return (
-    <section id={block.id} className="border-y border-border/40 bg-muted/10 scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28 lg:px-12">
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.6 }}>
-          <span className="inline-flex items-center rounded-full border border-border/60 bg-background px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-primary">In context</span>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">Responsive across devices</h2>
-        </motion.div>
-        <div className={"mt-12 grid gap-5 " + colClass}>
+    <section id={block.id} className="border-t border-dotted border-border scroll-mt-20">
+      <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20 lg:px-12">
+        <div className={"grid gap-5 " + colClass}>
           {block.images.map((img, i) => (
-            <motion.figure key={img.src} initial={{ opacity: 0, y: 32, scale: 0.96 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }} className="group image-hover-wrap rounded-lg border border-border/40 bg-background">
+            <motion.figure
+              key={img.src}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: 0.1 * i }}
+              className="border border-dotted border-border overflow-hidden"
+            >
               <div className="overflow-hidden">
-                <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" loading="lazy" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
               </div>
-              {img.caption && (<figcaption className="border-t border-border/40 px-4 py-3 text-xs text-muted-foreground">{img.caption}</figcaption>)}
+              {img.caption && (
+                <figcaption className="px-4 py-3 text-xs text-muted-foreground border-t border-dotted border-border">
+                  {img.caption}
+                </figcaption>
+              )}
             </motion.figure>
           ))}
         </div>
@@ -109,36 +199,64 @@ function GalleryBlock({ block, index }: { block: Extract<CaseStudyBlock, { type:
   );
 }
 
-function QuoteBlock({ block, index }: { block: Extract<CaseStudyBlock, { type: "quote" }>; index: number }) {
+function QuoteBlock({ block }: { block: Extract<CaseStudyBlock, { type: "quote" }> }) {
   return (
-    <section className="border-y border-border/40 bg-muted/10 scroll-mt-20">
-      <div className="mx-auto max-w-4xl px-6 py-20 sm:py-28 lg:px-12">
-        <motion.blockquote initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8 }} className="text-2xl font-medium leading-snug sm:text-3xl lg:text-4xl lg:leading-snug">
-          <span className="text-primary">"</span>{block.text}<span className="text-primary">"</span>
+    <section className="border-t border-dotted border-border scroll-mt-20">
+      <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20 lg:px-12">
+        <motion.blockquote
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-2xl font-medium leading-snug sm:text-3xl italic"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          {block.text}
         </motion.blockquote>
         {block.attribution && (
-          <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} className="mt-6 text-sm text-muted-foreground">— {block.attribution}</motion.footer>
+          <p className="mt-6 text-sm text-muted-foreground">
+            {block.attribution}
+          </p>
         )}
       </div>
     </section>
   );
 }
 
-function StatsBlock({ block, index }: { block: Extract<CaseStudyBlock, { type: "stats" }>; index: number }) {
+function StatsBlock({ block }: { block: Extract<CaseStudyBlock, { type: "stats" }> }) {
   return (
-    <section id={block.id} className="scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28 lg:px-12">
+    <section id={block.id} className="border-t border-dotted border-border scroll-mt-20">
+      <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20 lg:px-12">
         {block.heading && (
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }}>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-10" style={{ fontFamily: "var(--font-serif)" }}>
+              {block.heading}
+            </h2>
           </motion.div>
         )}
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
           {block.stats.map((stat, i) => (
-            <motion.div key={stat.label} initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 * i }} className="rounded-xl border border-border/40 bg-background p-6 transition-all hover:border-border/80 hover:shadow-lg hover:shadow-foreground/5">
-              <div className="text-4xl font-bold tracking-tight tabular-nums sm:text-5xl">{stat.value}</div>
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.4, delay: 0.1 * i }}
+              className="border border-dotted border-border p-5 sm:p-6"
+            >
+              <div className="text-3xl font-bold tracking-tight tabular-nums sm:text-4xl" style={{ fontFamily: "var(--font-serif)" }}>
+                {stat.value}
+              </div>
               <div className="mt-2 text-sm font-medium">{stat.label}</div>
-              {stat.sublabel && (<div className="mt-1 text-xs text-muted-foreground">{stat.sublabel}</div>)}
+              {stat.sublabel && (
+                <div className="mt-1 text-xs text-muted-foreground">{stat.sublabel}</div>
+              )}
             </motion.div>
           ))}
         </div>

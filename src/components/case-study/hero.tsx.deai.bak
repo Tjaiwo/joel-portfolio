@@ -1,5 +1,4 @@
 "use client";
-
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
@@ -25,6 +24,11 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
           </a>
         </motion.div>
         <div className="py-20">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="mb-6">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#6B7A3D]/40 bg-[#6B7A3D]/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#A8B57E] backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#6B7A3D] animate-pulse" />{cs.status}
+            </span>
+          </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-5xl font-bold tracking-tight text-white sm:text-7xl lg:text-8xl" style={{ fontFamily: "var(--font-serif)" }}>{cs.title}</motion.h1>
           <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.35 }} className="mt-6 max-w-3xl text-lg text-white/80 sm:text-2xl lg:text-3xl">{cs.tagline}</motion.p>
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5 }} className="mt-10">
@@ -33,13 +37,7 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
             </a>
           </motion.div>
         </div>
-        {/* Metadata: 24px padding on all sides, pushed 10px higher on mobile */}
-        <motion.dl
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
-          className="grid grid-cols-2 gap-6 border-t border-white/20 pt-6 backdrop-blur-sm sm:grid-cols-4 p-6 -mb-2.5"
-        >
+        <motion.dl initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.65 }} className="grid grid-cols-2 gap-6 border-t border-white/20 pt-6 backdrop-blur-sm sm:grid-cols-4">
           <div><dt className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Industry</dt><dd className="mt-1.5 text-sm font-medium text-white">{cs.meta.industry}</dd></div>
           <div><dt className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Date</dt><dd className="mt-1.5 text-sm font-medium text-white">{cs.meta.date}</dd></div>
           <div><dt className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Duration</dt><dd className="mt-1.5 text-sm font-medium text-white">{cs.meta.duration}</dd></div>

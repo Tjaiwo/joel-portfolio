@@ -23,7 +23,7 @@ export function LiveTime() {
 
   return (
     <span className="live-time">
-      <span className="live-time-pulse" />
+      <span className="live-time-dot" />
       {time} WAT · Lagos, Nigeria
     </span>
   );

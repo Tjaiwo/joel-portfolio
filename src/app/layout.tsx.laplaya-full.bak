@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Fraunces } from "next/font/google";
+import { Inter, Geist_Mono , Fraunces } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
@@ -14,17 +14,9 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -32,13 +24,14 @@ export const metadata: Metadata = {
     icon: "/icon.svg",
     apple: "/apple-icon.svg",
   },
-  title: "Joel Akinlosotu — Web Developer",
+  title: "Joel Akinlosotu — Web Developer & Web Administrator",
   description:
-    "WordPress and Next.js developer based in Lagos. Nine live projects across aviation, industrial, media, e-commerce, and architecture.",
+    "Portfolio of Joel Akinlosotu — a results-driven Web Developer and Systems Architect with 50+ freelance projects and 95% client satisfaction rate.",
   keywords: [
     "Joel Akinlosotu",
     "WordPress Developer",
     "Web Developer",
+    "Web Administrator",
     "Lagos",
     "Nigeria",
     "Freelance",
@@ -48,9 +41,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Joel Akinlosotu" }],
   openGraph: {
-    title: "Joel Akinlosotu — Web Developer",
+    title: "Joel Akinlosotu — Web Developer & Web Administrator",
     description:
-      "WordPress and Next.js developer based in Lagos. Nine live projects shipped.",
+      "Results-driven Web Developer with 50+ projects and 95% satisfaction rate.",
     type: "website",
   },
 };
@@ -61,19 +54,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
       <body>
         <TopNav />
         <ThemeProvider>{children}</ThemeProvider>
         <Toaster />
         <Analytics />
-        <SpeedInsights />
+        <div className="grain-overlay" aria-hidden="true" />
+      <SpeedInsights />
         <BackToTop />
-        <EditorialFooter />
+            <EditorialFooter />
       </body>
     </html>
   );

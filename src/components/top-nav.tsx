@@ -1,76 +1,142 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_ITEMS = [
-  { id: "home", label: "Work" },
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "contact", label: "Contact" },
+  { href: "/", label: "WORK" },
+  { href: "/about", label: "ABOUT" },
+  { href: "/contact", label: "CONTACT" },
 ];
 
 export function TopNav() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
 
-  const handleClick = (id: string) => {
-    setOpen(false);
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   return (
-    <nav className="top-nav">
-      <a
-        href="/"
-        className="text-sm font-medium tracking-tight"
-        style={{ fontFamily: "var(--font-serif)" }}
-      >
-        Joel Akinlosotu
-      </a>
+    <>
+      <nav className="top-nav">
+        <Link href="/" className="text-sm" style={{ fontFamily: "var(--font-mono)" }}>
+          <span style={{ color: "var(--foreground)" }}>&lt;</span>
+          <span style={{ color: "var(--primary)" }}>JA</span>
+          <span style={{ color: "var(--foreground)" }}>/&gt;</span>
+        </Link>
 
-      <div className="hidden md:flex items-center gap-8">
-        {NAV_ITEMS.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => handleClick(item.id)}
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
+        <div className="hidden md:block text-xs text-muted-foreground italic">
+          Hi, stranger. Let&apos;s build something.
+        </div>
 
-      <button
-        className="md:hidden"
-        onClick={() => setOpen(!open)}
-        aria-label="Toggle menu"
-      >
-        {open ? <X size={20} /> : <Menu size={20} />}
-      </button>
-
-      {open && (
-        <div className="absolute top-full left-0 right-0 md:hidden bg-background border-b border-border">
-          <div className="flex flex-col p-6 gap-4">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleClick(item.id)}
-                className="text-left text-base text-muted-foreground hover:text-foreground transition-colors py-2"
+        <div className="hidden md:flex items-center gap-6">
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`text-xs uppercase tracking-[0.08em] transition-colors \${
+                  isActive
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+                style={{ fontFamily: "var(--font-mono)" }}
               >
                 {item.label}
-              </button>
-            ))}
-          </div>
+              </Link>
+            );
+          })}
         </div>
-      )}
-    </nav>
+
+        <button
+          className="md:hidden"
+          onClick={() => setOpen(true)}
+          aria-label="Open menu"
+        >
+          <Menu size={20} />
+        </button>
+      </nav>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[100] md:hidden flex flex-col"
+            style={{ backgroundColor: "#1a1a1a", color: "#F5F1E8" }}
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+              <Link
+                href="/"
+                onClick={() => setOpen(false)}
+                className="text-sm"
+                style={{ fontFamily: "var(--font-mono)" }}
+              >
+                <span className="text-white">&lt;</span>
+                <span style={{ color: "#6B7A3D" }}>JA</span>
+                <span className="text-white">/&gt;</span>
+              </Link>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+                className="text-white"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            <div className="flex-1 flex flex-col justify-center px-5">
+              {NAV_ITEMS.map((item, i) => {
+                const isActive = pathname === item.href;
+                return (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className={`block py-4 text-2xl font-medium uppercase tracking-[0.04em] transition-colors \${
+                        isActive
+                          ? "text-[#6B7A3D]"
+                          : "text-white/80 hover:text-white"
+                      }`}
+                      style={{ fontFamily: "var(--font-mono)" }}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="px-5 py-6 border-t border-white/10">
+              <p
+                className="text-[10px] uppercase tracking-[0.1em] text-white/40"
+                style={{ fontFamily: "var(--font-mono)" }}
+              >
+                * Coded by hand, backed by coffee
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
