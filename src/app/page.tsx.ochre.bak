@@ -25,7 +25,7 @@ function useCountUp(target, inView, duration = 2000) {
   }, [inView, target, duration]);
   return count;
 }
-import { 
+import {
   Mail,
   Phone,
   ExternalLink,
@@ -38,16 +38,16 @@ import {
   Calendar,
   GraduationCap,
   Linkedin,
-, Home, CircleUser, LayoutGrid, Briefcase } from "lucide-react";
+} from "lucide-react";
 
 /* ────────────────────────────── DATA ────────────────────────────── */
 
 const NAV_ITEMS = [
-  { id: "home", label: "Home", icon: <Home className="h-4 w-4" /> },
-  { id: "about", label: "About Me", icon: <CircleUser className="h-4 w-4" /> },
-  { id: "projects-skills", label: "Projects & Skills", icon: <LayoutGrid className="h-4 w-4" /> },
-  { id: "experience", label: "Experience", icon: <Briefcase className="h-4 w-4" /> },
-  { id: "contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
+  { id: "home", label: "Home", icon: "\u2302" },
+  { id: "about", label: "About Me", icon: "\u25C9" },
+  { id: "projects-skills", label: "Projects & Skills", icon: "\u25C8" },
+  { id: "experience", label: "Experience", icon: "\u25CE" },
+  { id: "contact", label: "Contact", icon: "\u2726" },
 ];
 
 const STATS = [
@@ -1432,7 +1432,7 @@ export default function Portfolio() {
 
           <div className="space-y-12">
             <div>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.08em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Core Stack
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1450,7 +1450,7 @@ export default function Portfolio() {
             </div>
 
             <div>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.08em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Key Skills &amp; Expertise
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1469,7 +1469,7 @@ export default function Portfolio() {
 
             {/* No-Code / Low-Code row */}
             <div>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.08em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 No-Code &amp; Low-Code
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1490,7 +1490,7 @@ export default function Portfolio() {
 
             {/* Tools row */}
             <div>
-              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-xs uppercase tracking-[0.08em] text-muted-foreground mb-4 font-mono">
+              <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 font-mono">
                 Also Work With
               </motion.p>
               <div className="flex flex-wrap gap-3">
@@ -1578,7 +1578,7 @@ export default function Portfolio() {
                           {/* Freelance sub-projects */}
                           {hasProjects && (
                             <div className="space-y-5 pt-3 border-t border-border">
-                              <p className="text-[12px] uppercase tracking-[0.08em] text-muted-foreground font-mono">
+                              <p className="text-[12px] uppercase tracking-[0.2em] text-muted-foreground font-mono">
                                 Notable Projects
                               </p>
                               {(exp as typeof EXPERIENCE[number] & { projects: Array<{ title: string; projectId: string; descriptions: string[] }> }).projects.map((proj, pi) => (
