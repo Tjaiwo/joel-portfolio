@@ -29,7 +29,7 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
               <span className="h-1.5 w-1.5 rounded-full bg-[#B8956A] animate-pulse" />{cs.status}
             </span>
           </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-5xl font-bold tracking-tight sm:text-7xl lg:text-8xl">{cs.title}</motion.h1>
+          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-5xl font-bold tracking-tight sm:text-7xl lg:text-8xl" style={{ fontFamily: "var(--font-serif)" }}>{cs.title}</motion.h1>
           <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.35 }} className="mt-6 max-w-3xl text-lg text-foreground/80 sm:text-2xl lg:text-3xl">{cs.tagline}</motion.p>
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5 }} className="mt-10">
             <a href={cs.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background backdrop-blur-sm transition-all hover:scale-[1.03]">

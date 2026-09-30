@@ -53,6 +53,12 @@ const NAV_ITEMS = [
   { id: "contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
 ];
 
+const STATS = [
+  { value: "50+", label: "Projects Completed", target: 50, suffix: "+" },
+  { value: "95%", label: "Client Satisfaction", target: 95, suffix: "%" },
+  { value: "10+", label: "Years Experience", target: 10, suffix: "+" },
+  { value: "20k+", label: "Unique Visitors (LMS Launch)", target: 20, suffix: "k+" },
+];
 
 const DESIGNER = {
   name: "Mayowa Oduntan",
@@ -716,11 +722,11 @@ function BrowserMockupCard({
       custom={index}
       className="browser-card group"
     >
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/40 bg-card/30">
-        <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground truncate">
-          {project.title}
-        </span>
-        <span className="text-[11px] text-muted-foreground/50 font-mono truncate ml-3">
+      <div className="browser-chrome">
+        <span className="browser-dot browser-dot-red" />
+        <span className="browser-dot browser-dot-yellow" />
+        <span className="browser-dot browser-dot-green" />
+        <span className="ml-3 text-[12px] text-muted-foreground/60 font-mono truncate select-none">
           {project.url.replace(/^https?:\/\//, "")}
         </span>
       </div>
@@ -1320,6 +1326,12 @@ export default function Portfolio() {
                 variants={fadeInUp} custom={4} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                 className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-t border-border pt-8"
               >
+                {STATS.map((stat, i) => (
+                  <motion.div key={stat.label} variants={fadeInUp} custom={5 + i} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+                    <CountUp from={0} to={stat.target} suffix={stat.suffix} duration={2} delay={i * 0.2} className="text-2xl md:text-3xl font-bold text-primary" />
+                    <p className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</p>
+                  </motion.div>
+                ))}
               </motion.div>
             </motion.div>
           </ContentWidth>

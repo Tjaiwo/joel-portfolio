@@ -19,7 +19,7 @@ function TextBlock({ block, index }: { block: Extract<CaseStudyBlock, { type: "t
   return (
     <section id={block.id} className="mx-auto max-w-4xl px-6 py-20 sm:py-28 lg:px-12 scroll-mt-20">
       <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7, delay: 0.05 * Math.min(index, 4) }}>
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">{block.heading}</h2>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
         <div className="mt-8 space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
           {block.body.map((para, i) => (<p key={i}>{para}</p>))}
         </div>
@@ -34,7 +34,7 @@ function TextImageBlock({ block, index }: { block: Extract<CaseStudyBlock, { typ
     return (
       <section id={block.id} className="mx-auto max-w-6xl px-6 py-20 sm:py-28 lg:px-12 scroll-mt-20">
         <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7 }}>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">{block.heading}</h2>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
           <div className="mt-8 max-w-3xl space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
             {block.body.map((para, i) => (<p key={i}>{para}</p>))}
           </div>
@@ -50,7 +50,7 @@ function TextImageBlock({ block, index }: { block: Extract<CaseStudyBlock, { typ
     <section id={block.id} className="mx-auto max-w-6xl px-6 py-20 sm:py-28 lg:px-12 scroll-mt-20">
       <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
         <motion.div initial={{ opacity: 0, x: block.imagePosition === "left" ? 30 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7 }} className={block.imagePosition === "left" ? "lg:order-2" : ""}>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{block.heading}</h2>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
           <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
             {block.body.map((para, i) => (<p key={i}>{para}</p>))}
           </div>
@@ -130,7 +130,7 @@ function StatsBlock({ block, index }: { block: Extract<CaseStudyBlock, { type: "
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28 lg:px-12">
         {block.heading && (
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7 }}>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{block.heading}</h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
           </motion.div>
         )}
         <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
