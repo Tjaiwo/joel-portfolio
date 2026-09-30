@@ -6,8 +6,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { BackToTop } from "@/components/back-to-top";
-import { TopNav } from "@/components/top-nav";
-import { EditorialFooter } from "@/components/editorial-footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -55,16 +53,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
-        <TopNav />
+      <body
+        className={`${inter.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground noise-overlay`}
+      >
         <ThemeProvider>{children}</ThemeProvider>
         <Toaster />
         <Analytics />
         <div className="grain-overlay" aria-hidden="true" />
       <SpeedInsights />
         <BackToTop />
-            <EditorialFooter />
-      </body>
+    </body>
     </html>
   );
 }
