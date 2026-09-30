@@ -74,49 +74,7 @@ export default function RootLayout({
         <SpeedInsights />
         <BackToTop />
         <EditorialFooter />
-            <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: "Joel Akinlosotu",
-            jobTitle: "Web Developer",
-            description: "WordPress and Next.js developer with 10 years of shipping. 50+ projects across aviation, industrial, media, e-commerce, and architecture.",
-            url: "https://joelakinlosotu.xyz",
-            email: "joelakinlosotu@gmail.com",
-            telephone: "+234 906 897 1351",
-            knowsAbout: ["WordPress", "Next.js", "WooCommerce", "Elementor", "SEO", "Web Performance", "Custom Post Types", "Schema Markup", "PHP", "TypeScript", "Tailwind CSS"],
-            sameAs: [
-              "https://linkedin.com/in/joelakinlosotu",
-              "https://github.com/Tjaiwo",
-              "https://instagram.com/@joelakinlosotu"
-            ],
-            worksFor: { "@type": "Organization", name: "Freelance" },
-            address: { "@type": "PostalAddress", addressLocality: "Lagos", addressCountry: "Nigeria" }
-          })
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "Joel Akinlosotu",
-            url: "https://joelakinlosotu.xyz",
-            description: "WordPress and Next.js developer with 10 years of shipping. 50+ projects across aviation, industrial, media, e-commerce, and architecture.",
-            author: { "@type": "Person", name: "Joel Akinlosotu" },
-            potentialAction: {
-              "@type": "SearchAction",
-              target: "https://joelakinlosotu.xyz?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          })
-        }}
-      />
-
-    </body>
+      </body>
     </html>
   );
 }

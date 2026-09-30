@@ -266,6 +266,28 @@ export default function ContactPage() {
           </form>
         </section>
       </div>
+          <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            name: "Joel Akinlosotu - Web Development",
+            description: "WordPress and Next.js developer. 50+ projects shipped across aviation, industrial, media, e-commerce, and architecture.",
+            url: "https://joelakinlosotu.xyz/contact",
+            email: "joelakinlosotu@gmail.com",
+            telephone: "+234 906 897 1351",
+            priceRange: "From $500",
+            areaServed: "Worldwide",
+            knowsAbout: ["WordPress", "Next.js", "WooCommerce", "Elementor", "SEO", "Web Performance"],
+            sameAs: [
+              "https://linkedin.com/in/joelakinlosotu",
+              "https://github.com/Tjaiwo",
+              "https://instagram.com/@joelakinlosotu"
+            ]
+          })
+        }}
+      />
     </main>
   );
 }

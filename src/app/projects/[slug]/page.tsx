@@ -21,6 +21,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       title: `${cs.title} - Case Study`,
       description: cs.tagline,
       images: [{ url: cs.heroImage }],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${cs.title} - Case Study`,
+      description: cs.tagline,
+      images: [cs.heroImage],
     },
   };
 }
@@ -32,8 +39,36 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
 
   const next = CASE_STUDIES.find((c) => c.slug === cs.nextSlug);
 
+  // CreativeWork schema for AI answer engines
+  const creativeWorkSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: cs.title,
+    description: cs.tagline,
+    url: cs.liveUrl,
+    image: cs.heroImage,
+    dateCreated: cs.meta.date,
+    creator: {
+      "@type": "Person",
+      name: "Joel Akinlosotu",
+      url: "https://joelakinlosotu.xyz",
+    },
+    about: cs.intro.join(" "),
+    keywords: cs.meta.services.join(", "),
+    isPartOf: {
+      "@type": "CreativeWorkSeries",
+      name: "Joel Akinlosotu - Case Studies",
+      url: "https://joelakinlosotu.xyz",
+    },
+  };
+
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
+      />
+
       <CaseStudyHero cs={cs} />
 
       <section className="mx-auto max-w-3xl px-6 py-16 lg:px-12">

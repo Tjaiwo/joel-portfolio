@@ -14,10 +14,9 @@ export function EditorialHero() {
         * Coded &amp; Designed by Hand, Backed by Coffee &amp; Instinct
       </p>
       <p className="hero-description">
-        WordPress and Next.js developer based in Lagos. 50+ projects shipped across aviation, industrial, media, e-commerce, and architecture. Each one built, measured, and documented.
+        WordPress and Next.js developer with 10 years of shipping. 50+ projects across aviation, industrial, media, e-commerce, and architecture. Each one built, measured, and case-studied.
       </p>
 
-      {/* CTAs - rendered inside the hero so they're visible */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
