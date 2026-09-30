@@ -38,7 +38,10 @@ import {
   Calendar,
   GraduationCap,
   Linkedin,
-, Home, CircleUser, LayoutGrid, Briefcase } from "lucide-react";
+  Home,
+  CircleUser,
+  LayoutGrid,
+  Briefcase } from "lucide-react";
 
 /* ────────────────────────────── DATA ────────────────────────────── */
 
