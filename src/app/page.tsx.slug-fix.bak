@@ -101,7 +101,7 @@ const PROJECTS = [
   },
   {
     id: 4,
-    slug: "diamond-source",
+    slug: "diamond-source-jewelers",
     title: "Diamond Source Jewelers",
     description:
       "A fine jewelry e-commerce store for a 45-year-old Denver-based jeweler, featuring custom engagement ring design, fine jewelry collections, jewelry buying services, and certified appraisals — backed by a 4.9/5 Google rating.",
@@ -112,7 +112,7 @@ const PROJECTS = [
   },
   {
     id: 5,
-    slug: "designed-spaces",
+    slug: "designed-spaces-by-yemi",
     title: "Designed Spaces by Yemi",
     description:
       "A comprehensive architectural firm website for a Lagos-based full-service design powerhouse, showcasing 13+ landmark projects with a detailed portfolio, SEO-optimized service pages, and a mobile-first layout.",
@@ -123,8 +123,7 @@ const PROJECTS = [
   },
   {
     id: 6,
-    slug: "evan-micky",
-        title: "Evan Micky Photography",
+    title: "Evan Micky Photography",
     description:
       "A documentary-style wedding and portrait photography portfolio showcasing engagement sessions, family portraits, and newborn/maternity shoots, with an immersive gallery and seamless inquiry flows.",
     url: "https://evanmickyphotography.com/",
@@ -146,8 +145,7 @@ const PROJECTS = [
   },
   {
     id: 8,
-    slug: "cedar-rush",
-        title: "Cedar Rush",
+    title: "Cedar Rush",
     description:
       "A corporate website for Nigeria's leading creative production and media company, showcasing 20+ years of event production, TV & documentary production, commercials, and strategic media execution for top brands.",
     url: "https://cedarrush.ng/",

@@ -64,18 +64,6 @@ const DESIGNER = {
 
 const PROJECTS = [
   {
-    id: 1,
-    slug: "elin-group",
-    title: "Elin Group",
-    description:
-      "A corporate website for a diversified African industrial platform operating across energy, aviation, mining, construction, real estate, and power sectors — showcasing seven subsidiary businesses, leadership, sustainability initiatives, and career opportunities.",
-    url: "https://elin-group.com/",
-    image: "/screenshots/elingroup.webp",
-    tags: ["WordPress", "Elementor", "Corporate", "Multi-Business", "SEO"],
-    results: "7 subsidiary brands unified under one industrial platform",
-    designer: true,
-  },
-  {
     id: 2,
     slug: "elin-air",
     title: "Elin Air",
@@ -85,6 +73,18 @@ const PROJECTS = [
     image: "/screenshots/flyelinair.webp",
     tags: ["WordPress", "Elementor", "Booking System", "Fleet Management", "SEO"],
     results: "Integrated booking system with fleet showcase for 4+ aircraft types",
+    designer: true,
+  },
+  {
+    id: 1,
+    slug: "elin-group",
+    title: "Elin Group",
+    description:
+      "A corporate website for a diversified African industrial platform operating across energy, aviation, mining, construction, real estate, and power sectors — showcasing seven subsidiary businesses, leadership, sustainability initiatives, and career opportunities.",
+    url: "https://elin-group.com/",
+    image: "/screenshots/elingroup.webp",
+    tags: ["WordPress", "Elementor", "Corporate", "Multi-Business", "SEO"],
+    results: "7 subsidiary brands unified under one industrial platform",
     designer: true,
   },
   {
@@ -101,7 +101,7 @@ const PROJECTS = [
   },
   {
     id: 4,
-    slug: "diamond-source",
+    slug: "diamond-source-jewelers",
     title: "Diamond Source Jewelers",
     description:
       "A fine jewelry e-commerce store for a 45-year-old Denver-based jeweler, featuring custom engagement ring design, fine jewelry collections, jewelry buying services, and certified appraisals — backed by a 4.9/5 Google rating.",
@@ -112,7 +112,7 @@ const PROJECTS = [
   },
   {
     id: 5,
-    slug: "designed-spaces",
+    slug: "designed-spaces-by-yemi",
     title: "Designed Spaces by Yemi",
     description:
       "A comprehensive architectural firm website for a Lagos-based full-service design powerhouse, showcasing 13+ landmark projects with a detailed portfolio, SEO-optimized service pages, and a mobile-first layout.",
@@ -123,8 +123,7 @@ const PROJECTS = [
   },
   {
     id: 6,
-    slug: "evan-micky",
-        title: "Evan Micky Photography",
+    title: "Evan Micky Photography",
     description:
       "A documentary-style wedding and portrait photography portfolio showcasing engagement sessions, family portraits, and newborn/maternity shoots, with an immersive gallery and seamless inquiry flows.",
     url: "https://evanmickyphotography.com/",
@@ -146,8 +145,7 @@ const PROJECTS = [
   },
   {
     id: 8,
-    slug: "cedar-rush",
-        title: "Cedar Rush",
+    title: "Cedar Rush",
     description:
       "A corporate website for Nigeria's leading creative production and media company, showcasing 20+ years of event production, TV & documentary production, commercials, and strategic media execution for top brands.",
     url: "https://cedarrush.ng/",
@@ -155,21 +153,9 @@ const PROJECTS = [
     tags: ["WordPress", "Elementor", "Media", "Portfolio", "SEO"],
     results: "Showcasing 20+ years of production for top Nigerian brands",
   },
+];
 
-  {
-    id: 9,
-    slug: "atomdsn",
-    title: "Atom",
-    description:
-      "A creative experiential design agency website showcasing brand activations, event design, and immersive campaign experiences for clients including Martell, AMVCA, FMDQ, and HBO.",
-    url: "https://atomdsn.com/",
-    image: "/screenshots/case-studies/atomdsn/desktop-home.webp",
-    tags: ["Web Design", "WordPress", "Agency", "Portfolio", "SEO"],
-    results: "Portfolio showcasing 20+ experiential brand activations",
-    designer: true,
-  },];
-
-const CASE_STUDY_SLUGS = ["elin-air", "elin-group", "mediapool", "clayton-prints", "evan-micky", "atomdsn", "diamond-source", "designed-spaces", "cedar-rush"];
+const CASE_STUDY_SLUGS = ["elin-air", "elin-group", "mediapool"];
 
 const SKILLS_CORE = [
   "WordPress",
@@ -764,15 +750,6 @@ function BrowserMockupCard({
             <ExternalLink size={13} />
           </a>
         </div>
-        {CASE_STUDY_SLUGS.includes(project.slug) && (
-          <a
-            href={`/projects/${project.slug}`}
-            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-primary hover:underline underline-offset-4"
-          >
-            View Case Study
-            <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-          </a>
-        )}
         <div className="flex flex-wrap gap-1.5">
           {project.tags.slice(0, 3).map((tag) => (
             <span
@@ -819,6 +796,86 @@ function BrowserMockupCard({
 
 /* ──────────────────────── SKILLS MARQUEE ──────────────────────── */
 /* ──────────────────────── BACK TO TOP ──────────────────────── */
+
+function BackToTop() {
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const [visible, setVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  useMotionValueEvent(smoothProgress, "change", (v) => {
+    setVisible(v > 0.06);
+  });
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const radius = 22;
+  const circumference = 2 * Math.PI * radius;
+  const dashOffset = useTransform(smoothProgress, (v) => circumference - v * circumference);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.4, rotate: -180 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          exit={{ opacity: 0, scale: 0.4, rotate: 180 }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          onClick={scrollToTop}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 z-[90] group cursor-pointer"
+          aria-label="Back to top"
+        >
+          {/* Outer glow on hover */}
+          <div
+            className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"
+            style={{ background: "radial-gradient(circle, rgba(80,200,120,0.2) 0%, transparent 70%)" }}
+          />
+
+          {/* Main circle */}
+          <div className="relative w-[52px] h-[52px] rounded-full border border-border bg-background/80 backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:border-[#50C878]/50 group-hover:bg-background/95 group-hover:shadow-[0_0_20px_rgba(80,200,120,0.15)]">
+            {/* SVG progress ring */}
+            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r={radius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
+              <motion.circle
+                cx="26" cy="26" r={radius}
+                fill="none"
+                stroke="#50C878"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray={circumference}
+                style={{ strokeDashoffset: dashOffset }}
+              />
+            </svg>
+
+            {/* Percentage text */}
+            <motion.span
+              animate={{ opacity: hovered ? 0 : 1, scale: hovered ? 0.6 : 1 }}
+              transition={{ duration: 0.15 }}
+              className="text-[10px] font-mono font-bold text-[#50C878] tabular-nums select-none"
+            >
+              {Math.round(smoothProgress.get() * 100)}
+            </motion.span>
+
+            {/* Arrow icon (appears on hover) */}
+            <motion.div
+              animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 6, scale: hovered ? 1 : 0.5 }}
+              transition={{ duration: 0.2 }}
+              className="absolute text-[#50C878]"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+            </motion.div>
+          </div>
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+}
 
 /* ─── Animated counter stat ─── */
 function CountingStat({ stat, index }) {
@@ -1924,6 +1981,8 @@ export default function Portfolio() {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence></div>
+      </AnimatePresence>
+      <BackToTop />
+    </div>
   );
 }

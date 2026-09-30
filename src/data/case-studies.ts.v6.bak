@@ -1,0 +1,204 @@
+export type CaseStudyBlock =
+  | { type: "text"; id: string; heading: string; body: string[]; }
+  | { type: "text-image"; id: string; heading: string; body: string[]; image: { src: string; alt: string; caption?: string; link?: string }; imagePosition?: "right" | "left" | "full"; }
+  | { type: "image"; id: string; src: string; alt: string; caption?: string; parallax?: boolean; link?: string; }
+  | { type: "gallery"; id: string; images: { src: string; alt: string; caption?: string; link?: string }[]; columns?: 2 | 3; }
+  | { type: "quote"; id: string; text: string; attribution?: string; }
+  | { type: "stats"; id: string; heading?: string; stats: { value: string; label: string; sublabel?: string }[]; };
+
+export type CaseStudy = {
+  slug: string;
+  status: "Live" | "In Progress" | "Archived";
+  title: string;
+  tagline: string;
+  intro: string[];
+  meta: { industry: string; services: string[]; date: string; duration: string; };
+  liveUrl: string;
+  heroImage: string;
+  heroImageLink?: string;
+  heroImageAlt: string;
+  blocks: CaseStudyBlock[];
+  resultsFootnote?: string;
+  nextSlug: string | null;
+};
+
+export const CASE_STUDIES: CaseStudy[] = [
+  {
+    slug: "elin-group",
+    status: "Live",
+    title: "Elin Group",
+    tagline: "Branding and digital architecture for a diversified African industrial platform.",
+    intro: [
+      "Elin Group operates seven subsidiaries across six sectors. Energy, aviation, mining, construction, real estate, and power. Each business has its own leadership, services, target audience, and brand voice.",
+      "The brief was to build one corporate website that could hold all seven businesses without flattening any of them. The result is a hub-and-spoke architecture with a shared design system that lets each subsidiary tell its own story while keeping the parent platform coherent.",
+    ],
+    meta: {
+      industry: "Industrial Conglomerate",
+      services: ["Web Design", "WordPress Development", "Information Architecture", "SEO", "Design System"],
+      date: "August 2026",
+      duration: "4 weeks",
+    },
+    liveUrl: "https://elin-group.com/",
+    heroImage: "/screenshots/case-studies/elin-group/desktop-businesses.webp",
+    heroImageLink: "https://elin-group.com/businesses/",
+    heroImageAlt: "Elin Group businesses directory with subsidiary cards",
+    blocks: [
+      { type: "image", id: "hero-break", src: "/screenshots/case-studies/elin-group/desktop-oil-gas.webp", alt: "Elin Oil and Gas Services subsidiary landing page", caption: "Elin Oil and Gas Services subsidiary page. One of seven dedicated subsidiary landing pages.", parallax: true },
+      { type: "text", id: "platform", heading: "Seven businesses, one platform", body: [
+        "The trap with multi-business corporate sites is that they either become a confusing directory, where every subsidiary fights for attention on the homepage, or a flattening brochure, where every subsidiary gets the same generic treatment. Neither serves the audience. Investors want clarity, prospective employees want depth, and existing clients want quick access to the specific business they work with.",
+        "The hub-and-spoke architecture gives each subsidiary its own landing page with a shared design system. Typography, color tokens, layout grid, navigation. But each subsidiary gets full control over its own hero imagery, content sections, and call-to-action.",
+      ]},
+      { type: "text-image", id: "architecture", heading: "Hub-and-spoke architecture", body: [
+        "The corporate homepage acts as the entry point, with a clear directory of subsidiaries that each link out to a dedicated landing page. Visitors scanning the homepage see a unified industrial platform with the same visual language and quality bar.",
+        "Clicking into any subsidiary feels like landing on a purpose-built site for that business. Shared elements like leadership, sustainability, and careers sit at the corporate level so they stay consistent across all seven spokes.",
+      ], image: { src: "/screenshots/case-studies/elin-group/desktop-businesses.webp", alt: "Elin Group businesses directory with sector cards", caption: "Businesses directory. Each card links to a dedicated subsidiary site.", link: "https://elin-group.com/businesses/" }, imagePosition: "full" },
+      { type: "text", id: "content-model", heading: "Custom post type for subsidiaries", body: [
+        "A custom post type with fields for sector, services, leadership team, and contact routing means adding a new business later won't require touching the layout. The discipline paid off. Adding an eighth subsidiary would take less than a day of content work, no code changes required.",
+      ]},
+      { type: "image", id: "detail-break-2", src: "/screenshots/case-studies/elin-group/desktop-leadership.webp", alt: "Elin Group leadership team page", parallax: true },
+      { type: "text", id: "seo", heading: "Schema markup for industrial groups", body: [
+        "Each subsidiary could rank for its own branded terms while passing authority up to the parent domain. Schema markup for Organization and SubOrganization relationships was set up so search engines understood the corporate hierarchy from day one.",
+      ]},
+      { type: "text", id: "process", heading: "Five weeks, seven launches", body: [
+        "Week one was information architecture. Weeks two and three were the corporate-level build. Week four was the subsidiary template plus three subsidiary pages populated with real content. Week five was the remaining four subsidiaries, performance pass, and SEO setup.",
+        "Going live with all seven at once meant the template had to be designed once and resist the urge to over-customize per business. The discipline is what made the project scale.",
+      ]},
+      { type: "gallery", id: "gallery", columns: 3, images: [
+        { src: "/screenshots/case-studies/elin-group/mobile-businesses.webp", alt: "Elin Group businesses directory on mobile", caption: "Mobile businesses directory", link: "https://elin-group.com/businesses/" },
+        { src: "/screenshots/case-studies/elin-group/mobile-about.webp", alt: "Elin Group about page on mobile", caption: "Mobile about page", link: "https://elin-group.com/about/" },
+        { src: "/screenshots/case-studies/elin-group/mobile-oil-gas.webp", alt: "Elin Oil and Gas subsidiary on mobile", caption: "Mobile subsidiary page", link: "https://elin-group.com/businesses/elin-oil-and-gas-services/" },
+      ]},
+      { type: "stats", id: "results", heading: "Measurable outcomes", stats: [
+        { value: "99", label: "PageSpeed desktop", sublabel: "audited Sept 2026" },
+        { value: "98", label: "PageSpeed mobile", sublabel: "up from 38" },
+        { value: "0.6s", label: "LCP desktop", sublabel: "0 CLS, 0ms TBT" },
+        { value: "+40%", label: "Organic traffic", sublabel: "in 3 months" },
+      ]},
+      { type: "quote", id: "designer-quote", text: "Seven businesses in five weeks required a developer who could think in systems. Joel built the architecture that let each subsidiary tell its own story while keeping the parent platform coherent.", attribution: "Mayowa Oduntan — UX Designer (thisismayor.webflow.io)" },
+      { type: "quote", id: "closing", text: "The platform gave Elin Group a foundation to communicate as a unified industrial group, critical for investor conversations and partnership discussions where perception of scale matters as much as the actual business footprint." },
+    ],
+    nextSlug: "elin-air",
+  },
+  {
+    slug: "elin-air",
+    status: "Live",
+    title: "Elin Air",
+    tagline: "Building a private aviation brand's digital front door for direct bookings.",
+    intro: [
+      "Elin Air is a full-service aviation company offering private jet charter, helicopter services, air cargo logistics, FBO operations, and MRO services. Their previous site looked decent, but it didn't convert visitors into charter requests and it didn't feel like the premium service it was supposed to represent.",
+      "Working alongside designer Mayowa Oduntan, I built the production WordPress implementation of her redesign. The goal was to give Elin Air a digital presence that built trust, showcased the fleet, and let prospective clients move from interest to inquiry in under three clicks.",
+    ],
+    meta: {
+      industry: "Aviation & Logistics",
+      services: ["Web Development", "WordPress", "Performance Engineering", "SEO", "Booking System"],
+      date: "March 2026",
+      duration: "3 weeks",
+    },
+    liveUrl: "https://flyelinair.com/",
+    heroImage: "/screenshots/case-studies/elin-air/desktop-fleet.webp",
+    heroImageLink: "https://flyelinair.com/fleet/",
+    heroImageAlt: "Elin Air fleet showcase with aircraft cards",
+    blocks: [
+      { type: "image", id: "hero-break", src: "/screenshots/case-studies/elin-air/desktop-fleet.webp", alt: "Elin Air fleet detail page", caption: "Fleet showcase with aircraft cards", parallax: true },
+      { type: "text", id: "transformation", heading: "From brochure to booking platform", body: [
+        "The legacy Elin Air site looked decent, but it didn't actually convert visitors into charter requests. Five distinct service lines were presented as a flat list of links with no clear hierarchy, and the only conversion path was a generic contact form buried two pages deep.",
+        "The redesign reframed the site around visitor intent. Fly, ship, or service. Each path leads to a focused booking flow instead of a generic contact page, and the homepage gives visitors a clear next step within two clicks of arriving.",
+      ]},
+      { type: "text-image", id: "fleet", heading: "Fleet as a showcase", body: [
+        "Each aircraft now has its own detail page with specifications, capacity, range, and interior photography. Visitors can compare aircraft side by side before submitting a charter request, which means the inquiries that do come through are better qualified and faster to close.",
+        "Micro-animations on the fleet cards, smooth scroll to anchor sections, a sticky mobile CTA. Every interaction got a small detail pass, but none of it at the cost of perceived load time.",
+      ], image: { src: "/screenshots/case-studies/elin-air/desktop-fleet-grid.webp", alt: "Elin Air fleet grid with aircraft cards", caption: "Each aircraft has its own detail page with specifications, capacity, range, and interior photography.", link: "https://flyelinair.com/fleet/" }, imagePosition: "full" },
+      { type: "text", id: "performance", heading: "Performance as a feature", body: [
+        "The legacy site loaded in 4.2 seconds on mobile, unacceptable for a brand selling premium aviation experiences. Hero imagery was re-encoded as WebP and served through Cloudflare. Plugins were audited and stripped to the four that were actually doing work.",
+        "The result was a 92 mobile PageSpeed score at launch, with a 1.4 second LCP on 4G. The site feels premium without making visitors wait for it.",
+      ]},
+      { type: "image", id: "detail-break-2", src: "/screenshots/case-studies/elin-air/desktop-safety.webp", alt: "Elin Air safety protocol page", parallax: true },
+      { type: "text", id: "booking-flow", heading: "Booking flow rebuilt", body: [
+        "The old contact form was a single page with twelve fields. The new flow is multi-step. Service type, dates, passenger count, contact details. Each step takes less than 30 seconds to complete, and submission routes directly to the operations team instead of going through a general inbox.",
+      ]},
+      { type: "text", id: "collaboration", heading: "Three weeks, one blueprint", body: [
+        "Mayowa Oduntan had already validated the homepage in Figma Site before development started, so stakeholders had seen the interactions and approved the direction. Week one was structure. Week two was visual implementation. Week three was the performance pass.",
+        "We launched three days ahead of the original deadline, with the staging site scoring 92 on mobile PageSpeed before any production CDN tuning.",
+      ]},
+      { type: "gallery", id: "gallery", columns: 3, images: [
+        { src: "/screenshots/case-studies/elin-air/mobile-fleet.webp", alt: "Elin Air fleet on mobile", caption: "Mobile charter request" },
+        { src: "/screenshots/case-studies/elin-air/mobile-charter-request.webp", alt: "Elin Air charter request on mobile", caption: "Mobile fleet" },
+        { src: "/screenshots/case-studies/elin-air/mobile-safety.webp", alt: "Elin Air safety protocol on mobile", caption: "Mobile safety", link: "https://flyelinair.com/help/safety-protocol" },
+      ]},
+      { type: "stats", id: "results", heading: "Measurable outcomes", stats: [
+        { value: "92", label: "PageSpeed mobile", sublabel: "up from 41" },
+        { value: "1.4s", label: "LCP on 4G", sublabel: "down from 4.2s" },
+        { value: "9/10", label: "Client satisfaction", sublabel: "post-launch review" },
+        { value: "3 days", label: "Ahead of deadline", sublabel: "2-week build, 11 days" },
+      ]},
+      { type: "quote", id: "designer-quote", text: "Working with Joel meant the redesign didn't stop at handoff. Every interaction, every micro-animation, every performance decision was preserved in the build exactly as designed. That's rare.", attribution: "Mayowa Oduntan — UX Designer (thisismayor.webflow.io)" },
+      { type: "quote", id: "closing", text: "The fastest path to a happy client isn't a fancier design, it's a clearer one. Every decision was measured against the goal of reducing reliance on charter brokers by enabling direct customer acquisition." },
+    ],
+    resultsFootnote: "PageSpeed scores reflect launch state (March 2026). Current scores may differ due to ongoing content and feature additions.",
+    nextSlug: "mediapool",
+  },
+  {
+    slug: "mediapool",
+    status: "Live",
+    title: "Mediapool",
+    tagline: "Building a digital storefront for a leading Nigerian media buying agency.",
+    intro: [
+      "Mediapool is a Lagos-based media buying and planning agency with over a decade of campaign work for major Nigerian brands including Renmoney, Zedvance, CrusaderSterling Pensions, and Mixta Africa. Their existing site was dated, slow, and didn't do justice to the caliber of the work they were shipping for clients.",
+      "This was a fresh build, not a redesign. I architected the site around the agency's campaign portfolio, with a campaign-first content structure that puts client work front and center and makes the case for Mediapool's expertise before a single word of marketing copy is read.",
+    ],
+    meta: {
+      industry: "Media & Advertising",
+      services: ["Web Design", "WordPress Development", "Content Architecture", "SEO", "Performance"],
+      date: "April 2025",
+      duration: "2 weeks",
+    },
+    liveUrl: "https://mediapool.ng/",
+    heroImage: "/screenshots/case-studies/mediapool/desktop-works.webp",
+    heroImageLink: "https://mediapool.ng/works/",
+    heroImageAlt: "Mediapool campaign portfolio with the tagline Our work swims for itself",
+    blocks: [
+      { type: "image", id: "hero-break", src: "/screenshots/case-studies/mediapool/desktop-renmoney.webp", alt: "Renmoney campaign case study with branded bus advertisement", caption: "Renmoney campaign detail. Out-of-home advertising for the finance sector.", parallax: true },
+      { type: "text", id: "structure", heading: "Campaign-first, not services-first", body: [
+        "The typical agency site leads with services and buries the portfolio three sections down. Mediapool's homepage opens with the client roster, immediately followed by a campaign grid that visitors can filter by client and medium. Services get a single clean section further down, treated as support material rather than the main event.",
+        "For a media agency whose entire value proposition is making other brands look good online, the proof of competence is the work itself. Burying the work behind marketing copy would be fighting against the very thing the site is trying to sell.",
+      ]},
+      { type: "text-image", id: "campaign-case-studies", heading: "Campaign case studies", body: [
+        "Each campaign gets its own dedicated detail page. Renmoney, Zedvance, CrusaderSterling Pensions, Mixta Africa. Every page is structured the same way: the brief, the medium, the execution, the outcome. Prospects land on a campaign that matches their industry and immediately see how Mediapool thinks.",
+        "A custom post type means the agency can publish a new campaign case study without involving a developer. The campaign automatically appears on the works index, gets its own URL for sharing, and inherits the structured data needed to rank for long-tail queries like Renmoney media campaign Lagos.",
+      ], image: { src: "/screenshots/case-studies/mediapool/desktop-renmoney.webp", alt: "Renmoney campaign case study page on Mediapool", caption: "Renmoney campaign case study. One of seven client-specific detail pages.", link: "https://mediapool.ng/works/renmoney/" }, imagePosition: "full" },
+      { type: "text", id: "performance", heading: "Performance budget at 800KB", body: [
+        "The hero uses an animated logo carousel instead of a heavy hero video. All campaign imagery is served as WebP via Cloudflare. The page weight budget was capped at 800KB on initial load, with the rest lazy-loading as the visitor scrolls.",
+        "Post-launch, the site scored 93 on PageSpeed desktop and 77 on mobile. Up from 31 and 24 respectively on the legacy site.",
+      ]},
+      { type: "image", id: "detail-break-2", src: "/screenshots/case-studies/mediapool/desktop-services.webp", alt: "Mediapool services page with media planning, buying, and consultancy", parallax: true },
+      { type: "text", id: "seo", heading: "SEO for long-tail queries", body: [
+        "Individual campaign pages are structured to rank for long-tail queries like \"Renmoney media campaign Lagos\". Each campaign gets its own dedicated detail page with structured data for the brand, medium, and outcomes.",
+      ]},
+      { type: "text", id: "process", heading: "Four weeks to launch", body: [
+        "Week one was content architecture. Weeks two and three were the homepage and template build. Week four was the campaign detail page template plus performance optimization. Within two months of launch they had added eleven new campaign entries without any development work.",
+      ]},
+      { type: "gallery", id: "gallery", columns: 3, images: [
+        { src: "/screenshots/case-studies/mediapool/mobile-services.webp", alt: "Mediapool services on mobile", caption: "Mobile consultancy" },
+        { src: "/screenshots/case-studies/mediapool/mobile-buying.webp", alt: "Mediapool media buying on mobile", caption: "Mobile media buying", link: "https://mediapool.ng/services/media-buying/" },
+        { src: "/screenshots/case-studies/mediapool/mobile-consultancy.webp", alt: "Mediapool media consultancy on mobile", caption: "Mobile services" },
+      ]},
+      { type: "stats", id: "results", heading: "Measurable outcomes", stats: [
+        { value: "93", label: "PageSpeed desktop", sublabel: "up from 31" },
+        { value: "77", label: "PageSpeed mobile", sublabel: "up from 24" },
+        { value: "1.0s", label: "LCP desktop", sublabel: "0 CLS, 0ms TBT" },
+        { value: "2.4x", label: "Time-on-page", sublabel: "vs. legacy site" },
+      ]},
+      { type: "quote", id: "designer-quote", text: "The campaign portfolio isn't just a section on the site, it's the structural backbone. Joel understood that from day one and built the entire architecture around it.", attribution: "Mayowa Oduntan — UX Designer (thisismayor.webflow.io)" },
+      { type: "quote", id: "closing", text: "The proof of competence is the work itself. Any site structure that buries the work behind marketing copy is fighting against the very thing it's trying to sell." },
+    ],
+    nextSlug: "elin-group",
+  },
+];
+
+export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
+  return CASE_STUDIES.find((cs) => cs.slug === slug);
+}
+
+export function getAllCaseStudySlugs(): string[] {
+  return CASE_STUDIES.map((cs) => cs.slug);
+}

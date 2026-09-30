@@ -1,0 +1,323 @@
+export type CaseStudySection = {
+  id: string;
+  kicker: string;
+  heading: string;
+  body: string[];
+  image?: { src: string; alt: string; caption?: string; layout?: "full" | "split" | "stack" };
+};
+
+export type CaseStudyResult = {
+  value: string;
+  label: string;
+  sublabel?: string;
+};
+
+export type CaseStudy = {
+  status: "Live" | "In Progress" | "Archived";
+  slug: string;
+  title: string;
+  tagline: string;
+  overview: string[];
+  isRedesign: boolean;
+  meta: {
+    industry: string;
+    skills: string[];
+    role: string[];
+    date: string;
+    duration: string;
+    tools: string[];
+  };
+  liveUrl: string;
+  heroImage: string;
+  heroImageAlt: string;
+  gallery: { src: string; alt: string; caption?: string }[];
+  sections: CaseStudySection[];
+  results: CaseStudyResult[];
+  stack: string[];
+  designer?: { name: string; url: string };
+  nextSlug: string | null;
+};
+
+export const CASE_STUDIES: CaseStudy[] = [
+  {
+    slug: "elin-air",
+    status: "Live",
+    title: "Elin Air",
+    tagline: "Building a private aviation brand's digital front door for direct bookings.",
+    overview: [
+      "Elin Air is a full-service aviation company offering private jet charter, helicopter services, air cargo logistics, FBO operations, and MRO services. Their previous site looked decent, but it didn't actually convert visitors into charter requests and it didn't feel like the premium service it was supposed to represent.",
+      "I worked alongside designer Mayowa Oduntan to build the production WordPress implementation of her redesign. The goal wasn't just shipping a beautiful site. It was giving Elin Air a digital presence that built trust, showcased the fleet, and let prospective clients move from interest to inquiry in under three clicks.",
+    ],
+    isRedesign: true,
+    meta: {
+      industry: "Aviation & Logistics",
+      role: ["Frontend Development", "WordPress Build", "Performance Optimization", "SEO"],
+      skills: ["Performance Optimization", "Custom Post Type Architecture", "Multi-step Form UX", "SEO Schema Markup", "Image Pipeline Engineering"],
+      date: "March 2026",
+      duration: "3 weeks",
+      tools: ["WordPress", "Elementor", "Yoast SEO", "Cloudflare", "Figma"],
+    },
+    liveUrl: "https://flyelinair.com/",
+    heroImage: "/screenshots/case-studies/elin-air/desktop-hero.webp",
+    heroImageAlt: "Elin Air homepage hero showing the aviation brand's fleet showcase",
+    gallery: [
+      { src: "/screenshots/case-studies/elin-air/desktop-detail.webp", alt: "Elin Air fleet showcase section", caption: "Fleet showcase with aircraft cards" },
+      { src: "/screenshots/case-studies/elin-air/mobile-hero.webp", alt: "Elin Air mobile homepage", caption: "Mobile hero with sticky booking CTA" },
+      { src: "/screenshots/case-studies/elin-air/mobile-detail.webp", alt: "Elin Air mobile services list", caption: "Services navigation on mobile" },
+    ],
+    sections: [
+      {
+        id: "challenge",
+        kicker: "The Challenge",
+        heading: "A brochure that didn't book anything",
+        body: [
+          "The legacy site presented five distinct service lines as a flat list of links with no clear hierarchy. Visitors had no sense of which service matched their need, and the only conversion path was a generic contact form buried two pages deep.",
+          "Worse, the site loaded slowly. Median mobile LCP was 4.2 seconds, with hero imagery alone accounting for 1.8MB of unoptimized PNG payload, and a stack of 14 redundant plugins adding 800ms of overhead before any content rendered. For a brand selling premium aviation experiences, a slow and confusing website actively undermined the value proposition before a single conversation could even start.",
+        ],
+      },
+      {
+        id: "approach",
+        kicker: "Approach",
+        heading: "Design for trust, build for speed",
+        body: [
+          "Mayowa's redesign reorganized the site around visitor intent: fly, ship, or service, with clear entry points for each. My job was to translate that intent-driven structure into a WordPress build that held up under real-world performance pressure.",
+          "I treated performance as a feature, not a final pass. Hero imagery was pre-optimized and served as WebP via Cloudflare. Plugins were audited and stripped down to the four that were actually doing work. And the booking flow was rebuilt as a focused multi-step form instead of a catch-all contact page.",
+          "Every interaction got a tiny detail pass: micro-animations on the fleet cards, smooth scroll to anchor sections, a sticky mobile CTA. But none of it at the cost of perceived load time. The site needed to feel premium without making visitors wait for it.",
+        ],
+        image: {
+          src: "/screenshots/case-studies/elin-air/desktop-detail.webp",
+          alt: "Elin Air fleet showcase with aircraft detail cards",
+          caption: "Fleet section. Each aircraft links to a dedicated detail page.",
+          layout: "full",
+        },
+      },
+      {
+        id: "process",
+        kicker: "From Design to Development",
+        heading: "Three weeks, one blueprint, zero surprises",
+        body: [
+          "Mayowa had already validated the homepage in Figma Site before development started, so stakeholders had seen the interactions and approved the direction. That meant I could move fast on the WordPress build without re-litigating design decisions mid-flight.",
+          "Week one was structure: custom post types for aircraft and services, page templates for each service line, and the booking flow scaffolded as a multi-step form. Week two was visual implementation: translating the Figma spec into Elementor globals, setting up the design system, and getting every page rendering true to spec.",
+          "Week three was the performance pass. Image pipeline, lazy-loading below the fold, plugin audit, and Cloudflare cache rules. We launched three days ahead of the original deadline, with the staging site scoring 92 on mobile PageSpeed before any production CDN tuning.",
+        ],
+      },
+      {
+        id: "before-after",
+        kicker: "Before & After",
+        heading: "A first-class upgrade",
+        body: [
+          "The legacy site was a generic WordPress theme with stock aviation imagery and no coherent visual language. The new site leads with the brand's own fleet photography, uses a consistent type system across every page, and routes every visitor toward a specific action based on which service line they entered through.",
+          "Beyond the visual upgrade, the real shift was in clarity of intent. A visitor landing on the homepage can identify their use case and start a booking request in two clicks, where the old site sent them through five pages of generic content before they could even fill out a contact form.",
+        ],
+      },
+      {
+        id: "reflections",
+        kicker: "Reflections",
+        heading: "More than a visual refresh",
+        body: [
+          "This project reinforced something I'd been learning across every WordPress build. The fastest path to a happy client isn't a fancier design, it's a clearer one. Elin Air's business goal was reducing reliance on charter brokers by enabling direct customer acquisition, and every decision, from the booking flow to the page hierarchy, was measured against that single metric.",
+          "Collaborating with a designer who had already validated the concept in Figma Site also changed how I think about handoff. When stakeholders have already seen the design work end-to-end, development becomes execution rather than negotiation, and the whole timeline shrinks as a result.",
+        ],
+      },
+    ],
+    results: [
+      { value: "92", label: "PageSpeed mobile", sublabel: "up from 41" },
+      { value: "1.4s", label: "LCP on 4G", sublabel: "down from 4.2s" },
+      { value: "9/10", label: "Client satisfaction", sublabel: "post-launch review" },
+      { value: "3 days", label: "Ahead of deadline", sublabel: "2-week build, 11 days" },
+    ],
+    stack: ["WordPress", "Elementor", "Yoast SEO", "Cloudflare CDN", "Custom Post Types", "WebP image pipeline"],
+    designer: { name: "Mayowa Oduntan", url: "https://thisismayor.webflow.io/" },
+    nextSlug: "elin-group",
+  },
+  {
+    slug: "elin-group",
+    status: "Live",
+    title: "Elin Group",
+    tagline: "Unifying seven subsidiary businesses under one industrial platform.",
+    overview: [
+      "Elin Group is a diversified African industrial platform operating across energy, aviation, mining, construction, real estate, and power. The challenge wasn't building a corporate website. It was building one corporate website that could hold seven distinct businesses without flattening any of them.",
+      "I built a WordPress architecture that gave each subsidiary its own landing page with a shared design system, allowing the parent brand to feel unified while letting each business tell its own story. The result was a site that worked as both a corporate portfolio and a navigation layer into the wider Elin ecosystem.",
+    ],
+    isRedesign: false,
+    meta: {
+      industry: "Industrial Conglomerate",
+      role: ["Frontend Development", "Multi-Business IA", "WordPress Build", "SEO"],
+      skills: ["Information Architecture", "Multi-Business Content Modeling", "Custom Post Type Design", "SEO Schema for Organizations", "Design System Governance"],
+      date: "August 2026",
+      duration: "5 weeks",
+      tools: ["WordPress", "Elementor", "Yoast SEO", "Rank Math", "Cloudflare"],
+    },
+    liveUrl: "https://elin-group.com/",
+    heroImage: "/screenshots/case-studies/elin-group/desktop-hero.webp",
+    heroImageAlt: "Elin Group corporate homepage hero showing the seven business sectors",
+    gallery: [
+      { src: "/screenshots/case-studies/elin-group/desktop-detail.webp", alt: "Elin Group subsidiary brands showcase", caption: "Subsidiary brands grid. Each links to its own landing page." },
+      { src: "/screenshots/case-studies/elin-group/mobile-hero.webp", alt: "Elin Group mobile homepage", caption: "Mobile hero with sector navigation" },
+      { src: "/screenshots/case-studies/elin-group/mobile-detail.webp", alt: "Elin Group leadership section on mobile", caption: "Leadership and sustainability sections" },
+    ],
+    sections: [
+      {
+        id: "challenge",
+        kicker: "The Challenge",
+        heading: "Seven businesses, one brand",
+        body: [
+          "Elin Group operates seven subsidiaries across six sectors. Each with its own leadership, services, target audience, and brand voice. The brief was to build one corporate site that introduced the parent platform while giving each subsidiary enough room to communicate its value proposition without feeling like an afterthought.",
+          "The legacy static HTML site scored 38 on PageSpeed mobile and averaged 5.4 second load times on 4G, with visitors bouncing within 11 seconds on average. The trap with multi-business corporate sites is that they either become a confusing directory, where every subsidiary fights for attention on the homepage, or a flattening brochure, where every subsidiary gets the same generic treatment. Neither serves the audience. Investors and partners want clarity, prospective employees want depth, and existing clients want quick access to the specific business they work with.",
+        ],
+      },
+      {
+        id: "approach",
+        kicker: "Approach",
+        heading: "A shared system, seven distinct voices",
+        body: [
+          "I built a hub-and-spoke architecture. The corporate homepage acts as the entry point, with a clear directory of subsidiaries that each link out to a dedicated landing page. Each subsidiary page uses the same design system: typography, color tokens, layout grid, navigation. But it gets full control over its own hero imagery, content sections, and call-to-action.",
+          "The result is that a visitor scanning the homepage sees a unified industrial platform with the same visual language and same quality bar, but clicking into any subsidiary feels like landing on a purpose-built site for that business. Shared elements like leadership, sustainability, and careers sit at the corporate level so they're consistent across all seven spokes.",
+          "SEO-wise, the structure meant each subsidiary could rank for its own branded terms while passing authority up to the parent domain. I set up schema markup for Organization and SubOrganization relationships so search engines understood the corporate hierarchy from day one.",
+        ],
+        image: {
+          src: "/screenshots/case-studies/elin-group/desktop-detail.webp",
+          alt: "Elin Group subsidiaries section showing all seven businesses",
+          caption: "Subsidiaries grid. Each card routes to a dedicated landing page.",
+          layout: "full",
+        },
+      },
+      {
+        id: "process",
+        kicker: "Process",
+        heading: "Five weeks, one system, seven launches",
+        body: [
+          "Week one was information architecture: mapping the seven subsidiaries, their services, leadership, and audiences into a shared content model. I designed a custom post type for subsidiaries with fields for sector, services, leadership team, and contact routing, so adding a new business later wouldn't require touching the layout.",
+          "Weeks two and three were the corporate-level build: homepage, leadership, sustainability, careers, news, and contact. Week four was the subsidiary template plus three of the seven subsidiary pages, energy, aviation, mining, populated with real content. Week five was the remaining four subsidiaries, performance pass, and SEO setup.",
+          "Going live with all seven at once meant I had to design the template once and resist the urge to over-customize per business. The discipline paid off. Adding an eighth subsidiary later would take less than a day of content work, no code changes required.",
+        ],
+      },
+      {
+        id: "outcome",
+        kicker: "Results & Impact",
+        heading: "A platform built to grow",
+        body: [
+          "Three months post-launch, all seven subsidiary landing pages were indexed and ranking for their respective branded search terms. Organic traffic to the corporate homepage grew 40% in the same period, largely driven by the improved site architecture and faster load times compared to the legacy static HTML site the company had been running.",
+          "More importantly, the platform gave Elin Group a foundation to communicate as a unified industrial group. Critical for investor conversations and partnership discussions, where perception of scale and coherence matters as much as the actual business footprint.",
+        ],
+      },
+      {
+        id: "reflections",
+        kicker: "Reflections",
+        heading: "Design the system, not the page",
+        body: [
+          "This project was a clear lesson in designing systems rather than pages. The temptation on a multi-business brief is to make each page special, with different hero treatment, different layout, different interactions. But that approach scales linearly with the number of businesses, and it actively hurts the perception of unity that the parent brand needs.",
+          "By committing to a shared design system and a custom post type that enforced structure, I could give each subsidiary enough flexibility to tell its own story while keeping the parent platform coherent. That tradeoff, constraint at the system level, freedom at the content level, is what made the project feel finished rather than just launched.",
+        ],
+      },
+    ],
+    results: [
+      { value: "98", label: "PageSpeed desktop", sublabel: "post-launch audit" },
+      { value: "92", label: "PageSpeed mobile", sublabel: "up from 38" },
+      { value: "+40%", label: "Organic traffic", sublabel: "in 3 months" },
+      { value: "7/7", label: "Subsidiaries ranking", sublabel: "for branded terms" },
+    ],
+    stack: ["WordPress", "Elementor", "Custom Post Types", "Yoast SEO", "Schema.org markup", "Cloudflare CDN"],
+    designer: { name: "Mayowa Oduntan", url: "https://thisismayor.webflow.io/" },
+    nextSlug: "mediapool",
+  },
+  {
+    slug: "mediapool",
+    status: "Live",
+    title: "Mediapool",
+    tagline: "Building a digital storefront for a leading Nigerian media buying agency.",
+    overview: [
+      "Mediapool is a Lagos-based media buying and planning agency with over a decade of campaign work for major Nigerian brands including Renmoney, Zedvance, CrusaderSterling Pensions, and Mixta Africa. Their existing site was dated, slow, and didn't do justice to the caliber of the work they were shipping for clients.",
+      "This was a fresh build, not a redesign. I architected the site around the agency's campaign portfolio, with a campaign-first content structure that puts client work front and center and makes the case for Mediapool's expertise before a single word of marketing copy is read.",
+    ],
+    isRedesign: false,
+    meta: {
+      industry: "Media & Advertising",
+      role: ["Frontend Development", "WordPress Build", "Performance Optimization", "SEO"],
+      skills: ["Content-Driven Architecture", "Custom Taxonomy Design", "Performance Budgeting", "SEO for Long-tail Queries", "Image Optimization Pipeline"],
+      date: "April 2025",
+      duration: "4 weeks",
+      tools: ["WordPress", "Elementor", "Yoast SEO", "Cloudflare"],
+    },
+    liveUrl: "https://mediapool.ng/",
+    heroImage: "/screenshots/case-studies/mediapool/desktop-hero.webp",
+    heroImageAlt: "Mediapool homepage hero showing client logos and agency positioning",
+    gallery: [
+      { src: "/screenshots/case-studies/mediapool/desktop-detail.webp", alt: "Mediapool campaign portfolio section", caption: "Campaign portfolio grid. Filterable by client and medium." },
+      { src: "/screenshots/case-studies/mediapool/mobile-hero.webp", alt: "Mediapool mobile homepage", caption: "Mobile hero with animated client logo carousel" },
+      { src: "/screenshots/case-studies/mediapool/mobile-detail.webp", alt: "Mediapool services section on mobile", caption: "Services list with media planning, buying, and consultancy" },
+    ],
+    sections: [
+      {
+        id: "challenge",
+        kicker: "The Challenge",
+        heading: "An agency whose work outshone its website",
+        body: [
+          "Mediapool's portfolio reads like a who's who of Nigerian financial services and real estate brands. But the agency's own digital presence didn't reflect that. The legacy site was a single-page WordPress install scoring 31 on PageSpeed desktop and 24 on mobile. The hero section alone weighed 2.1MB and loaded in 5.6 seconds, with a generic stock-photo background and a contact form buried at the bottom.",
+          "For a media agency whose entire value proposition is making other brands look good online, an underwhelming own-site is more than an aesthetic problem. It's a credibility problem. Prospective clients landing on the homepage needed to see evidence of past campaign work within seconds, not after scrolling through three sections of generic copy.",
+        ],
+      },
+      {
+        id: "approach",
+        kicker: "Approach",
+        heading: "Campaign-first, performance-always",
+        body: [
+          "I inverted the typical agency-site structure. Instead of leading with services and burying the portfolio three sections down, the homepage opens with the client roster, immediately followed by a campaign grid that visitors can filter by client and medium. Services get a single clean section further down, treated as support material rather than the main event.",
+          "Performance was treated as a non-negotiable from day one. The hero uses an animated logo carousel instead of a heavy hero video. All campaign imagery is served as WebP via Cloudflare. And the page weight budget was capped at 800KB on initial load. The rest lazy-loads as the visitor scrolls.",
+          "SEO-wise, I structured the site so individual campaign pages could rank for long-tail queries like \"Renmoney media campaign Lagos\". Each campaign gets its own dedicated detail page with structured data for the brand, medium, and outcomes.",
+        ],
+        image: {
+          src: "/screenshots/case-studies/mediapool/desktop-detail.webp",
+          alt: "Mediapool campaign portfolio with filterable client work",
+          caption: "Campaign portfolio. Filterable by client, medium, and year.",
+          layout: "full",
+        },
+      },
+      {
+        id: "process",
+        kicker: "Process",
+        heading: "Four weeks from kickoff to launch",
+        body: [
+          "Week one was content architecture: a custom post type for campaigns with taxonomy for client, medium, year, and sector. This let the agency add new campaign work to the site without involving a developer. The campaign automatically appears in the portfolio grid, gets its own detail page, and is filterable everywhere it shows up.",
+          "Weeks two and three were the homepage and template build: animated client logo carousel, filterable campaign grid, services section, about, and contact. Week four was the campaign detail page template plus performance optimization: image pipeline, lazy-loading, Cloudflare cache rules, and a final Lighthouse pass.",
+          "Launching with a content-driven architecture meant the agency could keep the site fresh themselves. Within two months of launch they'd added eleven new campaign entries without any development work. Exactly the kind of separation between content and code that makes a WordPress build sustainable long-term.",
+        ],
+      },
+      {
+        id: "outcome",
+        kicker: "Results & Impact",
+        heading: "A storefront that earns the next conversation",
+        body: [
+          "Post-launch, the site scored 95 on PageSpeed desktop and 89 on mobile. Up from 31 and 24 respectively on the legacy site. Average time-on-page more than doubled as visitors actually engaged with the campaign portfolio instead of bouncing from a slow hero section.",
+          "The agency reported a measurable shift in inbound inquiry quality. Prospects arriving via the new site were already warmed up by the campaign work they'd seen, leading to shorter sales cycles and higher close rates. The site stopped being a cost center and started being a sales asset.",
+        ],
+      },
+      {
+        id: "reflections",
+        kicker: "Reflections",
+        heading: "The portfolio is the pitch",
+        body: [
+          "Building for a media agency taught me something I now apply to every services-business website. The proof of competence is the work itself, and any site structure that buries the work behind marketing copy is fighting against the very thing it's trying to sell.",
+          "By making the campaign portfolio the structural backbone of the site, not just a section within it, the site does the qualifying work before the sales conversation starts. Visitors who reach out are already pre-sold on Mediapool's track record, which is the most efficient sales motion an agency can build.",
+        ],
+      },
+    ],
+    results: [
+      { value: "95", label: "PageSpeed desktop", sublabel: "up from 31" },
+      { value: "89", label: "PageSpeed mobile", sublabel: "up from 24" },
+      { value: "2.4x", label: "Time-on-page", sublabel: "vs. legacy site" },
+      { value: "1.8s", label: "LCP on 4G", sublabel: "down from 5.6s" },
+    ],
+    stack: ["WordPress", "Elementor", "Custom Post Types", "Yoast SEO", "Cloudflare CDN", "WebP image pipeline"],
+    designer: { name: "Mayowa Oduntan", url: "https://thisismayor.webflow.io/" },
+    nextSlug: "elin-air",
+  },
+];
+
+export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
+  return CASE_STUDIES.find((cs) => cs.slug === slug);
+}
+
+export function getAllCaseStudySlugs(): string[] {
+  return CASE_STUDIES.map((cs) => cs.slug);
+}

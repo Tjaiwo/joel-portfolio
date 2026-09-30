@@ -1,0 +1,91 @@
+"use client";
+
+import { useState, useCallback } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useSpring,
+  useMotionValueEvent,
+  useTransform,
+} from "framer-motion";
+
+export function BackToTop() {
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const [visible, setVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  useMotionValueEvent(smoothProgress, "change", (v) => {
+    setVisible(v > 0.06);
+  });
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const radius = 22;
+  const circumference = 2 * Math.PI * radius;
+  const dashOffset = useTransform(smoothProgress, (v) => circumference - v * circumference);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.4, rotate: -180 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          exit={{ opacity: 0, scale: 0.4, rotate: 180 }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          onClick={scrollToTop}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          className="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 z-[90] group cursor-pointer"
+          aria-label="Back to top"
+        >
+          {/* Outer glow on hover */}
+          <div
+            className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"
+            style={{ background: "radial-gradient(circle, rgba(80,200,120,0.2) 0%, transparent 70%)" }}
+          />
+
+          {/* Main circle */}
+          <div className="relative w-[52px] h-[52px] rounded-full border border-border bg-background/80 backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:border-[#50C878]/50 group-hover:bg-background/95 group-hover:shadow-[0_0_20px_rgba(80,200,120,0.15)]">
+            {/* SVG progress ring */}
+            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r={radius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
+              <motion.circle
+                cx="26" cy="26" r={radius}
+                fill="none"
+                stroke="#50C878"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray={circumference}
+                style={{ strokeDashoffset: dashOffset }}
+              />
+            </svg>
+
+            {/* Percentage text */}
+            <motion.span
+              animate={{ opacity: hovered ? 0 : 1, scale: hovered ? 0.6 : 1 }}
+              transition={{ duration: 0.15 }}
+              className="text-[10px] font-mono font-bold text-[#50C878] tabular-nums select-none"
+            >
+              {Math.round(smoothProgress.get() * 100)}
+            </motion.span>
+
+            {/* Arrow icon (appears on hover) */}
+            <motion.div
+              animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 6, scale: hovered ? 1 : 0.5 }}
+              transition={{ duration: 0.2 }}
+              className="absolute text-[#50C878]"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+            </motion.div>
+          </div>
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+}

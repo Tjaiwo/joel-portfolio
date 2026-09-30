@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
-import { BackToTop } from "@/components/back-to-top";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -61,8 +60,7 @@ export default function RootLayout({
         <Analytics />
         <div className="grain-overlay" aria-hidden="true" />
       <SpeedInsights />
-        <BackToTop />
-    </body>
+  </body>
     </html>
   );
 }
