@@ -96,9 +96,9 @@ function GalleryBlock({ block, index }: { block: Extract<CaseStudyBlock, { type:
         </motion.div>
         <div className={"mt-12 grid gap-5 " + colClass}>
           {block.images.map((img, i) => (
-            <motion.figure key={img.src} initial={{ opacity: 0, y: 32, scale: 0.96 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }} className="group overflow-hidden rounded-lg border border-border/40 bg-background">
+            <motion.figure key={img.src} initial={{ opacity: 0, y: 32, scale: 0.96 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }} className="group image-hover-wrap rounded-lg border border-border/40 bg-background">
               <div className="overflow-hidden">
-                <img src={img.src} alt={img.alt} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+                <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" loading="lazy" />
               </div>
               {img.caption && (<figcaption className="border-t border-border/40 px-4 py-3 text-xs text-muted-foreground">{img.caption}</figcaption>)}
             </motion.figure>
