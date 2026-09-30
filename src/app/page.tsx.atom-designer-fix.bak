@@ -166,6 +166,7 @@ const PROJECTS = [
     image: "/screenshots/case-studies/atomdsn/desktop-home.webp",
     tags: ["Web Design", "WordPress", "Agency", "Portfolio", "SEO"],
     results: "Portfolio showcasing 20+ experiential brand activations",
+    designer: true,
   },];
 
 const CASE_STUDY_SLUGS = ["elin-air", "elin-group", "mediapool", "clayton-prints", "evan-micky", "atomdsn", "diamond-source", "designed-spaces", "cedar-rush"];
