@@ -54,7 +54,7 @@ export default function ContactPage() {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    projectType: "",
+    projectTypes: [] as string[],
     budget: "",
     message: "",
     signup: false,
@@ -76,40 +76,35 @@ export default function ContactPage() {
           setLocation(`${data.city}, ${data.country_name}`);
         }
       })
-      .catch(() => {
-        setLocation("Location unknown");
-      });
+      .catch(() => { setLocation("Location unknown"); });
   }, []);
 
-  const formatMinBudget = () => {
-    return `${currency.symbol}${currency.min.toLocaleString()} ${currency.code}`;
-  };
+  const formatMinBudget = () => `${currency.symbol}${currency.min.toLocaleString()} ${currency.code}`;
 
-  const validateField = (name: string, value: string | boolean) => {
-    // Basic client-side validation
-    const errors: Record<string, string> = {};
-    if (name === "name" && typeof value === "string") {
-      if (value.length < 2) errors.name = "Name must be at least 2 characters";
-      else if (value.length > 100) errors.name = "Name is too long";
-    }
-    if (name === "email" && typeof value === "string") {
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) errors.email = "Please enter a valid email";
-    }
-    if (name === "message" && typeof value === "string") {
-      if (value.length < 10) errors.message = "Message must be at least 10 characters";
-    }
-    return errors;
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const newValue = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
     setForm({ ...form, [name]: newValue });
-
-    // Clear field error on change
     if (fieldErrors[name]) {
       const newErrors = { ...fieldErrors };
       delete newErrors[name];
+      setFieldErrors(newErrors);
+    }
+  };
+
+  const handlePillClick = (type: string) => {
+    setForm(prev => {
+      const isSelected = prev.projectTypes.includes(type);
+      return {
+        ...prev,
+        projectTypes: isSelected
+          ? prev.projectTypes.filter(t => t !== type)
+          : [...prev.projectTypes, type]
+      };
+    });
+    if (fieldErrors.projectTypes) {
+      const newErrors = { ...fieldErrors };
+      delete newErrors.projectTypes;
       setFieldErrors(newErrors);
     }
   };
@@ -120,26 +115,30 @@ export default function ContactPage() {
     setFieldErrors({});
     setErrorMessage("");
 
+    if (form.projectTypes.length === 0) {
+      setFieldErrors({ projectTypes: "Please select at least one option" });
+      setStatus("error");
+      return;
+    }
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          projectType: form.projectTypes.join(", "),
+        }),
       });
-
       const data = await response.json();
-
       if (!response.ok) {
-        if (data.errors) {
-          setFieldErrors(data.errors);
-        }
+        if (data.errors) setFieldErrors(data.errors);
         setErrorMessage(data.error || "Something went wrong");
         setStatus("error");
         return;
       }
-
       setStatus("success");
-      setForm({ name: "", email: "", projectType: "", budget: "", message: "", signup: false });
+      setForm({ name: "", email: "", projectTypes: [], budget: "", message: "", signup: false });
       setTimeout(() => setStatus("idle"), 6000);
     } catch (error) {
       setErrorMessage("Network error. Please check your connection and try again.");
@@ -161,7 +160,6 @@ export default function ContactPage() {
       </section>
 
       <div className="grid md:grid-cols-5 gap-12">
-        {/* Contact info */}
         <section className="md:col-span-2 space-y-8">
           <div>
             <p className="lp-section-label mb-4">Get in touch</p>
@@ -174,9 +172,7 @@ export default function ContactPage() {
                     <div>
                       <p className="text-[11px] text-muted-foreground uppercase tracking-wider">{info.label}</p>
                       {info.href ? (
-                        <a href={info.href} className="text-sm text-primary underline decoration-dotted underline-offset-4">
-                          {info.value}
-                        </a>
+                        <a href={info.href} className="text-sm text-primary underline decoration-dotted underline-offset-4">{info.value}</a>
                       ) : (
                         <p className="text-sm">{info.value}</p>
                       )}
@@ -199,13 +195,7 @@ export default function ContactPage() {
             <p className="lp-section-label mb-3">Elsewhere</p>
             <div className="flex flex-wrap gap-4 text-sm">
               {SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary underline decoration-dotted underline-offset-4"
-                >
+                <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" className="text-primary underline decoration-dotted underline-offset-4">
                   {social.label}
                 </a>
               ))}
@@ -219,73 +209,51 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* Form */}
         <section className="md:col-span-3">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="lp-section-label block mb-2">Name <span className="text-primary">*</span></label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={form.name}
-                  onChange={handleChange}
-                  className="dotted-input"
-                  placeholder="Your name"
-                  disabled={status === "submitting"}
-                />
+                <input type="text" name="name" required value={form.name} onChange={handleChange} className="dotted-input" placeholder="Your name" disabled={status === "submitting"} />
                 {fieldErrors.name && <p className="text-xs text-destructive mt-1">{fieldErrors.name}</p>}
               </div>
               <div>
                 <label className="lp-section-label block mb-2">Email <span className="text-primary">*</span></label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={form.email}
-                  onChange={handleChange}
-                  className="dotted-input"
-                  placeholder="you@example.com"
-                  disabled={status === "submitting"}
-                />
+                <input type="email" name="email" required value={form.email} onChange={handleChange} className="dotted-input" placeholder="you@example.com" disabled={status === "submitting"} />
                 {fieldErrors.email && <p className="text-xs text-destructive mt-1">{fieldErrors.email}</p>}
               </div>
             </div>
 
             <div>
-              <label className="lp-section-label block mb-2">I&apos;m interested in... <span className="text-primary">*</span></label>
-              <select
-                name="projectType"
-                required
-                value={form.projectType}
-                onChange={handleChange}
-                className="dotted-select"
-                disabled={status === "submitting"}
-              >
-                <option value="">Select a project type</option>
-                {PROJECT_TYPES.map((type) => (
-                  <option key={type} value={type}>{type}</option>
-                ))}
-              </select>
-              {fieldErrors.projectType && <p className="text-xs text-destructive mt-1">{fieldErrors.projectType}</p>}
+              <p className="lp-section-label block mb-3">I&apos;m interested in... <span className="text-primary">*</span></p>
+              <div className="flex flex-wrap gap-3">
+                {PROJECT_TYPES.map((type) => {
+                  const isSelected = form.projectTypes.includes(type);
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => handlePillClick(type)}
+                      disabled={status === "submitting"}
+                      className={
+                        isSelected
+                          ? "px-4 py-2 text-sm font-mono bg-primary text-primary-foreground border border-primary transition-all"
+                          : "px-4 py-2 text-sm font-mono bg-transparent text-muted-foreground border border-dotted border-border hover:border-primary hover:text-primary transition-all"
+                      }
+                    >
+                      {type}
+                    </button>
+                  );
+                })}
+              </div>
+              {fieldErrors.projectTypes && <p className="text-xs text-destructive mt-2">{fieldErrors.projectTypes}</p>}
             </div>
 
             <div>
               <label className="lp-section-label block mb-2">Budget <span className="text-primary">*</span></label>
               <div className="flex items-center border-b border-dotted border-border">
                 <span className="text-sm text-primary pr-3 font-medium">{currency.symbol}</span>
-                <input
-                  type="number"
-                  name="budget"
-                  required
-                  min={currency.min}
-                  value={form.budget}
-                  onChange={handleChange}
-                  className="dotted-input border-0 flex-1"
-                  placeholder={`Enter your budget in ${currency.code}`}
-                  disabled={status === "submitting"}
-                />
+                <input type="number" name="budget" required min={currency.min} value={form.budget} onChange={handleChange} className="dotted-input border-0 flex-1" placeholder={`Enter your budget in ${currency.code}`} disabled={status === "submitting"} />
                 <span className="text-xs text-muted-foreground pl-3">{currency.code}</span>
               </div>
               <p className="text-[11px] text-muted-foreground mt-1 italic opacity-70">
@@ -296,28 +264,12 @@ export default function ContactPage() {
 
             <div>
               <label className="lp-section-label block mb-2">Project details <span className="text-primary">*</span></label>
-              <textarea
-                name="message"
-                required
-                value={form.message}
-                onChange={handleChange}
-                className="dotted-textarea"
-                placeholder="Tell me about your project. What are you building? What does success look like?"
-                rows={6}
-                disabled={status === "submitting"}
-              />
+              <textarea name="message" required value={form.message} onChange={handleChange} className="dotted-textarea" placeholder="Tell me about your project. What are you building? What does success look like?" rows={6} disabled={status === "submitting"} />
               {fieldErrors.message && <p className="text-xs text-destructive mt-1">{fieldErrors.message}</p>}
             </div>
 
             <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                name="signup"
-                checked={form.signup}
-                onChange={handleChange}
-                className="mt-1"
-                disabled={status === "submitting"}
-              />
+              <input type="checkbox" name="signup" checked={form.signup} onChange={handleChange} className="mt-1" disabled={status === "submitting"} />
               <span className="text-xs text-muted-foreground">
                 Sign up for news and updates. No spam, occasional project updates only.
               </span>
@@ -330,11 +282,7 @@ export default function ContactPage() {
               </div>
             )}
 
-            <button
-              type="submit"
-              disabled={status === "submitting"}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+            <button type="submit" disabled={status === "submitting"} className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
               {status === "submitting" ? (
                 "Sending..."
               ) : status === "success" ? (
@@ -351,7 +299,6 @@ export default function ContactPage() {
         </section>
       </div>
 
-      {/* ProfessionalService schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -48,8 +48,17 @@
 }
 .dotted-select {
   background: transparent; border: none; border-bottom: 1px dotted var(--border);
-  padding: 8px 0; font-family: var(--font-mono); font-size: 14px;
+  padding: 16px; font-family: var(--font-mono); font-size: 14px;
   color: var(--foreground); width: 100%; outline: none; appearance: none; cursor: pointer;
+}
+.dotted-select option {
+  padding: 16px; color: #3D4135; background: #F5F1E8;
+}
+.dark .dotted-select {
+  color: #E8E2D0;
+}
+.dark .dotted-select option {
+  color: #E8E2D0; background: #1a1a18;
 }
 
 .top-nav {

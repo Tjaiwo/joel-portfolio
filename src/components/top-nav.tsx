@@ -15,6 +15,7 @@ const NAV_ITEMS = [
 
 export function TopNav() {
   const [open, setOpen] = useState(false);
+  const [time, setTime] = useState("");
   const pathname = usePathname();
 
   useEffect(() => {
@@ -28,6 +29,23 @@ export function TopNav() {
 
   useEffect(() => { setOpen(false); }, [pathname]);
 
+  // Live Lagos time
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const lagosTime = now.toLocaleTimeString("en-US", {
+        timeZone: "Africa/Lagos",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+      setTime(lagosTime);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <nav className="top-nav">
@@ -37,11 +55,11 @@ export function TopNav() {
           <span style={{ color: "var(--foreground)" }}>/&gt;</span>
         </Link>
 
+        {/* La Playa-style greeting with live time */}
         <div className="hidden md:block text-xs text-muted-foreground italic">
-          Hi, stranger. Let&apos;s build something.
+          Hi, stranger. It&apos;s a sunny one over here. {time}
         </div>
 
-        {/* Desktop nav items + coffee toggle with 30px gap */}
         <div className="hidden md:flex items-center gap-[30px]">
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href;
@@ -63,13 +81,9 @@ export function TopNav() {
           <CoffeeToggle />
         </div>
 
-        {/* Mobile: coffee toggle + hamburger with 16px gap */}
         <div className="flex md:hidden items-center gap-4">
           <CoffeeToggle />
-          <button
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
+          <button onClick={() => setOpen(true)} aria-label="Open menu">
             <Menu size={20} />
           </button>
         </div>
@@ -86,21 +100,12 @@ export function TopNav() {
             style={{ backgroundColor: "#0f0f0e", color: "#E8E2D0" }}
           >
             <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
-              <Link
-                href="/"
-                onClick={() => setOpen(false)}
-                className="text-base"
-                style={{ fontFamily: "var(--font-mono)" }}
-              >
+              <Link href="/" onClick={() => setOpen(false)} className="text-base" style={{ fontFamily: "var(--font-mono)" }}>
                 <span className="text-white">&lt;</span>
                 <span style={{ color: "#6B7A3D" }}>JA</span>
                 <span className="text-white">/&gt;</span>
               </Link>
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="Close menu"
-                className="text-white"
-              >
+              <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-white">
                 <X size={22} />
               </button>
             </div>
@@ -109,22 +114,8 @@ export function TopNav() {
               {NAV_ITEMS.map((item, i) => {
                 const isActive = pathname === item.href;
                 return (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className={`block py-4 text-2xl font-medium uppercase tracking-[0.04em] transition-colors ${
-                        isActive
-                          ? "text-[#6B7A3D]"
-                          : "text-white/80 hover:text-white"
-                      }`}
-                      style={{ fontFamily: "var(--font-mono)" }}
-                    >
+                  <motion.div key={item.href} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}>
+                    <Link href={item.href} onClick={() => setOpen(false)} className={`block py-4 text-2xl font-medium uppercase tracking-[0.04em] transition-colors ${isActive ? "text-[#6B7A3D]" : "text-white/80 hover:text-white"}`} style={{ fontFamily: "var(--font-mono)" }}>
                       {item.label}
                     </Link>
                   </motion.div>
@@ -133,10 +124,7 @@ export function TopNav() {
             </div>
 
             <div className="px-5 py-6 border-t border-white/10">
-              <p
-                className="text-[10px] uppercase tracking-[0.1em] text-white/40"
-                style={{ fontFamily: "var(--font-mono)" }}
-              >
+              <p className="text-[10px] uppercase tracking-[0.1em] text-white/40" style={{ fontFamily: "var(--font-mono)" }}>
                 * Coded by hand, backed by coffee
               </p>
             </div>
