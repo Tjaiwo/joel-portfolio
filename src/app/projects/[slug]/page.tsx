@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return {
     title: `${cs.title} - Case Study - Joel Akinlosotu`,
     description: cs.tagline,
+    alternates: { canonical: `https://joelakinlosotu.xyz/projects/${slug}` },
     openGraph: {
       title: `${cs.title} - Case Study`,
       description: cs.tagline,

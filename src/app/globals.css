@@ -171,6 +171,19 @@
   text-transform: uppercase; letter-spacing: 0.05em; font-size: 12px;
   opacity: 0.5; margin-bottom: 6px; display: block;
 }
+
+.dark .lp-footer-section .label {
+  opacity: 0.85;
+  color: #E8E2D0;
+}
+
+.dark .lp-footer-section {
+  color: #B8B0A0;
+}
+
+.dark .lp-footer-section a {
+  color: #8FA856;
+}
 .lp-footer-section a {
   color: var(--primary); text-decoration: underline;
   text-decoration-style: dotted; text-underline-offset: 3px;

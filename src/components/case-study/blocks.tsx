@@ -41,6 +41,7 @@ function TextBlock({ block }: { block: Extract<CaseStudyBlock, { type: "text" }>
 function TextImageBlock({ block }: { block: Extract<CaseStudyBlock, { type: "text-image" }> }) {
   return (
     <section id={block.id} className="scroll-mt-20">
+      {/* Text - constrained */}
       <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -59,14 +60,15 @@ function TextImageBlock({ block }: { block: Extract<CaseStudyBlock, { type: "tex
         </motion.div>
       </div>
 
+      {/* Image - FULL WIDTH on ALL screen sizes (edge-to-edge) */}
       <motion.figure
         initial={{ opacity: 0, scale: 0.96, y: 40 }}
         whileInView={{ opacity: 1, scale: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full overflow-hidden lg:mx-auto lg:max-w-5xl lg:px-12"
+        className="w-full overflow-hidden"
       >
-        <div className="border-t border-b border-dotted border-border lg:border lg:rounded-none">
+        <div className="border-t border-b border-dotted border-border">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={block.image.src}
@@ -76,7 +78,7 @@ function TextImageBlock({ block }: { block: Extract<CaseStudyBlock, { type: "tex
           />
         </div>
         {block.image.caption && (
-          <figcaption className="px-6 py-4 text-sm text-muted-foreground lg:px-0">
+          <figcaption className="px-6 py-4 text-sm text-muted-foreground max-w-5xl mx-auto">
             {block.image.caption}
           </figcaption>
         )}
@@ -109,54 +111,52 @@ function ParallaxImage({ src, alt, caption }: { src: string; alt: string; captio
     offset: ["start end", "end start"],
   });
 
-  // Desktop gets parallax transforms; mobile gets static (0,0,1,1)
   const y = useTransform(scrollYProgress, [0, 1], isDesktop ? ["-12%", "12%"] : ["0%", "0%"]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], isDesktop ? [1.15, 1, 1.05] : [1, 1, 1]);
 
   return (
-    <div className="w-full lg:mx-auto lg:max-w-6xl lg:px-12">
-      <figure
-        ref={ref}
-        className={
-          isDesktop
-            ? "relative h-[60vh] overflow-hidden border border-dotted border-border"
-            : "w-full overflow-hidden border-t border-b border-dotted border-border"
-        }
-      >
-        {isDesktop ? (
-          <motion.div style={{ y, scale }} className="absolute inset-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={src}
-              alt={alt}
-              className="h-[130%] w-full object-cover object-top"
-              loading="lazy"
-            />
-          </motion.div>
-        ) : (
-          /* eslint-disable-next-line @next/next/no-img-element */
+    // FULL WIDTH on ALL screen sizes - edge to edge
+    <figure
+      ref={ref}
+      className={
+        isDesktop
+          ? "relative h-[60vh] overflow-hidden border-t border-b border-dotted border-border"
+          : "relative overflow-hidden border-t border-b border-dotted border-border"
+      }
+    >
+      {isDesktop ? (
+        <motion.div style={{ y, scale }} className="absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={src}
             alt={alt}
-            className="w-full h-auto object-cover"
+            className="h-[130%] w-full object-cover object-top"
             loading="lazy"
           />
-        )}
-        {caption && (
-          isDesktop ? (
-            <div className="absolute bottom-4 left-4 right-4 lg:bottom-6 lg:left-6">
-              <p className="inline-block bg-background/80 px-3 py-1.5 text-xs text-foreground backdrop-blur-sm sm:text-sm">
-                {caption}
-              </p>
-            </div>
-          ) : (
-            <figcaption className="px-6 py-4 text-sm text-muted-foreground">
+        </motion.div>
+      ) : (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-auto object-cover"
+          loading="lazy"
+        />
+      )}
+      {caption && (
+        isDesktop ? (
+          <div className="absolute bottom-4 left-4 right-4 lg:bottom-6 lg:left-6">
+            <p className="inline-block bg-background/80 px-3 py-1.5 text-xs text-foreground backdrop-blur-sm sm:text-sm">
               {caption}
-            </figcaption>
-          )
-        )}
-      </figure>
-    </div>
+            </p>
+          </div>
+        ) : (
+          <figcaption className="px-6 py-4 text-sm text-muted-foreground">
+            {caption}
+          </figcaption>
+        )
+      )}
+    </figure>
   );
 }
 

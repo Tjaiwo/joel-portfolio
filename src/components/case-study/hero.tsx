@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { ArrowUpRight, ArrowLeft } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { CaseStudy } from "@/data/case-studies";
 
 function calculateReadingTime(cs: CaseStudy): number {
@@ -45,14 +45,12 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
 
   return (
     <header ref={ref} onMouseMove={handleMouseMove} className="relative min-h-[100svh] overflow-hidden">
-      {/* Background image */}
       <motion.div className="absolute inset-0 -z-10" style={{ y: imageY }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={cs.heroImage} alt={cs.heroImageAlt} className="h-[120%] w-full object-cover object-top" loading="eager" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/85 to-black/85" />
       </motion.div>
 
-      {/* Cursor spotlight (desktop only) */}
       {isDesktop && (
         <div
           className="absolute inset-0 pointer-events-none transition-opacity duration-300"
@@ -62,22 +60,10 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
         />
       )}
 
-      {/* Content */}
       <motion.div
         style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-between px-6 py-6 sm:px-8 lg:px-12"
+        className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-between px-6 pt-20 pb-6 sm:px-8 lg:px-12"
       >
-        {/* Back to work - using a div wrapper with explicit visibility */}
-        <div style={{ position: "relative", zIndex: 20 }}>
-          <a
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to work
-          </a>
-        </div>
-
-        {/* Title block */}
         <div className="py-20">
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
@@ -113,12 +99,11 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
           </motion.div>
         </div>
 
-        {/* Metadata */}
         <motion.dl
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65 }}
-          className="grid grid-cols-2 gap-6 border-t border-white/20 pt-6 backdrop-blur-sm sm:grid-cols-5 p-6 -mb-2.5"
+          className="grid grid-cols-2 gap-6 border-t border-white/20 pt-6 backdrop-blur-sm sm:grid-cols-5 p-6"
         >
           <div><dt className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Industry</dt><dd className="mt-1.5 text-sm font-medium text-white">{cs.meta.industry}</dd></div>
           <div><dt className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Date</dt><dd className="mt-1.5 text-sm font-medium text-white">{cs.meta.date}</dd></div>

@@ -9,7 +9,7 @@ export function EditorialFooter() {
       <div className="lp-footer-inner">
         {/* Currently */}
         <div className="lp-footer-section">
-          <span className="label">Currently</span>
+          <span className="label dark:text-white/70">Currently</span>
           <LiveTime />
           <div style={{ marginTop: "4px" }}>Available for freelance work</div>
         </div>

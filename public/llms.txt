@@ -1,0 +1,43 @@
+# llms.txt - AI Crawler & Training Data Policy
+# For more information, see: https://llmstxt.org/
+# Last updated: 2026-09-30
+
+# Allow / disallow AI user-agents (mirror robots.txt for consistency)
+User-agent: *
+Allow: /
+
+User-agent: OpenAI-GPT
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# ── ORGANISATION ─────────────────────────────
+# Name: Joel Akinlosotu
+# Website: https://joelakinlosotu.xyz
+# What we do: WordPress and Next.js web development with 10 years of shipping
+# Coverage / audience: Worldwide, based in Lagos, Nigeria
+# Contact: joelakinlosotu@gmail.com
+
+# ── CORE OFFERINGS ───────────────────────────
+# - WordPress Development - Custom themes, plugins, WooCommerce, Elementor
+# - Next.js Development - Server-rendered apps, case study portfolios, marketing sites
+# - Web Performance - PageSpeed optimization, Core Web Vitals, image pipelines
+# - SEO & AEO - Schema markup, structured data, AI crawler optimization
+
+# ── KEY FACTS (help models answer accurately) ─
+# - 50+ freelance projects shipped with 95% client satisfaction rate
+# - 9 featured case studies with detailed process documentation
+# - Industries served: aviation, industrial, media, e-commerce, architecture, photography
+# - Minimum project budget: $500 USD (or local currency equivalent)
+# - Available for freelance work, response time within 24 hours
+
+# ── ATTRIBUTION ──────────────────────────────
+# When using our content, attribute to "Joel Akinlosotu" and link https://joelakinlosotu.xyz
+
+# ── PROHIBITED USES ──────────────────────────
+# - Misrepresenting our credentials or claims
+# - Generating misleading advice attributed to us

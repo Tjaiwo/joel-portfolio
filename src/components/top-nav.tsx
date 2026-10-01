@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { CoffeeToggle } from "@/components/coffee-toggle";
 
 const NAV_ITEMS = [
   { href: "/", label: "WORK" },
@@ -30,7 +31,7 @@ export function TopNav() {
   return (
     <>
       <nav className="top-nav">
-        <Link href="/" className="text-sm" style={{ fontFamily: "var(--font-mono)" }}>
+        <Link href="/" className="text-base" style={{ fontFamily: "var(--font-mono)" }}>
           <span style={{ color: "var(--foreground)" }}>&lt;</span>
           <span style={{ color: "var(--primary)" }}>JA</span>
           <span style={{ color: "var(--foreground)" }}>/&gt;</span>
@@ -40,14 +41,15 @@ export function TopNav() {
           Hi, stranger. Let&apos;s build something.
         </div>
 
-        <div className="hidden md:flex items-center gap-6">
+        {/* Desktop nav items + coffee toggle with 30px gap */}
+        <div className="hidden md:flex items-center gap-[30px]">
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-xs uppercase tracking-[0.08em] transition-colors \${
+                className={`text-xs uppercase tracking-[0.08em] transition-colors ${
                   isActive
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
@@ -58,15 +60,19 @@ export function TopNav() {
               </Link>
             );
           })}
+          <CoffeeToggle />
         </div>
 
-        <button
-          className="md:hidden"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-        >
-          <Menu size={20} />
-        </button>
+        {/* Mobile: coffee toggle + hamburger with 16px gap */}
+        <div className="flex md:hidden items-center gap-4">
+          <CoffeeToggle />
+          <button
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu size={20} />
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
@@ -77,13 +83,13 @@ export function TopNav() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[100] md:hidden flex flex-col"
-            style={{ backgroundColor: "#1a1a1a", color: "#F5F1E8" }}
+            style={{ backgroundColor: "#0f0f0e", color: "#E8E2D0" }}
           >
             <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
               <Link
                 href="/"
                 onClick={() => setOpen(false)}
-                className="text-sm"
+                className="text-base"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
                 <span className="text-white">&lt;</span>
@@ -112,7 +118,7 @@ export function TopNav() {
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className={`block py-4 text-2xl font-medium uppercase tracking-[0.04em] transition-colors \${
+                      className={`block py-4 text-2xl font-medium uppercase tracking-[0.04em] transition-colors ${
                         isActive
                           ? "text-[#6B7A3D]"
                           : "text-white/80 hover:text-white"
