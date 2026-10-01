@@ -44,7 +44,11 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
   const readingTime = calculateReadingTime(cs);
 
   return (
-    <header ref={ref} onMouseMove={handleMouseMove} className="relative min-h-[100svh] overflow-hidden">
+    <header
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      className="relative min-h-[100svh] lg:min-h-[80vh] overflow-hidden"
+    >
       <motion.div className="absolute inset-0 -z-10" style={{ y: imageY }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={cs.heroImage} alt={cs.heroImageAlt} className="h-[120%] w-full object-cover object-top" loading="eager" />
@@ -62,9 +66,9 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
 
       <motion.div
         style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-between px-6 pt-20 pb-6 sm:px-8 lg:px-12"
+        className="relative z-10 mx-auto flex min-h-[100svh] lg:min-h-[80vh] max-w-7xl flex-col justify-center px-6 py-6 sm:px-8 lg:px-12"
       >
-        <div className="py-20">
+        <div className="flex flex-col justify-center flex-1">
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,7 +82,7 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-6 max-w-3xl text-lg text-white/80 sm:text-2xl lg:text-3xl"
+            className="mt-6 w-full text-lg text-white/80 sm:text-2xl lg:text-3xl"
           >
             {cs.tagline}
           </motion.p>
@@ -103,7 +107,7 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65 }}
-          className="grid grid-cols-2 gap-6 border-t border-white/20 pt-6 backdrop-blur-sm sm:grid-cols-5 p-6"
+          className="grid grid-cols-2 gap-6 border-t border-white/20 pt-6 backdrop-blur-sm sm:grid-cols-5 p-6 -mb-2.5"
         >
           <div><dt className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Industry</dt><dd className="mt-1.5 text-sm font-medium text-white">{cs.meta.industry}</dd></div>
           <div><dt className="text-[11px] font-semibold uppercase tracking-wider text-white/50">Date</dt><dd className="mt-1.5 text-sm font-medium text-white">{cs.meta.date}</dd></div>

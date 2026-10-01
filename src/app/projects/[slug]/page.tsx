@@ -40,7 +40,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
 
   const next = CASE_STUDIES.find((c) => c.slug === cs.nextSlug);
 
-  // CreativeWork schema for AI answer engines
   const creativeWorkSchema = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -49,31 +48,34 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
     url: cs.liveUrl,
     image: cs.heroImage,
     dateCreated: cs.meta.date,
-    creator: {
-      "@type": "Person",
-      name: "Joel Akinlosotu",
-      url: "https://joelakinlosotu.xyz",
-    },
+    creator: { "@type": "Person", name: "Joel Akinlosotu", url: "https://joelakinlosotu.xyz" },
     about: cs.intro.join(" "),
     keywords: cs.meta.services.join(", "),
-    isPartOf: {
-      "@type": "CreativeWorkSeries",
-      name: "Joel Akinlosotu - Case Studies",
-      url: "https://joelakinlosotu.xyz",
-    },
+    isPartOf: { "@type": "CreativeWorkSeries", name: "Joel Akinlosotu - Case Studies", url: "https://joelakinlosotu.xyz" },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Work", item: "https://joelakinlosotu.xyz" },
+      { "@type": "ListItem", position: 2, name: cs.title, item: `https://joelakinlosotu.xyz/projects/${slug}` }
+    ]
   };
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <CaseStudyHero cs={cs} />
 
-      <section className="mx-auto max-w-3xl px-6 py-16 lg:px-12">
-        <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+      {/* Intro text: 22px desktop, max-w-6xl (100% wider), tighter spacing */}
+      <section className="mx-auto max-w-6xl px-6 py-16 lg:px-12">
+        <div
+          className="space-y-6 text-base lg:text-[24px] leading-relaxed text-muted-foreground"
+          style={{ letterSpacing: "-2px", wordSpacing: "-2px" }}
+        >
           {cs.intro.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
@@ -89,12 +91,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
       <footer className="border-t border-dotted border-border">
         <div className="mx-auto max-w-5xl px-6 py-8 lg:px-12">
           <div className="flex justify-between items-center">
-            <a href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              ← Back to work
-            </a>
-            <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} Joel Akinlosotu
-            </p>
+            <a href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">← Back to work</a>
+            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Joel Akinlosotu</p>
           </div>
         </div>
       </footer>
