@@ -19,11 +19,16 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/85 to-black/85" />
       </motion.div>
       <motion.div style={{ opacity: contentOpacity, y: contentY }} className="mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-between px-6 py-6 sm:px-8 lg:px-12">
+        {/* Prominent Back to Work button at top */}
         <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <a href="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 backdrop-blur-sm transition-colors hover:text-white">
-            <ArrowLeft className="h-4 w-4" /> Back to work
+          <a
+            href="/#projects-skills"
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to work
           </a>
         </motion.div>
+
         <div className="py-20">
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }} className="text-5xl font-bold tracking-tight text-white sm:text-7xl lg:text-8xl" style={{ fontFamily: "var(--font-serif)" }}>{cs.title}</motion.h1>
           <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.35 }} className="mt-6 max-w-3xl text-lg text-white/80 sm:text-2xl lg:text-3xl">{cs.tagline}</motion.p>
@@ -33,7 +38,7 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
             </a>
           </motion.div>
         </div>
-        {/* Metadata: 24px padding on all sides, pushed 10px higher on mobile */}
+
         <motion.dl
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
