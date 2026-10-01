@@ -7,20 +7,17 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin") || "";
-  const headers = origin.includes("localhost") || origin === "https://joelakinlosotu.xyz"
+  const isAllowed = origin.includes("localhost") || origin === "https://joelakinlosotu.xyz";
+  const headers: Record<string, string> = isAllowed
     ? { "Access-Control-Allow-Origin": origin }
     : {};
 
   try {
     const body = await request.json();
-    
-    // LOG what we received
-    console.log("Received form data:", JSON.stringify(body, null, 2));
 
     const result = contactFormSchema.safeParse(body);
     if (!result.success) {
       const errors = getFieldErrors(result.error);
-      console.log("Validation failed:", JSON.stringify(errors, null, 2));
       return NextResponse.json(
         { success: false, error: "Validation failed", errors },
         { status: 400, headers }
@@ -35,8 +32,6 @@ export async function POST(request: NextRequest) {
       message: sanitize(result.data.message),
       signup: result.data.signup,
     };
-
-    console.log("Sending email to joelakinlosotu@gmail.com...");
 
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
@@ -67,7 +62,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("Email sent successfully:", emailData?.id);
     return NextResponse.json(
       { success: true, message: "Message sent successfully" },
       { status: 200, headers }
