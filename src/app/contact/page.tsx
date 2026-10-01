@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Send, CheckCircle2, Mail, Phone, MapPin } from "lucide-react";
+import { Send, CheckCircle2, Mail, Phone, MapPin, AlertCircle } from "lucide-react";
 
 const CONTACT_INFO = [
   { label: "Email", value: "joelakinlosotu@gmail.com", href: "mailto:joelakinlosotu@gmail.com", icon: Mail },
@@ -26,12 +26,10 @@ const PROJECT_TYPES = [
   "Something Else",
 ];
 
-// Currency mapping by region
-// Minimum budget = $500 USD baseline, converted to local currency
 const CURRENCY_BY_REGION: Record<string, { code: string; symbol: string; min: number; name: string }> = {
   NG: { code: "NGN", symbol: "\u20A6", min: 250000, name: "Nigerian Naira" },
   US: { code: "USD", symbol: "$", min: 500, name: "US Dollar" },
-  GB: { code: "GBP", symbol: "\u00A3", min: 400, name: "British Pound" },
+  GB: { code: "GBP", symbol: "\u00A3", min: 395, name: "British Pound" },
   DE: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
   FR: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
   ES: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
@@ -61,7 +59,9 @@ export default function ContactPage() {
     message: "",
     signup: false,
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [currency, setCurrency] = useState(CURRENCY_BY_REGION.DEFAULT);
   const [location, setLocation] = useState<string>("Detecting...");
 
@@ -85,11 +85,66 @@ export default function ContactPage() {
     return `${currency.symbol}${currency.min.toLocaleString()} ${currency.code}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateField = (name: string, value: string | boolean) => {
+    // Basic client-side validation
+    const errors: Record<string, string> = {};
+    if (name === "name" && typeof value === "string") {
+      if (value.length < 2) errors.name = "Name must be at least 2 characters";
+      else if (value.length > 100) errors.name = "Name is too long";
+    }
+    if (name === "email" && typeof value === "string") {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) errors.email = "Please enter a valid email";
+    }
+    if (name === "message" && typeof value === "string") {
+      if (value.length < 10) errors.message = "Message must be at least 10 characters";
+    }
+    return errors;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const newValue = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
+    setForm({ ...form, [name]: newValue });
+
+    // Clear field error on change
+    if (fieldErrors[name]) {
+      const newErrors = { ...fieldErrors };
+      delete newErrors[name];
+      setFieldErrors(newErrors);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-    setForm({ name: "", email: "", projectType: "", budget: "", message: "", signup: false });
+    setStatus("submitting");
+    setFieldErrors({});
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.errors) {
+          setFieldErrors(data.errors);
+        }
+        setErrorMessage(data.error || "Something went wrong");
+        setStatus("error");
+        return;
+      }
+
+      setStatus("success");
+      setForm({ name: "", email: "", projectType: "", budget: "", message: "", signup: false });
+      setTimeout(() => setStatus("idle"), 6000);
+    } catch (error) {
+      setErrorMessage("Network error. Please check your connection and try again.");
+      setStatus("error");
+    }
   };
 
   return (
@@ -106,6 +161,7 @@ export default function ContactPage() {
       </section>
 
       <div className="grid md:grid-cols-5 gap-12">
+        {/* Contact info */}
         <section className="md:col-span-2 space-y-8">
           <div>
             <p className="lp-section-label mb-4">Get in touch</p>
@@ -163,6 +219,7 @@ export default function ContactPage() {
           </div>
         </section>
 
+        {/* Form */}
         <section className="md:col-span-3">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
@@ -170,39 +227,48 @@ export default function ContactPage() {
                 <label className="lp-section-label block mb-2">Name <span className="text-primary">*</span></label>
                 <input
                   type="text"
+                  name="name"
                   required
                   value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  onChange={handleChange}
                   className="dotted-input"
                   placeholder="Your name"
+                  disabled={status === "submitting"}
                 />
+                {fieldErrors.name && <p className="text-xs text-destructive mt-1">{fieldErrors.name}</p>}
               </div>
               <div>
                 <label className="lp-section-label block mb-2">Email <span className="text-primary">*</span></label>
                 <input
                   type="email"
+                  name="email"
                   required
                   value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  onChange={handleChange}
                   className="dotted-input"
                   placeholder="you@example.com"
+                  disabled={status === "submitting"}
                 />
+                {fieldErrors.email && <p className="text-xs text-destructive mt-1">{fieldErrors.email}</p>}
               </div>
             </div>
 
             <div>
               <label className="lp-section-label block mb-2">I&apos;m interested in... <span className="text-primary">*</span></label>
               <select
+                name="projectType"
                 required
                 value={form.projectType}
-                onChange={(e) => setForm({ ...form, projectType: e.target.value })}
+                onChange={handleChange}
                 className="dotted-select"
+                disabled={status === "submitting"}
               >
                 <option value="">Select a project type</option>
                 {PROJECT_TYPES.map((type) => (
                   <option key={type} value={type}>{type}</option>
                 ))}
               </select>
+              {fieldErrors.projectType && <p className="text-xs text-destructive mt-1">{fieldErrors.projectType}</p>}
             </div>
 
             <div>
@@ -211,49 +277,67 @@ export default function ContactPage() {
                 <span className="text-sm text-primary pr-3 font-medium">{currency.symbol}</span>
                 <input
                   type="number"
+                  name="budget"
                   required
                   min={currency.min}
                   value={form.budget}
-                  onChange={(e) => setForm({ ...form, budget: e.target.value })}
+                  onChange={handleChange}
                   className="dotted-input border-0 flex-1"
                   placeholder={`Enter your budget in ${currency.code}`}
+                  disabled={status === "submitting"}
                 />
                 <span className="text-xs text-muted-foreground pl-3">{currency.code}</span>
               </div>
               <p className="text-[11px] text-muted-foreground mt-1 italic opacity-70">
                 Minimum budget: {formatMinBudget()} ({currency.name}). Detection based on your location: {location}.
               </p>
+              {fieldErrors.budget && <p className="text-xs text-destructive mt-1">{fieldErrors.budget}</p>}
             </div>
 
             <div>
               <label className="lp-section-label block mb-2">Project details <span className="text-primary">*</span></label>
               <textarea
+                name="message"
                 required
                 value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                onChange={handleChange}
                 className="dotted-textarea"
                 placeholder="Tell me about your project. What are you building? What does success look like?"
                 rows={6}
+                disabled={status === "submitting"}
               />
+              {fieldErrors.message && <p className="text-xs text-destructive mt-1">{fieldErrors.message}</p>}
             </div>
 
             <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
+                name="signup"
                 checked={form.signup}
-                onChange={(e) => setForm({ ...form, signup: e.target.checked })}
+                onChange={handleChange}
                 className="mt-1"
+                disabled={status === "submitting"}
               />
               <span className="text-xs text-muted-foreground">
                 Sign up for news and updates. No spam, occasional project updates only.
               </span>
             </label>
 
+            {status === "error" && errorMessage && (
+              <div className="flex items-center gap-2 p-3 border border-dotted border-destructive/40 bg-destructive/5 text-sm text-destructive">
+                <AlertCircle size={16} />
+                {errorMessage}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+              disabled={status === "submitting"}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitted ? (
+              {status === "submitting" ? (
+                "Sending..."
+              ) : status === "success" ? (
                 <>
                   <CheckCircle2 size={16} /> Message sent - I&apos;ll reply within 24 hours
                 </>
@@ -266,7 +350,9 @@ export default function ContactPage() {
           </form>
         </section>
       </div>
-          <script
+
+      {/* ProfessionalService schema */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
