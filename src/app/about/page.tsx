@@ -59,6 +59,31 @@ export default function AboutPage() {
         </h1>
       </section>
 
+      {/* Photo with olive green hue */}
+      <div className="lp-content" style={{ marginTop: "40px", marginBottom: "40px" }}>
+        <div className="mx-auto max-w-md">
+          <div className="relative overflow-hidden border border-dotted border-border">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/joel-photo.jpg"
+              alt="Joel Akinlosotu - Web Developer"
+              className="w-full h-auto object-cover"
+              style={{
+                filter: "grayscale(100%) sepia(100%) hue-rotate(50deg) saturate(0.8) brightness(0.9)",
+              }}
+            />
+            {/* Subtle olive green overlay */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "rgba(107, 122, 61, 0.15)",
+                mixBlendMode: "multiply",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Bio */}
       <section className="lp-content mb-20 max-w-2xl">
         <p className="lp-section-label mb-4">Bio</p>
