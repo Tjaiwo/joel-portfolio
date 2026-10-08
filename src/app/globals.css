@@ -14,8 +14,6 @@
   --border: #3D4135;
   --input: #3D4135;
   --ring: #6B7A3D;
-  --font-mono: "JetBrains Mono", "Courier New", monospace;
-  --font-serif: "Fraunces", Georgia, serif;
 }
 
 @layer base {

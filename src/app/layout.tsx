@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import localFont from "next/font/local";
+import { Poppins, PT_Mono, Inter_Tight } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
@@ -10,32 +9,22 @@ import { BackToTop } from "@/components/back-to-top";
 import { TopNav } from "@/components/top-nav";
 import { EditorialFooter } from "@/components/editorial-footer";
 
-const inter = Inter({
+const poppins = Poppins({
   variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const ptMono = PT_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400"],
 });
 
-const fraunces = localFont({
-  src: [
-    {
-      path: "../fonts/Fraunces.woff2",
-      weight: "100 900",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Fraunces-Italic.woff2",
-      weight: "100 900",
-      style: "italic",
-    },
-  ],
+const interTight = Inter_Tight({
   variable: "--font-serif",
-  display: "swap",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -90,7 +79,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable}`}
+      className={`${poppins.variable} ${ptMono.variable} ${interTight.variable}`}
       suppressHydrationWarning
     >
       <body>
