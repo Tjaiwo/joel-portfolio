@@ -127,7 +127,7 @@ export default function ContactPage() {
         return;
       }
       setStatus("success");
-      setForm({ name: "", email: "", projectTypes: [], budget: "", message: "", signup: false });
+      setForm({ name: "", email: "", projectTypes: [], assets: [], budget: "", message: "", hearAbout: "", signup: false });
       setTimeout(() => setStatus("idle"), 6000);
     } catch (error) {
       setErrorMessage("Network error. Please check your connection and try again.");
