@@ -31,9 +31,9 @@
   h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; letter-spacing: -0.02em; }
 }
 
-.dotted-border { border: 1px dotted var(--border); }
-.dotted-border-b { border-bottom: 1px dotted var(--border); }
-.dotted-border-t { border-top: 1px dotted var(--border); }
+.dotted-border { border: 1px dashed var(--primary); }
+.dotted-border-b { border-bottom: 1px dashed var(--primary); }
+.dotted-border-t { border-top: 1px dashed var(--primary); }
 
 .dotted-input {
   background: transparent; border: none; border-bottom: 1px dotted var(--border);

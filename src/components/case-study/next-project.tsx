@@ -8,7 +8,7 @@ export function NextProject({ next }: { next: CaseStudy | undefined }) {
   if (!next) return null;
 
   return (
-    <section className="border-t border-dotted border-border bg-foreground text-background">
+    <section className="border-t border-dashed border-primary bg-foreground text-background">
       <motion.a
         href={`/projects/${next.slug}`}
         initial={{ opacity: 0 }}

@@ -22,7 +22,7 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   return (
-    <section className="lp-section border-t border-dotted border-border">
+    <section className="lp-section border-t border-dashed border-primary">
       <p className="lp-section-label">People talk*</p>
       <h2 className="lp-heading">
         The calm authority of<br />

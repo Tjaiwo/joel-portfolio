@@ -107,7 +107,7 @@ export default function AboutPage() {
       <IndustriesMarquee />
 
       {/* Experience */}
-      <section className="lp-section border-t border-dotted border-border">
+      <section className="lp-section border-t border-dashed border-primary">
         <p className="lp-section-label">Experience</p>
         <h2 className="lp-heading">Where I've worked.</h2>
 
@@ -146,7 +146,7 @@ export default function AboutPage() {
       </section>
 
       {/* Education */}
-      <section className="lp-section border-t border-dotted border-border">
+      <section className="lp-section border-t border-dashed border-primary">
         <p className="lp-section-label">Education</p>
         <h2 className="lp-heading">Where I studied.</h2>
         <div className="grid md:grid-cols-4 gap-4 mt-8">
@@ -159,7 +159,7 @@ export default function AboutPage() {
       </section>
 
       {/* Skills */}
-      <section className="lp-section border-t border-dotted border-border">
+      <section className="lp-section border-t border-dashed border-primary">
         <p className="lp-section-label">Skills</p>
         <h2 className="lp-heading">What I work with.</h2>
 
@@ -178,7 +178,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="lp-section border-t border-dotted border-border">
+      <section className="lp-section border-t border-dashed border-primary">
         <p className="lp-section-label">Let's talk</p>
         <h2 className="lp-heading">
           Available for<br />

@@ -79,7 +79,7 @@ export default function Page() {
       <Testimonials />
 
       {/* Post-testimonials CTA */}
-      <section className="lp-section border-t border-dotted border-border">
+      <section className="lp-section border-t border-dashed border-primary">
         <div className="text-center">
           <p className="lp-section-label">Your turn</p>
           <h2 className="lp-heading" style={{ marginBottom: "1.5rem" }}>

@@ -87,7 +87,7 @@ function GalleryBlock({ block }: { block: Extract<CaseStudyBlock, { type: "galle
   const cols = block.columns || 3;
   const colClass = cols === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3";
   return (
-    <section id={block.id} className="border-t border-dotted border-border scroll-mt-20">
+    <section id={block.id} className="border-t border-dashed border-primary scroll-mt-20">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20 lg:px-12">
         <div className={"grid gap-5 " + colClass}>
           {block.images.map((img, i) => (
@@ -107,7 +107,7 @@ function GalleryBlock({ block }: { block: Extract<CaseStudyBlock, { type: "galle
 
 function QuoteBlock({ block }: { block: Extract<CaseStudyBlock, { type: "quote" }> }) {
   return (
-    <section className="border-t border-dotted border-border scroll-mt-20">
+    <section className="border-t border-dashed border-primary scroll-mt-20">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:px-12">
         <motion.blockquote initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.6 }} className="text-2xl font-medium leading-snug sm:text-3xl lg:text-[32px] italic" style={{ fontFamily: "var(--font-serif)" }}>{block.text}</motion.blockquote>
         {block.attribution && (<p className="mt-6 text-sm lg:text-lg text-muted-foreground">{block.attribution}</p>)}
@@ -118,7 +118,7 @@ function QuoteBlock({ block }: { block: Extract<CaseStudyBlock, { type: "quote" 
 
 function StatsBlock({ block }: { block: Extract<CaseStudyBlock, { type: "stats" }> }) {
   return (
-    <section id={block.id} className="border-t border-dotted border-border scroll-mt-20">
+    <section id={block.id} className="border-t border-dashed border-primary scroll-mt-20">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20 lg:px-12">
         {block.heading && (<motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5 }}><h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-10" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2></motion.div>)}
         <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
