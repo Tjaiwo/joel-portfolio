@@ -16,6 +16,7 @@ const NAV_ITEMS = [
 export function TopNav() {
   const [open, setOpen] = useState(false);
   const [time, setTime] = useState("");
+  const [timeGreeting, setTimeGreeting] = useState("sunny one");
   const pathname = usePathname();
 
   useEffect(() => {
@@ -33,6 +34,20 @@ export function TopNav() {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
+      
+      const lagosDate = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Lagos" }));
+      const lagosHour = lagosDate.getHours();
+      
+      let greeting = "sunny one";
+      if (lagosHour >= 5 && lagosHour < 12) {
+        greeting = "bright morning";
+      } else if (lagosHour >= 12 && lagosHour < 17) {
+        greeting = "sunny afternoon";
+      } else {
+        greeting = "quiet evening";
+      }
+      setTimeGreeting(greeting);
+
       const lagosTime = now.toLocaleTimeString("en-US", {
         timeZone: "Africa/Lagos",
         hour: "2-digit",
@@ -57,7 +72,7 @@ export function TopNav() {
 
         {/* La Playa-style greeting with live time */}
         <div className="hidden md:block text-xs text-muted-foreground uppercase">
-          Hi, stranger. It&apos;s a sunny one over here. {time}
+          Hi, stranger. It&apos;s a {timeGreeting} over here. {time}
         </div>
 
         <div className="hidden md:flex items-center gap-[30px]">

@@ -74,7 +74,7 @@ export function CaseStudyHero({ cs }: { cs: CaseStudy }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-5xl font-bold tracking-tight text-white sm:text-7xl lg:text-8xl"
-            style={{ fontFamily: "var(--font-serif)" }}
+            style={{ fontFamily: "var(--font-sans)" }}
           >
             {cs.title}
           </motion.h1>

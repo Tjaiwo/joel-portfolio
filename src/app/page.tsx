@@ -6,18 +6,19 @@ import { Testimonials } from "@/components/testimonials";
 import { ArrowUpRight, ExternalLink, ArrowRight } from "lucide-react";
 
 const PROJECTS = [
+  { id: 10, slug: "livewithlatasha", title: "Live With Latasha", description: "Headless WordPress site powered by an Astro frontend.", url: "https://livewithlatasha.com/", image: "/screenshots/case-studies/livewithlatasha/desktop-home.webp", tags: ["Astro", "Headless WP", "TypeScript"], results: "A high-performance digital platform with full editorial control", designer: false },
   { id: 1, slug: "elin-group", title: "Elin Group", description: "Corporate website for a diversified African industrial platform.", url: "https://elin-group.com/", image: "/screenshots/elingroup.webp", tags: ["WordPress", "Elementor", "Corporate", "SEO"], results: "7 subsidiary brands unified under one industrial platform", designer: true },
   { id: 2, slug: "elin-air", title: "Elin Air", description: "Aviation company website with booking system.", url: "https://flyelinair.com/", image: "/screenshots/flyelinair.webp", tags: ["WordPress", "Elementor", "Booking System", "SEO"], results: "Integrated booking system with fleet showcase", designer: true },
   { id: 3, slug: "mediapool", title: "Mediapool", description: "Creative media buying and planning agency.", url: "https://mediapool.ng/", image: "/screenshots/mediapool.webp", tags: ["WordPress", "Elementor", "Media", "SEO"], results: "Media campaigns for 4+ major Nigerian brands", designer: true },
-  { id: 4, slug: "clayton-prints", title: "Clayton Prints", description: "E-commerce store with WooCommerce.", url: "https://claytonprints.com/", image: "/screenshots/case-studies/clayton-prints/desktop-home.webp", tags: ["WordPress", "WooCommerce", "E-Commerce"], results: "Structured 8+ product categories with seamless checkout", designer: true },
-  { id: 5, slug: "evan-micky", title: "Evan Micky Photography", description: "Documentary-style wedding photography portfolio.", url: "https://evanmickyphotography.com/", image: "/screenshots/evanmickyphotography.webp", tags: ["WordPress", "Portfolio", "Gallery", "SEO"], results: "Immersive gallery with seamless inquiry & booking flow", designer: false },
+  { id: 4, slug: "clayton-prints", title: "Clayton Prints", description: "E-commerce store with WooCommerce.", url: "https://claytonprints.com/", image: "/screenshots/case-studies/clayton-prints/desktop-home.webp", tags: ["WordPress", "WooCommerce", "E-Commerce"], results: "Organized 8+ product categories with a fast checkout flow", designer: true },
+  { id: 5, slug: "evan-micky", title: "Evan Micky Photography", description: "Documentary-style wedding photography portfolio.", url: "https://evanmickyphotography.com/", image: "/screenshots/evanmickyphotography.webp", tags: ["WordPress", "Portfolio", "Gallery", "SEO"], results: "Clean photo gallery with a direct booking system", designer: false },
   { id: 6, slug: "atomdsn", title: "Atom", description: "Creative experiential design agency.", url: "https://atomdsn.com/", image: "/screenshots/case-studies/atomdsn/desktop-home.webp", tags: ["Web Design", "WordPress", "Agency", "SEO"], results: "Portfolio showcasing 20+ experiential brand activations", designer: false },
   { id: 7, slug: "diamond-source", title: "Diamond Source Jewelers", description: "Custom jewelry e-commerce with deep taxonomy.", url: "https://www.diamondsourcejewelers.com", image: "/screenshots/case-studies/diamond-source/desktop-engagement.webp", tags: ["WooCommerce", "E-Commerce", "Data Migration"], results: "200+ products uploaded with 100% attribute coverage", designer: false },
   { id: 8, slug: "designed-spaces", title: "Designed Spaces by Yemi", description: "Architecture firm portfolio, 12+ projects.", url: "https://designedspacesbyyemi.com/", image: "/screenshots/case-studies/designed-spaces/desktop-home.webp", tags: ["Web Design", "WordPress", "Portfolio", "SEO"], results: "Portfolio showcasing 12+ landmark architectural projects", designer: false },
   { id: 9, slug: "cedar-rush", title: "Cedar Rush", description: "Creative production and media company.", url: "https://cedarrush.ng/", image: "/screenshots/case-studies/cedar-rush/desktop-home.webp", tags: ["WordPress", "Elementor", "Media", "SEO"], results: "20+ years of creative production experience showcased", designer: false },
 ];
 
-const CASE_STUDY_SLUGS = ["elin-air", "elin-group", "mediapool", "clayton-prints", "evan-micky", "atomdsn", "diamond-source", "designed-spaces", "cedar-rush"];
+const CASE_STUDY_SLUGS = ["livewithlatasha", "elin-air", "elin-group", "mediapool", "clayton-prints", "evan-micky", "atomdsn", "diamond-source", "designed-spaces", "cedar-rush"];
 const DESIGNER = { name: "Mayowa Oduntan", url: "https://thisismayor.webflow.io/" };
 
 function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; index: number }) {
@@ -35,7 +36,9 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; ind
       </a>
       <div className="lp-card-body">
         <div className="flex items-start justify-between gap-2 mb-1.5">
-          <h3 className="lp-card-title">{project.title}</h3>
+          <a href={project.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            <h3 className="lp-card-title">{project.title}</h3>
+          </a>
           <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label={`Visit ${project.title}`}>
             <ExternalLink size={12} />
           </a>
@@ -83,8 +86,8 @@ export default function Page() {
         <div className="text-center">
           <p className="lp-section-label">Your turn</p>
           <h2 className="lp-heading" style={{ marginBottom: "1.5rem" }}>
-            Let&apos;s build<br />
-            <em>something exceptional.</em>
+            Have a project<br />
+            <em>in mind?</em>
           </h2>
           <p className="text-sm text-muted-foreground max-w-md mx-auto mb-8">
             Available for freelance WordPress and Next.js work. Tell me what you&apos;re building and I&apos;ll reply within 24 hours.

@@ -20,7 +20,7 @@ function TextBlock({ block }: { block: Extract<CaseStudyBlock, { type: "text" }>
   return (
     <section id={block.id} className="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:px-12 scroll-mt-20">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.6 }}>
-        <h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-8" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
+        <h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-8" style={{ fontFamily: "var(--font-sans)" }}>{block.heading}</h2>
         <div className="space-y-6 text-base lg:text-[24px] leading-relaxed text-muted-foreground" style={{ letterSpacing: "-2px", wordSpacing: "-2px" }}>
           {block.body.map((para, i) => (<p key={i}>{para}</p>))}
         </div>
@@ -34,7 +34,7 @@ function TextImageBlock({ block }: { block: Extract<CaseStudyBlock, { type: "tex
     <section id={block.id} className="scroll-mt-20">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:px-12">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.6 }}>
-          <h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-8" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2>
+          <h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-8" style={{ fontFamily: "var(--font-sans)" }}>{block.heading}</h2>
           <div className="space-y-6 text-base lg:text-[24px] leading-relaxed text-muted-foreground mb-12" style={{ letterSpacing: "-2px", wordSpacing: "-2px" }}>
             {block.body.map((para, i) => (<p key={i}>{para}</p>))}
           </div>
@@ -120,11 +120,11 @@ function StatsBlock({ block }: { block: Extract<CaseStudyBlock, { type: "stats" 
   return (
     <section id={block.id} className="border-t border-dashed border-primary scroll-mt-20">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20 lg:px-12">
-        {block.heading && (<motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5 }}><h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-10" style={{ fontFamily: "var(--font-serif)" }}>{block.heading}</h2></motion.div>)}
+        {block.heading && (<motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5 }}><h2 className="text-3xl font-medium tracking-tight sm:text-4xl mb-10" style={{ fontFamily: "var(--font-sans)" }}>{block.heading}</h2></motion.div>)}
         <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
           {block.stats.map((stat, i) => (
             <motion.div key={stat.label} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.4, delay: 0.1 * i }} className="border border-dotted border-border p-5 sm:p-6">
-              <div className="text-3xl font-bold tracking-tight tabular-nums sm:text-4xl" style={{ fontFamily: "var(--font-serif)" }}>{stat.value}</div>
+              <div className="text-3xl font-bold tracking-tight tabular-nums sm:text-4xl" style={{ fontFamily: "var(--font-sans)" }}>{stat.value}</div>
               <div className="mt-2 text-sm font-medium">{stat.label}</div>
               {stat.sublabel && (<div className="mt-1 text-xs text-muted-foreground">{stat.sublabel}</div>)}
             </motion.div>

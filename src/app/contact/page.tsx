@@ -30,13 +30,22 @@ const PROJECT_TYPES = [
   "Something Else",
 ];
 
+const ASSETS = [
+  "Copywriting",
+  "Photography / Videos",
+  "Branding Style",
+  "Domain / Hosting",
+];
+
 export default function ContactPage() {
   const [form, setForm] = useState({
     name: "",
     email: "",
     projectTypes: [] as string[],
+    assets: [] as string[],
     budget: "",
     message: "",
+    hearAbout: "",
     signup: false,
   });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -70,19 +79,20 @@ export default function ContactPage() {
     }
   };
 
-  const handlePillClick = (type: string) => {
+  const handlePillClick = (type: string, field: "projectTypes" | "assets" = "projectTypes") => {
     setForm(prev => {
-      const isSelected = prev.projectTypes.includes(type);
+      const currentList = prev[field];
+      const isSelected = currentList.includes(type);
       return {
         ...prev,
-        projectTypes: isSelected
-          ? prev.projectTypes.filter(t => t !== type)
-          : [...prev.projectTypes, type]
+        [field]: isSelected
+          ? currentList.filter(t => t !== type)
+          : [...currentList, type]
       };
     });
-    if (fieldErrors.projectTypes) {
+    if (fieldErrors[field]) {
       const newErrors = { ...fieldErrors };
-      delete newErrors.projectTypes;
+      delete newErrors[field];
       setFieldErrors(newErrors);
     }
   };
@@ -127,19 +137,17 @@ export default function ContactPage() {
 
   return (
     <main className="lp-content" style={{ paddingTop: "6rem", paddingBottom: "4rem" }}>
-      <section className="mb-20">
-        <p className="lp-section-label">Contact</p>
-        <h1 className="lp-heading" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}>
-          Let&apos;s build<br />
-          <em>something exceptional.</em>
+      <section className="mb-24 border-y border-dashed border-primary py-12 md:py-16 relative flex items-center">
+        <div className="absolute top-4 right-4 hidden md:flex items-center gap-2 text-[10px] uppercase font-mono tracking-widest text-primary border border-primary px-3 py-1 rounded-full">
+          Based in Lagos, Nigeria
+        </div>
+        <h1 className="text-left text-[clamp(4rem,14vw,12rem)] font-bold leading-none tracking-tighter text-primary uppercase">
+          Contact
         </h1>
-        <p className="text-base text-muted-foreground max-w-lg mt-6 leading-relaxed">
-          Available for freelance WordPress and Next.js work. Tell me what you&apos;re building and I&apos;ll get back to you within 24 hours.
-        </p>
       </section>
 
-      <div className="grid md:grid-cols-5 gap-12">
-        <section className="md:col-span-2 space-y-8">
+      <div className="grid md:grid-cols-12 gap-16">
+        <section className="md:col-span-4 space-y-12">
           <div>
             <p className="lp-section-label mb-4">Get in touch</p>
             <div className="space-y-4">
@@ -188,23 +196,23 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="md:col-span-3">
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid md:grid-cols-2 gap-6">
+        <section className="md:col-span-8">
+          <form onSubmit={handleSubmit} className="space-y-12">
+            <div className="grid md:grid-cols-2 gap-10">
               <div>
-                <label className="lp-section-label block mb-2">Name <span className="text-primary">*</span></label>
-                <input type="text" name="name" required value={form.name} onChange={handleChange} className="dotted-input" placeholder="Your name" disabled={status === "submitting"} />
-                {fieldErrors.name && <p className="text-xs text-destructive mt-1">{fieldErrors.name}</p>}
+                <label className="text-sm font-mono uppercase tracking-widest font-bold mb-4 block text-foreground">Name *</label>
+                <input type="text" name="name" required value={form.name} onChange={handleChange} className="w-full bg-transparent border-b border-primary/30 pb-3 focus:outline-none focus:border-primary transition-colors text-lg" placeholder="Your name" disabled={status === "submitting"} />
+                {fieldErrors.name && <p className="text-xs text-destructive mt-2">{fieldErrors.name}</p>}
               </div>
               <div>
-                <label className="lp-section-label block mb-2">Email <span className="text-primary">*</span></label>
-                <input type="email" name="email" required value={form.email} onChange={handleChange} className="dotted-input" placeholder="you@example.com" disabled={status === "submitting"} />
-                {fieldErrors.email && <p className="text-xs text-destructive mt-1">{fieldErrors.email}</p>}
+                <label className="text-sm font-mono uppercase tracking-widest font-bold mb-4 block text-foreground">Email *</label>
+                <input type="email" name="email" required value={form.email} onChange={handleChange} className="w-full bg-transparent border-b border-primary/30 pb-3 focus:outline-none focus:border-primary transition-colors text-lg" placeholder="you@example.com" disabled={status === "submitting"} />
+                {fieldErrors.email && <p className="text-xs text-destructive mt-2">{fieldErrors.email}</p>}
               </div>
             </div>
 
             <div>
-              <p className="lp-section-label block mb-3">I&apos;m interested in... <span className="text-primary">*</span></p>
+              <p className="text-sm font-mono uppercase tracking-widest font-bold mb-5 block text-foreground">I'm interested in... *</p>
               <div className="flex flex-wrap gap-3">
                 {PROJECT_TYPES.map((type) => {
                   const isSelected = form.projectTypes.includes(type);
@@ -212,12 +220,12 @@ export default function ContactPage() {
                     <button
                       key={type}
                       type="button"
-                      onClick={() => handlePillClick(type)}
+                      onClick={() => handlePillClick(type, "projectTypes")}
                       disabled={status === "submitting"}
                       className={
                         isSelected
-                          ? "px-4 py-2 text-sm font-mono bg-primary text-primary-foreground border border-primary transition-all"
-                          : "px-4 py-2 text-sm font-mono bg-transparent text-muted-foreground border border-dashed border-border hover:border-primary hover:text-primary transition-all"
+                          ? "px-5 py-3 text-sm font-mono font-bold uppercase tracking-wider bg-primary text-primary-foreground border border-primary transition-all"
+                          : "px-5 py-3 text-sm font-mono uppercase tracking-wider bg-transparent text-primary border border-dashed border-primary hover:bg-primary/5 hover:border-solid transition-all"
                       }
                     >
                       {type}
@@ -229,48 +237,73 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <label className="lp-section-label block mb-2">Budget <span className="text-primary">*</span></label>
-              <div className="flex items-center border-b border-dashed border-border">
-                <span className="text-sm text-primary pr-3 font-medium font-mono">{currency.code}</span>
-                <input type="number" name="budget" required min={currency.min} value={form.budget} onChange={handleChange} className="dotted-input border-0 flex-1" placeholder={`Enter your budget`} disabled={status === "submitting"} />
+              <p className="text-sm font-mono uppercase tracking-widest font-bold mb-5 block text-foreground">I already have... </p>
+              <div className="flex flex-wrap gap-3">
+                {ASSETS.map((type) => {
+                  const isSelected = form.assets.includes(type);
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => handlePillClick(type, "assets")}
+                      disabled={status === "submitting"}
+                      className={
+                        isSelected
+                          ? "px-5 py-3 text-sm font-mono font-bold uppercase tracking-wider bg-primary text-primary-foreground border border-primary transition-all"
+                          : "px-5 py-3 text-sm font-mono uppercase tracking-wider bg-transparent text-primary border border-dashed border-primary hover:bg-primary/5 hover:border-solid transition-all"
+                      }
+                    >
+                      {type}
+                    </button>
+                  );
+                })}
               </div>
-              <p className="text-[11px] text-muted-foreground mt-1 italic opacity-70">
-                Minimum budget: {formatMinBudget()} ({currency.name}). Detection based on your location: {location}.
-              </p>
-              {fieldErrors.budget && <p className="text-xs text-destructive mt-1">{fieldErrors.budget}</p>}
             </div>
 
             <div>
-              <label className="lp-section-label block mb-2">Project details <span className="text-primary">*</span></label>
-              <textarea name="message" required value={form.message} onChange={handleChange} className="dotted-textarea" placeholder="Tell me about your project. What are you building? What does success look like?" rows={6} disabled={status === "submitting"} />
-              {fieldErrors.message && <p className="text-xs text-destructive mt-1">{fieldErrors.message}</p>}
+              <label className="text-sm font-mono uppercase tracking-widest font-bold mb-4 block text-foreground">Budget *</label>
+              <div className="flex items-center border-b border-primary/30 pb-3 focus-within:border-primary transition-colors">
+                <span className="text-lg text-primary pr-3 font-mono">{currency.code}</span>
+                <input type="number" name="budget" required min={currency.min} value={form.budget} onChange={handleChange} className="bg-transparent border-0 flex-1 focus:outline-none text-lg" placeholder="Enter your budget" disabled={status === "submitting"} />
+              </div>
+              <p className="text-xs font-mono text-muted-foreground mt-2 opacity-70">
+                Minimum budget: {formatMinBudget()} ({currency.name}).
+              </p>
+              {fieldErrors.budget && <p className="text-xs text-destructive mt-2">{fieldErrors.budget}</p>}
+            </div>
+
+            <div>
+              <label className="text-sm font-mono uppercase tracking-widest font-bold mb-4 block text-foreground">Project details *</label>
+              <textarea name="message" required value={form.message} onChange={handleChange} className="w-full bg-transparent border-b border-primary/30 pb-3 focus:outline-none focus:border-primary transition-colors text-lg" placeholder="Tell me about your project..." rows={3} disabled={status === "submitting"} />
+              {fieldErrors.message && <p className="text-xs text-destructive mt-2">{fieldErrors.message}</p>}
+            </div>
+
+            <div>
+              <label className="text-sm font-mono uppercase tracking-widest font-bold mb-4 block text-foreground">How Did You Find Me? *</label>
+              <input type="text" name="hearAbout" required value={form.hearAbout} onChange={handleChange} className="w-full bg-transparent border-b border-primary/30 pb-3 focus:outline-none focus:border-primary transition-colors text-lg" placeholder="How did you hear about me?" disabled={status === "submitting"} />
             </div>
 
             <label className="flex items-start gap-3 cursor-pointer">
               <input type="checkbox" name="signup" checked={form.signup} onChange={handleChange} className="mt-1" disabled={status === "submitting"} />
-              <span className="text-xs text-muted-foreground">
+              <span className="text-sm text-muted-foreground">
                 Sign up for news and updates. No spam, occasional project updates only.
               </span>
             </label>
 
             {status === "error" && errorMessage && (
-              <div className="flex items-center gap-2 p-3 border border-dashed border-destructive/40 bg-destructive/5 text-sm text-destructive">
+              <div className="flex items-center gap-2 p-4 border border-destructive bg-destructive/10 text-sm text-destructive font-mono uppercase tracking-wider">
                 <AlertCircle size={16} />
                 {errorMessage}
               </div>
             )}
 
-            <button type="submit" disabled={status === "submitting"} className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            <button type="submit" disabled={status === "submitting"} className="w-full py-5 font-mono font-bold uppercase tracking-widest text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" style={{ backgroundColor: "var(--primary)", color: "var(--primary-foreground)" }}>
               {status === "submitting" ? (
-                "Sending..."
+                "SENDING ENQUIRY..."
               ) : status === "success" ? (
-                <>
-                  <CheckCircle2 size={16} /> Message sent - I&apos;ll reply within 24 hours
-                </>
+                "ENQUIRY SENT - THANK YOU"
               ) : (
-                <>
-                  <Send size={16} /> Send message
-                </>
+                "SUBMIT ENQUIRY"
               )}
             </button>
           </form>

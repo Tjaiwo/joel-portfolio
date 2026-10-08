@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const TESTIMONIALS = [
   {
-    quote: "Joel has a thoughtful ability to turn a brand's vision into a compelling digital experience. For Designed Spaces by Yemi, he created a website that reflects the character of our practice and gives our work room to speak. We particularly valued his eye for detail and his understanding that every design decision should serve a purpose. The result feels distinctly ours.",
+    quote: "Joel has a thoughtful ability to turn a brand's vision into a clear, functional website. For Designed Spaces by Yemi, he created a website that reflects the character of our practice and gives our work room to speak. We particularly valued his eye for detail and his understanding that every design decision should serve a purpose. The result feels distinctly ours.",
     name: "Omoyemi Olayiwola",
     role: "Creative Lead, Designed Spaces by Yemi",
   },
@@ -25,8 +25,8 @@ export function Testimonials() {
     <section className="lp-section border-t border-dashed border-primary">
       <p className="lp-section-label">People talk*</p>
       <h2 className="lp-heading">
-        The calm authority of<br />
-        <em>real human feedback.</em>
+        Feedback from recent<br />
+        <em>client collaborations.</em>
       </h2>
 
       <div className="grid md:grid-cols-3 gap-4">

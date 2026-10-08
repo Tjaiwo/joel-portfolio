@@ -7,7 +7,7 @@ export default function NotFound() {
         </p>
         <h1
           className="text-4xl font-bold tracking-tight sm:text-5xl mb-6"
-          style={{ fontFamily: "var(--font-serif)" }}
+          style={{ fontFamily: "var(--font-sans)" }}
         >
           You found a page I haven't built yet.
         </h1>

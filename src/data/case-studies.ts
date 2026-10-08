@@ -24,6 +24,87 @@ export type CaseStudy = {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
+    slug: "livewithlatasha",
+    status: "Live",
+    title: "Live With Latasha",
+    tagline: "Building a high-performance digital platform for a leading media and communications strategist.",
+    intro: [
+      "Live With Latasha is a strategy, media, communications, and advisory platform built at the intersection of culture, influence, and impact. Working with brands like The Glenlivet, Konga, and AFRIFF, the platform needed a digital presence that matched the caliber of the rooms she operates in.",
+      "The brief was straightforward: build a site that feels premium, loads instantly, and allows her team to publish editorial content without touching code. The solution was a headless architecture that decoupled the content management from the presentation layer.",
+    ],
+    meta: {
+      industry: "Media & PR",
+      services: ["Headless Architecture", "Astro", "GSAP Animations", "WordPress CMS"],
+      date: "October 2026",
+      duration: "4 weeks",
+    },
+    liveUrl: "https://livewithlatasha.com/",
+    heroImage: "/screenshots/case-studies/livewithlatasha/desktop-home.webp",
+    heroImageAlt: "Live With Latasha homepage hero",
+    heroImageLink: "https://livewithlatasha.com/",
+    blocks: [
+      {
+        type: "image",
+        id: "hero-break",
+        src: "/screenshots/case-studies/livewithlatasha/desktop-about.webp",
+        alt: "Live With Latasha about page",
+        caption: "About page. Ideas that shape culture, strategies that move brands.",
+        parallax: true,
+        link: "https://livewithlatasha.com/about/",
+      },
+      {
+        type: "text",
+        id: "architecture",
+        heading: "The best of both worlds",
+        body: [
+          "Most premium sites face a tradeoff: use a heavy CMS and sacrifice speed, or build a static site and sacrifice editorial control. We chose neither. The frontend is built in Astro, delivering lightning-fast static HTML, while the client manages all content through a familiar WordPress dashboard.",
+          "When a new piece of content is published, a Cloudflare deploy hook triggers a build. The site fetches the latest data via REST API and generates a fresh static version. The visitor gets the speed of a static site; the client gets the power of WordPress.",
+        ],
+      },
+      {
+        type: "text-image",
+        id: "editorial",
+        heading: "The Latasha Index",
+        body: [
+          "A core requirement was a space for thought leadership on culture, media, and influence. The Latasha Index serves as an editorial journal where her team can seamlessly draft, categorize, and publish long-form perspectives.",
+          "Because the backend is purely a content store, the CMS never worries about how the content looks. It simply passes structured data to the Astro frontend, which renders it beautifully according to the global design system.",
+        ],
+        image: {
+          src: "/screenshots/case-studies/livewithlatasha/desktop-services.webp",
+          alt: "Live With Latasha services page",
+          caption: "Services page. Five distinct practice areas, filterable and scannable.",
+          link: "https://livewithlatasha.com/services/",
+        },
+        imagePosition: "full",
+      },
+      {
+        type: "text",
+        id: "performance",
+        heading: "Animation without the weight",
+        body: [
+          "To achieve a high-end editorial feel, we integrated GSAP for ScrollSmoother and ScrollTrigger effects. But unlike traditional sites where animations cause layout shifts and heavy payload penalties, this site renders a zero-JavaScript baseline.",
+          "The animations run strictly in the browser on top of a static foundation, resulting in butter-smooth scrolling and reveals that never interfere with the initial page load speed.",
+        ],
+      },
+      {
+        type: "gallery",
+        id: "gallery",
+        columns: 3,
+        images: [
+          { src: "/screenshots/case-studies/livewithlatasha/mobile-home.webp", alt: "Mobile homepage", caption: "Mobile home", link: "https://livewithlatasha.com/" },
+          { src: "/screenshots/case-studies/livewithlatasha/mobile-about.webp", alt: "Mobile about page", caption: "Mobile about", link: "https://livewithlatasha.com/about/" },
+          { src: "/screenshots/case-studies/livewithlatasha/mobile-services.webp", alt: "Mobile services page", caption: "Mobile services", link: "https://livewithlatasha.com/services/" },
+        ],
+      },
+      {
+        type: "quote",
+        id: "closing",
+        text: "The real success of a headless build isn't the technology stack. It's giving the client a platform that feels effortless to manage on the backend while delivering an uncompromising, premium experience on the frontend.",
+      },
+    ],
+    nextSlug: "elin-group",
+  },
+  {
     slug: "elin-group",
     status: "Live",
     title: "Elin Group",

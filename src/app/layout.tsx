@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, PT_Mono, Inter_Tight } from "next/font/google";
+import { PT_Mono, Inter_Tight, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
@@ -9,8 +9,8 @@ import { BackToTop } from "@/components/back-to-top";
 import { TopNav } from "@/components/top-nav";
 import { EditorialFooter } from "@/components/editorial-footer";
 
-const poppins = Poppins({
-  variable: "--font-inter",
+const interTight = Inter_Tight({
+  variable: "--font-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
@@ -21,13 +21,15 @@ const ptMono = PT_Mono({
   weight: ["400"],
 });
 
-const interTight = Inter_Tight({
+const fraunces = Fraunces({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://joelakinlosotu.xyz"),
   icons: {
     icon: "/icon.svg",
     apple: "/apple-icon.svg",
@@ -79,7 +81,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${ptMono.variable} ${interTight.variable}`}
+      className={`${interTight.variable} ${ptMono.variable} ${fraunces.variable}`}
       suppressHydrationWarning
     >
       <body>

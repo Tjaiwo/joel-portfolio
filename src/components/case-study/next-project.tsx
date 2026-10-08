@@ -25,7 +25,7 @@ export function NextProject({ next }: { next: CaseStudy | undefined }) {
               </p>
               <h2
                 className="text-3xl font-medium tracking-tight sm:text-5xl lg:text-6xl"
-                style={{ fontFamily: "var(--font-serif)" }}
+                style={{ fontFamily: "var(--font-sans)" }}
               >
                 {next.title}
               </h2>
