@@ -18,9 +18,6 @@ export function EditorialFooter() {
         <div className="lp-footer-section">
           <span className="label">Contact</span>
           <a href="mailto:joelakinlosotu@gmail.com">joelakinlosotu@gmail.com</a>
-          <div style={{ marginTop: "4px" }}>
-            <a href="tel:+2349068971351">+234 906 897 1351</a>
-          </div>
         </div>
 
         {/* Elsewhere */}

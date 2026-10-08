@@ -103,7 +103,6 @@ export default function RootLayout({
             description: "WordPress and Next.js developer with 10 years of shipping. 50+ projects across aviation, industrial, media, e-commerce, and architecture.",
             url: "https://joelakinlosotu.xyz",
             email: "joelakinlosotu@gmail.com",
-            telephone: "+234 906 897 1351",
             knowsAbout: ["WordPress", "Next.js", "WooCommerce", "Elementor", "SEO", "Web Performance", "Custom Post Types", "Schema Markup", "PHP", "TypeScript", "Tailwind CSS"],
             sameAs: [
               "https://linkedin.com/in/joelakinlosotu",

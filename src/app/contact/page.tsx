@@ -10,7 +10,6 @@ import {
 
 const CONTACT_INFO = [
   { label: "Email", value: "joelakinlosotu@gmail.com", href: "mailto:joelakinlosotu@gmail.com", icon: Mail },
-  { label: "Phone", value: "+234 906 897 1351", href: "tel:+2349068971351", icon: Phone },
   { label: "Based in", value: "Lagos, Nigeria", icon: MapPin },
 ];
 
@@ -320,7 +319,6 @@ export default function ContactPage() {
             description: "WordPress and Next.js developer. 50+ projects shipped across aviation, industrial, media, e-commerce, and architecture.",
             url: "https://joelakinlosotu.xyz/contact",
             email: "joelakinlosotu@gmail.com",
-            telephone: "+234 906 897 1351",
             priceRange: "From $500",
             areaServed: "Worldwide",
             knowsAbout: ["WordPress", "Next.js", "WooCommerce", "Elementor", "SEO", "Web Performance"],
