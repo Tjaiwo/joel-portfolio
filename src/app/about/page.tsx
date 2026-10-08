@@ -62,7 +62,7 @@ export default function AboutPage() {
       {/* Photo with olive green hue */}
       <div className="lp-content" style={{ marginTop: "40px", marginBottom: "40px" }}>
         <div className="mx-auto max-w-md">
-          <div className="relative overflow-hidden border border-dotted border-border">
+          <div className="relative overflow-hidden border border-dashed border-primary">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/joel-photo.jpg"
@@ -119,7 +119,7 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="mb-12 pb-12 border-b border-dotted border-border last:border-0"
+              className="mb-12 pb-12 border-b border-dashed border-primary last:border-0"
             >
               <div className="grid md:grid-cols-4 gap-4 mb-4">
                 <div className="md:col-span-2">

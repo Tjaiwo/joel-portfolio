@@ -162,7 +162,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="border-t border-dotted border-border pt-6">
+          <div className="border-t border-dashed border-border pt-6">
             <p className="lp-section-label mb-2">Your location</p>
             <p className="text-sm text-foreground">{location}</p>
             <p className="text-[11px] text-muted-foreground mt-1">
@@ -217,7 +217,7 @@ export default function ContactPage() {
                       className={
                         isSelected
                           ? "px-4 py-2 text-sm font-mono bg-primary text-primary-foreground border border-primary transition-all"
-                          : "px-4 py-2 text-sm font-mono bg-transparent text-muted-foreground border border-dotted border-border hover:border-primary hover:text-primary transition-all"
+                          : "px-4 py-2 text-sm font-mono bg-transparent text-muted-foreground border border-dashed border-border hover:border-primary hover:text-primary transition-all"
                       }
                     >
                       {type}
@@ -230,7 +230,7 @@ export default function ContactPage() {
 
             <div>
               <label className="lp-section-label block mb-2">Budget <span className="text-primary">*</span></label>
-              <div className="flex items-center border-b border-dotted border-border">
+              <div className="flex items-center border-b border-dashed border-border">
                 <span className="text-sm text-primary pr-3 font-medium font-mono">{currency.code}</span>
                 <input type="number" name="budget" required min={currency.min} value={form.budget} onChange={handleChange} className="dotted-input border-0 flex-1" placeholder={`Enter your budget`} disabled={status === "submitting"} />
               </div>
@@ -254,7 +254,7 @@ export default function ContactPage() {
             </label>
 
             {status === "error" && errorMessage && (
-              <div className="flex items-center gap-2 p-3 border border-dotted border-destructive/40 bg-destructive/5 text-sm text-destructive">
+              <div className="flex items-center gap-2 p-3 border border-dashed border-destructive/40 bg-destructive/5 text-sm text-destructive">
                 <AlertCircle size={16} />
                 {errorMessage}
               </div>

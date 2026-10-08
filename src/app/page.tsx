@@ -52,7 +52,7 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; ind
           <a href={`/projects/${project.slug}`} className="lp-card-cta">View Case Study <ArrowUpRight size={11} /></a>
         )}
         {project.designer && (
-          <p className="text-[9px] text-muted-foreground mt-2 pt-2 border-t border-dotted border-border">
+          <p className="text-[9px] text-muted-foreground mt-2 pt-2 border-t border-dashed border-border">
             UI/UX - <a href={DESIGNER.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">{DESIGNER.name}</a>
           </p>
         )}
