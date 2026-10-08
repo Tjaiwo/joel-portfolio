@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
       name: sanitize(result.data.name),
       email: sanitizeEmail(result.data.email),
       projectType: result.data.projectType,
+      currencyCode: result.data.currencyCode,
       budget: result.data.budget,
       message: sanitize(result.data.message),
       signup: result.data.signup,
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
           <p><strong>Name:</strong> ${data.name}</p>
           <p><strong>Email:</strong> ${data.email}</p>
           <p><strong>Project Type:</strong> ${data.projectType}</p>
-          <p><strong>Budget:</strong> ${data.budget}</p>
+          <p><strong>Budget:</strong> ${data.budget} ${data.currencyCode}</p>
           <p><strong>Newsletter:</strong> ${data.signup ? "Yes" : "No"}</p>
           <hr style="border: 1px dotted #6B7A3D; margin: 16px 0;">
           <p><strong>Message:</strong></p>

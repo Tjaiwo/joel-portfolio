@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Send, CheckCircle2, Mail, Phone, MapPin, AlertCircle } from "lucide-react";
+import {
+  CURRENCY_BY_COUNTRY,
+  DEFAULT_CURRENCY,
+  getCurrencyByCountry,
+} from "@/lib/currency";
 
 const CONTACT_INFO = [
   { label: "Email", value: "joelakinlosotu@gmail.com", href: "mailto:joelakinlosotu@gmail.com", icon: Mail },
@@ -26,30 +30,6 @@ const PROJECT_TYPES = [
   "Something Else",
 ];
 
-const CURRENCY_BY_REGION: Record<string, { code: string; symbol: string; min: number; name: string }> = {
-  NG: { code: "NGN", symbol: "\u20A6", min: 250000, name: "Nigerian Naira" },
-  US: { code: "USD", symbol: "$", min: 500, name: "US Dollar" },
-  GB: { code: "GBP", symbol: "\u00A3", min: 395, name: "British Pound" },
-  DE: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  FR: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  ES: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  IT: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  NL: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  BE: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  AT: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  IE: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  PT: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  FI: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  GR: { code: "EUR", symbol: "\u20AC", min: 460, name: "Euro" },
-  CA: { code: "CAD", symbol: "C$", min: 680, name: "Canadian Dollar" },
-  AU: { code: "AUD", symbol: "A$", min: 760, name: "Australian Dollar" },
-  IN: { code: "INR", symbol: "\u20B9", min: 42000, name: "Indian Rupee" },
-  ZA: { code: "ZAR", symbol: "R", min: 9500, name: "South African Rand" },
-  KE: { code: "KES", symbol: "KSh", min: 65000, name: "Kenyan Shilling" },
-  GH: { code: "GHS", symbol: "\u20B5", min: 6200, name: "Ghanaian Cedi" },
-  DEFAULT: { code: "USD", symbol: "$", min: 500, name: "US Dollar" },
-};
-
 export default function ContactPage() {
   const [form, setForm] = useState({
     name: "",
@@ -62,7 +42,7 @@ export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [currency, setCurrency] = useState(CURRENCY_BY_REGION.DEFAULT);
+  const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [location, setLocation] = useState<string>("Detecting...");
 
   useEffect(() => {
@@ -70,9 +50,7 @@ export default function ContactPage() {
       .then((res) => res.json())
       .then((data) => {
         if (data && data.country_code) {
-          const countryCode = data.country_code;
-          const regionCurrency = CURRENCY_BY_REGION[countryCode] || CURRENCY_BY_REGION.DEFAULT;
-          setCurrency(regionCurrency);
+          setCurrency(getCurrencyByCountry(data.country_code));
           setLocation(`${data.city}, ${data.country_name}`);
         }
       })
@@ -128,6 +106,7 @@ export default function ContactPage() {
         body: JSON.stringify({
           ...form,
           projectType: form.projectTypes.join(", "),
+          currencyCode: currency.code,
         }),
       });
       const data = await response.json();
@@ -252,9 +231,8 @@ export default function ContactPage() {
             <div>
               <label className="lp-section-label block mb-2">Budget <span className="text-primary">*</span></label>
               <div className="flex items-center border-b border-dotted border-border">
-                <span className="text-sm text-primary pr-3 font-medium">{currency.symbol}</span>
-                <input type="number" name="budget" required min={currency.min} value={form.budget} onChange={handleChange} className="dotted-input border-0 flex-1" placeholder={`Enter your budget in ${currency.code}`} disabled={status === "submitting"} />
-                <span className="text-xs text-muted-foreground pl-3">{currency.code}</span>
+                <span className="text-sm text-primary pr-3 font-medium font-mono">{currency.code}</span>
+                <input type="number" name="budget" required min={currency.min} value={form.budget} onChange={handleChange} className="dotted-input border-0 flex-1" placeholder={`Enter your budget`} disabled={status === "submitting"} />
               </div>
               <p className="text-[11px] text-muted-foreground mt-1 italic opacity-70">
                 Minimum budget: {formatMinBudget()} ({currency.name}). Detection based on your location: {location}.
