@@ -36,18 +36,18 @@
 .dotted-border-t { border-top: 1px dashed var(--primary); }
 
 .dotted-input {
-  background: transparent; border: none; border-bottom: 1px dotted var(--border);
+  background: transparent; border: none; border-bottom: 1px dashed var(--border);
   padding: 8px 0; font-family: var(--font-mono); font-size: 14px;
   color: var(--foreground); width: 100%; outline: none;
 }
 .dotted-input::placeholder { color: var(--muted-foreground); }
 .dotted-textarea {
-  background: transparent; border: 1px dotted var(--border); padding: 12px;
+  background: transparent; border: 1px dashed var(--border); padding: 12px;
   font-family: var(--font-mono); font-size: 14px; color: var(--foreground);
   width: 100%; outline: none; resize: vertical; min-height: 120px;
 }
 .dotted-select {
-  background: transparent; border: none; border-bottom: 1px dotted var(--border);
+  background: transparent; border: none; border-bottom: 1px dashed var(--border);
   padding: 16px; font-family: var(--font-mono); font-size: 14px;
   color: var(--foreground); width: 100%; outline: none; appearance: none; cursor: pointer;
 }
