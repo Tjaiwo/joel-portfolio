@@ -23,7 +23,7 @@ const jetbrainsMono = JetBrains_Mono({
 const fraunces = Fraunces({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
 });
 
