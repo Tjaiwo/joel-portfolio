@@ -83,10 +83,10 @@
 .editorial-hero h1 {
   font-family: var(--font-serif);
   font-size: clamp(62px, 8vw, 112px);
-  line-height: 0.95;
+  line-height: 0.85;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: normal;
+  letter-spacing: -0.04em;
   text-align: left;
   white-space: pre-wrap;
   max-width: none;
@@ -95,20 +95,14 @@
 
 .editorial-hero .hero-subtitle {
   margin-top: 1rem;
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--muted-foreground);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.editorial-hero .hero-description {
-  margin-top: 2rem;
-  font-size: 15px;
-  max-width: none;
-  width: 100%;
-  line-height: 1.65;
-  color: var(--muted-foreground);
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.1;
+  color: var(--primary);
+  text-transform: none;
+  letter-spacing: -0.03em;
 }
 
 .marquee {
