@@ -28,7 +28,7 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-mono); font-weight: 500; letter-spacing: -0.02em; }
+  h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; letter-spacing: -0.02em; }
 }
 
 .dotted-border { border: 1px dotted var(--border); }
@@ -81,12 +81,12 @@
 @media (min-width: 768px) { .editorial-hero { padding: 7rem 2.5rem 3rem; } }
 
 .editorial-hero h1 {
-  font-family: var(--font-mono);
+  font-family: var(--font-serif);
   font-size: clamp(2.5rem, 9vw, 7rem);
   line-height: 1.0;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.01em;
   text-align: justify;
   white-space: pre-wrap;
   max-width: none;
@@ -150,7 +150,7 @@
   color: var(--muted-foreground); margin-bottom: 0.5rem;
 }
 .lp-heading {
-  font-family: var(--font-mono);
+  font-family: var(--font-serif);
   font-size: clamp(1.75rem, 4vw, 3rem);
   font-weight: 500;
   line-height: 1.1;
