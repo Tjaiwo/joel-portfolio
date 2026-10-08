@@ -56,7 +56,7 @@ export function TopNav() {
         </Link>
 
         {/* La Playa-style greeting with live time */}
-        <div className="hidden md:block text-xs text-muted-foreground italic">
+        <div className="hidden md:block text-xs text-muted-foreground uppercase">
           Hi, stranger. It&apos;s a sunny one over here. {time}
         </div>
 
