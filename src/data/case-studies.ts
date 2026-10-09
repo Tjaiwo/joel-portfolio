@@ -62,13 +62,40 @@ export const CASE_STUDIES: CaseStudy[] = [
         ],
       },
       {
+        type: "text-image",
+        id: "services",
+        heading: "Structuring the narrative",
+        body: [
+          "While the homepage acts as a purely visual hook, the inner pages need to establish industry authority. The About and Services sections employ an editorial typographic scale to deliver his manifesto without interrupting the visual flow.",
+          "We used a modular block approach for the case studies, allowing the client to easily swap between full-width imagery and detailed text columns depending on the scope of the physical event."
+        ],
+        image: {
+          src: "/screenshots/case-studies/alukayode/desktop-about.webp",
+          alt: "Alu Kayode about section",
+          caption: "About section. Establishing authority through clean, stark typography.",
+          link: "https://alukayode.com/"
+        },
+        imagePosition: "right"
+      },
+      {
         type: "gallery",
         id: "gallery",
-        columns: 2,
+        columns: 3,
         images: [
           { src: "/screenshots/case-studies/alukayode/mobile-home.webp", alt: "Mobile homepage", caption: "Mobile home", link: "https://alukayode.com/" },
-          { src: "/screenshots/case-studies/alukayode/mobile-work.webp", alt: "Mobile work grid", caption: "Mobile portfolio grid", link: "https://alukayode.com/" },
+          { src: "/screenshots/case-studies/alukayode/mobile-about.webp", alt: "Mobile about", caption: "Mobile about", link: "https://alukayode.com/" },
+          { src: "/screenshots/case-studies/alukayode/mobile-contact.webp", alt: "Mobile contact", caption: "Mobile contact", link: "https://alukayode.com/" },
         ],
+      },
+      {
+        type: "stats",
+        id: "results",
+        heading: "The Numbers",
+        stats: [
+          { value: "0", label: "UI Distractions", sublabel: "Pure content focus" },
+          { value: "100%", label: "Responsive", sublabel: "Edge-to-edge on mobile" },
+          { value: "3 weeks", label: "Delivery", sublabel: "From wireframe to live" }
+        ]
       },
       {
         type: "quote",
@@ -150,6 +177,16 @@ export const CASE_STUDIES: CaseStudy[] = [
           { src: "/screenshots/case-studies/livewithlatasha/mobile-about.webp", alt: "Mobile about page", caption: "Mobile about", link: "https://livewithlatasha.com/about/" },
           { src: "/screenshots/case-studies/livewithlatasha/mobile-services.webp", alt: "Mobile services page", caption: "Mobile services", link: "https://livewithlatasha.com/services/" },
         ],
+      },
+      {
+        type: "stats",
+        id: "results",
+        heading: "The Numbers",
+        stats: [
+          { value: "100", label: "PageSpeed Score", sublabel: "Perfect Lighthouse audit" },
+          { value: "<0.5s", label: "First Contentful Paint", sublabel: "Instant page transitions" },
+          { value: "100%", label: "CMS Autonomy", sublabel: "Zero developer reliance post-launch" }
+        ]
       },
       {
         type: "quote",

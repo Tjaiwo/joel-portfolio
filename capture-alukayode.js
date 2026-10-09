@@ -21,23 +21,27 @@ const URLS = [
       await page.goto(url, { waitUntil: 'load', timeout: 15000 });
       await page.waitForTimeout(5000);
       
-      console.log(`Capturing desktop-${name}...`);
+      console.log(`Capturing desktop-about...`);
       await page.setViewportSize({ width: 1440, height: 900 });
-      await page.screenshot({ path: path.join(dir, `desktop-${name}.webp`), type: 'webp' });
-
-      await page.evaluate(() => window.scrollBy(0, 1000));
+      await page.evaluate(() => window.scrollTo(0, 1800));
       await page.waitForTimeout(1000);
-      await page.screenshot({ path: path.join(dir, `desktop-work.webp`), type: 'webp' });
+      await page.screenshot({ path: path.join(dir, `desktop-about.webp`), type: 'webp' });
 
-      console.log(`Capturing mobile-${name}...`);
+      console.log(`Capturing desktop-contact...`);
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight - 900));
+      await page.waitForTimeout(1000);
+      await page.screenshot({ path: path.join(dir, `desktop-contact.webp`), type: 'webp' });
+
+      console.log(`Capturing mobile-about...`);
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.evaluate(() => window.scrollTo(0, 1500));
       await page.waitForTimeout(1000);
-      await page.screenshot({ path: path.join(dir, `mobile-${name}.webp`), type: 'webp' });
+      await page.screenshot({ path: path.join(dir, `mobile-about.webp`), type: 'webp' });
 
-      await page.evaluate(() => window.scrollBy(0, 800));
+      console.log(`Capturing mobile-contact...`);
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight - 844));
       await page.waitForTimeout(1000);
-      await page.screenshot({ path: path.join(dir, `mobile-work.webp`), type: 'webp' });
+      await page.screenshot({ path: path.join(dir, `mobile-contact.webp`), type: 'webp' });
       
     } catch (e) {
       console.log(`Error on ${name}:`, e.message);
