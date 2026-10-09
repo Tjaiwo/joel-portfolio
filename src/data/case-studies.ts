@@ -102,7 +102,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         text: "The real success of a headless build isn't the technology stack. It's giving the client a platform that feels effortless to manage on the backend while delivering an uncompromising, premium experience on the frontend.",
       },
     ],
-    nextSlug: "elin-group",
+    nextSlug: "atomdsn",
   },
   {
     slug: "elin-group",
@@ -519,7 +519,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         text: "A photography portfolio is judged by how the work feels, not how it's organized. The site was designed around the image first, with structure supporting the work rather than competing with it.",
       },
     ],
-    nextSlug: "atomdsn",
+    nextSlug: "livewithlatasha",
   },
 
 
