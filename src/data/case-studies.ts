@@ -24,6 +24,61 @@ export type CaseStudy = {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
+    slug: "alukayode",
+    status: "Live",
+    title: "Alu Kayode",
+    tagline: "Digital portfolio for a leading experiential and brand creative director.",
+    intro: [
+      "Alu Kayode is an experiential design strategist who has crafted brand activations for global names like Martell, Sprite, and Jack Daniel's. When your work is entirely about physical space and tactile experiences, your digital footprint needs to get out of the way and let the work speak.",
+      "The brief was to create a minimal, high-contrast portfolio that serves as a quiet gallery for vibrant, loud, and immersive real-world projects. The solution was a bespoke WordPress build focusing on typography and deep, border-to-border image displays."
+    ],
+    meta: {
+      industry: "Experiential Design",
+      services: ["Web Design", "WordPress Development", "Portfolio Architecture", "SEO"],
+      date: "October 2024",
+      duration: "3 weeks",
+    },
+    liveUrl: "https://alukayode.com/",
+    heroImage: "/screenshots/case-studies/alukayode/desktop-home.webp",
+    heroImageAlt: "Alu Kayode homepage hero",
+    heroImageLink: "https://alukayode.com/",
+    blocks: [
+      {
+        type: "image",
+        id: "hero-break",
+        src: "/screenshots/case-studies/alukayode/desktop-work.webp",
+        alt: "Alu Kayode portfolio grid",
+        caption: "Work index. A borderless grid designed to give maximum screen real estate to physical design projects.",
+        parallax: true,
+        link: "https://alukayode.com/",
+      },
+      {
+        type: "text",
+        id: "architecture",
+        heading: "A quiet gallery for loud work",
+        body: [
+          "Experiential design is inherently noisy. It involves lighting rigs, crowd control, brand colors, and massive physical structures. A portfolio site for this kind of work shouldn't add more noise.",
+          "We stripped away all unnecessary UI chrome. No heavy borders, no complex navigation structures, and no distracting micro-interactions. The site acts as a stark white gallery wall, allowing the vibrant colors of his experiential campaigns to stand out."
+        ],
+      },
+      {
+        type: "gallery",
+        id: "gallery",
+        columns: 2,
+        images: [
+          { src: "/screenshots/case-studies/alukayode/mobile-home.webp", alt: "Mobile homepage", caption: "Mobile home", link: "https://alukayode.com/" },
+          { src: "/screenshots/case-studies/alukayode/mobile-work.webp", alt: "Mobile work grid", caption: "Mobile portfolio grid", link: "https://alukayode.com/" },
+        ],
+      },
+      {
+        type: "quote",
+        id: "closing",
+        text: "The best portfolio designs are the ones you don't notice. When the user's attention is entirely on the case study imagery rather than the website wrapping it, the design has succeeded.",
+      },
+    ],
+    nextSlug: "elin-group",
+  },
+  {
     slug: "livewithlatasha",
     status: "Live",
     title: "Live With Latasha",
@@ -808,7 +863,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ]},
       { type: "quote", id: "closing", text: "A media production company's site needs to feel premium without making visitors wait for it. Every decision balanced visual richness against load time, and the result is a site that loads fast despite heavy imagery." },
     ],
-    nextSlug: "elin-group",
+    nextSlug: "alukayode",
   },
 
 ];
