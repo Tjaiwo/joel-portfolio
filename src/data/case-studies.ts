@@ -102,7 +102,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         text: "The real success of a headless build isn't the technology stack. It's giving the client a platform that feels effortless to manage on the backend while delivering an uncompromising, premium experience on the frontend.",
       },
     ],
-    nextSlug: "mediapool",
+    nextSlug: "diamond-source",
   },
   {
     slug: "elin-group",
@@ -640,7 +640,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         text: "An experiential design agency's portfolio is the proof. Every decision on this site, from the architecture to the animation rhythm, was made to surface the work first and let the services copy support it.",
       },
     ],
-    nextSlug: "diamond-source",
+    nextSlug: "designed-spaces",
   },
 
 
@@ -695,7 +695,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       ]},
       { type: "quote", id: "closing", text: "An e-commerce catalog is only as good as its attribute data. Every filter that returns zero results is a lost sale. The work was unglamorous but essential, and the catalog was complete before launch." },
     ],
-    nextSlug: "designed-spaces",
+    nextSlug: "mediapool",
   },
 
 
