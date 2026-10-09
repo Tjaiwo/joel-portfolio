@@ -102,7 +102,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         text: "The real success of a headless build isn't the technology stack. It's giving the client a platform that feels effortless to manage on the backend while delivering an uncompromising, premium experience on the frontend.",
       },
     ],
-    nextSlug: "atomdsn",
+    nextSlug: "mediapool",
   },
   {
     slug: "elin-group",
@@ -216,7 +216,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { type: "quote", id: "closing", text: "The fastest path to a happy client isn't a fancier design, it's a clearer one. Every decision was measured against the goal of reducing reliance on charter brokers by enabling direct customer acquisition." },
     ],
     resultsFootnote: "PageSpeed scores reflect launch state (March 2026). Current scores may differ due to ongoing content and feature additions.",
-    nextSlug: "mediapool",
+    nextSlug: "evan-micky",
   },
   {
     slug: "mediapool",
@@ -398,7 +398,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         text: "A storefront is judged by how fast a buyer can find what they came for. Every product in this catalog is reachable in three clicks, and every filter facet is one that buyers actually use.",
       },
     ],
-    nextSlug: "evan-micky",
+    nextSlug: "atomdsn",
   },
 
   /* ────────────────────────────────────────────────────────────── */
