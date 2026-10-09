@@ -6,7 +6,6 @@ import { Testimonials } from "@/components/testimonials";
 import { ArrowUpRight, ExternalLink, ArrowRight } from "lucide-react";
 
 const PROJECTS = [
-  { id: 11, slug: "alukayode", title: "Alu Kayode", description: "Minimalist portfolio for an experiential design director.", url: "https://alukayode.com/", image: "/screenshots/case-studies/alukayode/desktop-home.webp", tags: ["WordPress", "Web Design", "Portfolio"], results: "A high-contrast, distraction-free gallery for physical design projects", designer: false },
   { id: 1, slug: "elin-group", title: "Elin Group", description: "Corporate website for a diversified African industrial platform.", url: "https://elin-group.com/", image: "/screenshots/elingroup.webp", tags: ["WordPress", "Elementor", "Corporate", "SEO"], results: "7 subsidiary brands unified under one industrial platform", designer: true },
   { id: 2, slug: "elin-air", title: "Elin Air", description: "Aviation company website with booking system.", url: "https://flyelinair.com/", image: "/screenshots/flyelinair.webp", tags: ["WordPress", "Elementor", "Booking System", "SEO"], results: "Integrated booking system with fleet showcase", designer: true },
   { id: 5, slug: "evan-micky", title: "Evan Micky Photography", description: "Documentary-style wedding photography portfolio.", url: "https://evanmickyphotography.com/", image: "/screenshots/evanmickyphotography.webp", tags: ["WordPress", "Portfolio", "Gallery", "SEO"], results: "Clean photo gallery with a direct booking system", designer: false },
@@ -17,9 +16,10 @@ const PROJECTS = [
   { id: 6, slug: "atomdsn", title: "Atom", description: "Creative experiential design agency.", url: "https://atomdsn.com/", image: "/screenshots/case-studies/atomdsn/desktop-home.webp", tags: ["Web Design", "WordPress", "Agency", "SEO"], results: "Portfolio showcasing 20+ experiential brand activations", designer: false },
   { id: 8, slug: "designed-spaces", title: "Designed Spaces by Yemi", description: "Architecture firm portfolio, 12+ projects.", url: "https://designedspacesbyyemi.com/", image: "/screenshots/case-studies/designed-spaces/desktop-home.webp", tags: ["Web Design", "WordPress", "Portfolio", "SEO"], results: "Portfolio showcasing 12+ landmark architectural projects", designer: false },
   { id: 9, slug: "cedar-rush", title: "Cedar Rush", description: "Creative production and media company.", url: "https://cedarrush.ng/", image: "/screenshots/case-studies/cedar-rush/desktop-home.webp", tags: ["WordPress", "Elementor", "Media", "SEO"], results: "20+ years of creative production experience showcased", designer: false },
+  { id: 11, slug: "alukayode", title: "Alu Kayode", description: "Minimalist portfolio for an experiential design director.", url: "https://alukayode.com/", image: "/screenshots/case-studies/alukayode/desktop-home.webp", tags: ["WordPress", "Web Design", "Portfolio"], results: "A high-contrast, distraction-free gallery for physical design projects", designer: false },
 ];
 
-const CASE_STUDY_SLUGS = ["alukayode", "elin-group", "elin-air", "evan-micky", "livewithlatasha", "diamond-source", "mediapool", "clayton-prints", "atomdsn", "designed-spaces", "cedar-rush"];
+const CASE_STUDY_SLUGS = ["elin-group", "elin-air", "evan-micky", "livewithlatasha", "diamond-source", "mediapool", "clayton-prints", "atomdsn", "designed-spaces", "cedar-rush", "alukayode"];
 const DESIGNER = { name: "Mayowa Oduntan", url: "https://thisismayor.webflow.io/" };
 
 function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; index: number }) {
