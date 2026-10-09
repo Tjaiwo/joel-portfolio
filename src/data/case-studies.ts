@@ -90,11 +90,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         type: "stats",
         id: "results",
-        heading: "The Numbers",
+        heading: "Measurable outcomes",
         stats: [
           { value: "0", label: "UI Distractions", sublabel: "Pure content focus" },
-          { value: "100%", label: "Responsive", sublabel: "Edge-to-edge on mobile" },
-          { value: "3 weeks", label: "Delivery", sublabel: "From wireframe to live" }
+          { value: "100%", label: "Screen usage", sublabel: "Edge-to-edge layout" },
+          { value: "< 2s", label: "Load time", sublabel: "Despite heavy imagery" },
+          { value: "3 weeks", label: "Build time", sublabel: "Kickoff to launch" }
         ]
       },
       {
@@ -181,11 +182,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         type: "stats",
         id: "results",
-        heading: "The Numbers",
+        heading: "Measurable outcomes",
         stats: [
           { value: "100", label: "PageSpeed Score", sublabel: "Perfect Lighthouse audit" },
-          { value: "<0.5s", label: "First Contentful Paint", sublabel: "Instant page transitions" },
-          { value: "100%", label: "CMS Autonomy", sublabel: "Zero developer reliance post-launch" }
+          { value: "<0.5s", label: "First Paint", sublabel: "Instant page transitions" },
+          { value: "100%", label: "CMS Autonomy", sublabel: "Complete editorial control" },
+          { value: "0", label: "DB Latency", sublabel: "Static frontend architecture" }
         ]
       },
       {
